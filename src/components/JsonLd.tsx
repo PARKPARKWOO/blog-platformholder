@@ -11,7 +11,7 @@ export function PostJsonLd({ meta }: Props) {
   const url = meta.canonical ?? `${SITE_URL}/${meta.locale}/blog/${meta.slug}`;
   const author = meta.author ?? "platformholder";
 
-  const articleSchema = {
+  const articleSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": meta.type === "howto" ? "HowTo" : "Article",
     name: meta.title,
@@ -28,23 +28,56 @@ export function PostJsonLd({ meta }: Props) {
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     inLanguage: meta.locale,
-    ...(meta.type === "howto" && meta.howToSteps && meta.howToSteps.length > 0
-      ? {
-          totalTime: meta.totalTime,
-          step: meta.howToSteps.map((s, i) => ({
-            "@type": "HowToStep",
-            position: i + 1,
-            name: s.name,
-            text: s.text,
-          })),
-        }
-      : {}),
+  };
+
+  if (meta.type === "howto" && meta.howToSteps && meta.howToSteps.length > 0) {
+    articleSchema.totalTime = meta.totalTime;
+    articleSchema.step = meta.howToSteps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    }));
+  } else {
+    articleSchema.articleSection = meta.service;
+    articleSchema.keywords = meta.tags.join(", ");
+  }
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: meta.locale === "ko" ? "홈" : "Home",
+        item: `${SITE_URL}/${meta.locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: meta.locale === "ko" ? "블로그" : "Blog",
+        item: `${SITE_URL}/${meta.locale}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: meta.title,
+        item: url,
+      },
+    ],
   };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+    </>
   );
 }

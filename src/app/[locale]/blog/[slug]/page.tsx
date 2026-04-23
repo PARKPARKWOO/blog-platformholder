@@ -24,9 +24,12 @@ export async function generateMetadata(
   if (!isValidLocale(locale)) return {};
   const post = await getPost(locale, slug);
   if (!post) return {};
+  const url = post.meta.canonical ?? `https://blog.platformholder.site/${locale}/blog/${slug}`;
   return {
     title: post.meta.title,
     description: post.meta.description,
+    keywords: post.meta.tags,
+    authors: [{ name: post.meta.author ?? "platformholder" }],
     alternates: {
       canonical: post.meta.canonical ?? `/${locale}/blog/${slug}`,
       languages: post.meta.hreflang,
@@ -34,10 +37,13 @@ export async function generateMetadata(
     openGraph: {
       title: post.meta.title,
       description: post.meta.description,
+      url,
+      siteName: "platformholder",
       images: post.meta.ogImage ? [post.meta.ogImage] : undefined,
       type: "article",
       publishedTime: post.meta.publishedAt,
       locale,
+      tags: post.meta.tags,
     },
     twitter: {
       card: "summary_large_image",
