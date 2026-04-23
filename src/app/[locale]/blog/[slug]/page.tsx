@@ -4,6 +4,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { isValidLocale, locales } from "@/lib/i18n";
 import { getAllPosts, getPost } from "@/lib/posts";
 import { PostJsonLd } from "@/components/JsonLd";
+import { mdxComponents } from "@/components/mdx";
 
 export async function generateStaticParams() {
   const params: { locale: string; slug: string }[] = [];
@@ -56,16 +57,20 @@ export default async function PostPage({ params }: PageProps<"/[locale]/blog/[sl
   return (
     <>
       <PostJsonLd meta={post.meta} />
-      <article className="prose prose-neutral max-w-none prose-headings:scroll-mt-20">
-        <h1>{post.meta.title}</h1>
-        <p className="text-sm text-neutral-500 mt-0">
+      <article className="prose prose-neutral max-w-none prose-headings:scroll-mt-20 prose-img:rounded-lg">
+        <h1 className="!mb-3">{post.meta.title}</h1>
+        <p className="not-prose text-sm text-neutral-500">
           {post.meta.publishedAt}
           {post.meta.service ? ` · ${post.meta.service}` : ""}
-          {post.meta.totalTime ? ` · ${post.meta.totalTime}` : ""}
+          {post.meta.totalTime ? ` · 읽는 데 ${post.meta.totalTime.replace("PT", "").toLowerCase()}` : ""}
         </p>
-        <div className="mt-8">
-          <MDXRemote source={post.content} />
-        </div>
+        {post.meta.description && (
+          <p className="not-prose mt-3 text-lg text-neutral-600 leading-relaxed">
+            {post.meta.description}
+          </p>
+        )}
+        <hr className="my-8 border-neutral-200" />
+        <MDXRemote source={post.content} components={mdxComponents} />
       </article>
     </>
   );
