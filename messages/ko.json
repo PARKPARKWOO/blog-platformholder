@@ -1,0 +1,21 @@
+{
+  "site": {
+    "name": "platformholder",
+    "description": "1인 개발자가 만드는 서비스 제작기 · BBR · Mirror-View"
+  },
+  "nav": {
+    "home": "홈",
+    "blog": "블로그",
+    "tags": "태그"
+  },
+  "blog": {
+    "all": "최근 글",
+    "tags": "태그",
+    "readMore": "자세히 보기",
+    "publishedOn": "발행일",
+    "noPosts": "아직 글이 없어요."
+  },
+  "footer": {
+    "built": "platformholder · 한국어"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "site": {
+    "name": "platformholder",
+    "description": "A solo developer's build log · BBR · Mirror-View"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "tags": "Tags"
+  },
+  "blog": {
+    "all": "Recent posts",
+    "tags": "Tags",
+    "readMore": "Read more",
+    "publishedOn": "Published",
+    "noPosts": "No posts yet."
+  },
+  "footer": {
+    "built": "platformholder · English"
+  }
+}
