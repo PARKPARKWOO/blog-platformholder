@@ -1,4 +1,5 @@
 import type { PostMeta } from "@/lib/posts";
+import { getService } from "@/lib/services";
 
 const SITE_NAME = "platformholder";
 const SITE_URL = "https://blog.platformholder.site";
@@ -8,8 +9,9 @@ interface Props {
 }
 
 export function PostJsonLd({ meta }: Props) {
-  const url = meta.canonical ?? `${SITE_URL}/${meta.locale}/blog/${meta.slug}`;
+  const url = meta.canonical ?? `${SITE_URL}${meta.url}`;
   const author = meta.author ?? "platformholder";
+  const svc = getService(meta.service);
 
   const articleSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -39,7 +41,7 @@ export function PostJsonLd({ meta }: Props) {
       text: s.text,
     }));
   } else {
-    articleSchema.articleSection = meta.service;
+    articleSchema.articleSection = svc?.name ?? meta.service;
     articleSchema.keywords = meta.tags.join(", ");
   }
 
@@ -62,6 +64,12 @@ export function PostJsonLd({ meta }: Props) {
       {
         "@type": "ListItem",
         position: 3,
+        name: svc?.name ?? meta.service,
+        item: `${SITE_URL}/${meta.locale}/blog/${meta.service}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
         name: meta.title,
         item: url,
       },

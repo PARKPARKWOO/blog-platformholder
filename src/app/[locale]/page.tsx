@@ -4,6 +4,8 @@ import { isValidLocale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dict";
 import { getAllPosts } from "@/lib/posts";
 import { SiteJsonLd } from "@/components/SiteJsonLd";
+import { PostCard } from "@/components/PostCard";
+import { SERVICES, VISIBLE_SERVICES } from "@/lib/services";
 
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -29,26 +31,44 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       </section>
 
       <section>
+        <h2 className="text-lg font-semibold mb-4">
+          {locale === "ko" ? "서비스" : "Services"}
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {VISIBLE_SERVICES.map((slug) => {
+            const svc = SERVICES[slug];
+            return (
+              <Link
+                key={slug}
+                href={`/${locale}/blog/${slug}`}
+                className="block rounded-xl p-5 border border-neutral-200 transition hover:shadow-sm"
+                style={{ background: svc.bgSoft }}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xl">{svc.emoji}</span>
+                  <h3 className="font-semibold" style={{ color: svc.color }}>
+                    {svc.name}
+                  </h3>
+                </div>
+                <p className="text-sm text-neutral-700 leading-relaxed">
+                  {svc.tagline[locale]}
+                </p>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section>
         <h2 className="text-lg font-semibold mb-4">{dict.blog.all}</h2>
         {posts.length === 0 ? (
           <p className="text-neutral-500 text-sm">{dict.blog.noPosts}</p>
         ) : (
-          <ul className="space-y-6">
-            {posts.slice(0, 5).map((post) => (
-              <li key={post.slug} className="group">
-                <Link href={`/${locale}/blog/${post.slug}`} className="block">
-                  <h3 className="font-medium group-hover:underline">{post.title}</h3>
-                  {post.description && (
-                    <p className="text-neutral-600 text-sm mt-1">{post.description}</p>
-                  )}
-                  <p className="text-neutral-400 text-xs mt-2">
-                    {post.publishedAt}
-                    {post.service ? ` · ${post.service}` : ""}
-                  </p>
-                </Link>
-              </li>
+          <div className="grid gap-6 sm:grid-cols-2">
+            {posts.slice(0, 6).map((post) => (
+              <PostCard key={`${post.service}/${post.slug}`} post={post} locale={locale} />
             ))}
-          </ul>
+          </div>
         )}
       </section>
     </div>

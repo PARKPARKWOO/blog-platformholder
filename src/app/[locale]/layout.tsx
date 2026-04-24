@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isValidLocale, locales } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dict";
+import { SERVICES, VISIBLE_SERVICES } from "@/lib/services";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -57,7 +58,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className="min-h-screen bg-white text-neutral-900 antialiased">
         <header className="border-b border-neutral-200">
-          <nav className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between text-sm">
+          <nav className="max-w-3xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3 text-sm">
             <Link href={`/${locale}`} className="font-semibold">
               {dict.site.name}
             </Link>
@@ -75,6 +76,26 @@ export default async function LocaleLayout({
                 {locale === "ko" ? "EN" : "KO"}
               </Link>
             </div>
+          </nav>
+          <nav className="max-w-3xl mx-auto px-4 pb-3 flex flex-wrap gap-2 text-xs">
+            {VISIBLE_SERVICES.map((slug) => {
+              const svc = SERVICES[slug];
+              return (
+                <Link
+                  key={slug}
+                  href={`/${locale}/blog/${slug}`}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border transition hover:shadow-sm"
+                  style={{
+                    background: svc.bgSoft,
+                    color: svc.color,
+                    borderColor: `${svc.color}33`,
+                  }}
+                >
+                  <span>{svc.emoji}</span>
+                  <span className="font-medium">{svc.name}</span>
+                </Link>
+              );
+            })}
           </nav>
         </header>
         <main className="max-w-3xl mx-auto px-4 py-10">{children}</main>
