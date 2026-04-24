@@ -43,6 +43,12 @@ export async function generateMetadata(
       description: dict.site.description,
     },
     robots: { index: true, follow: true },
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+      other: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
+        ? { "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION }
+        : undefined,
+    },
     other: {
       "alternate-rss": `https://blog.platformholder.site/${locale}/feed.xml`,
     },
