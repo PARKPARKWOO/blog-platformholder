@@ -1,7 +1,8 @@
 {
   "site": {
     "name": "platformholder",
-    "description": "1인 개발자가 만드는 서비스 제작기 · BBR · Mirror-View"
+    "tagline": "1인 개발자가 만드는 서비스 제작기",
+    "description": "BBR · Mirror-View · Find-My-Pet — 1인 개발자가 AI 서비스를 만들고 운영하며 기록하는 블로그. 실전 How-to, 제작 일지, 마케팅 자동화까지."
   },
   "nav": {
     "home": "홈",

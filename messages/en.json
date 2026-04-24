@@ -1,7 +1,8 @@
 {
   "site": {
     "name": "platformholder",
-    "description": "A solo developer's build log · BBR · Mirror-View"
+    "tagline": "A solo developer's build log",
+    "description": "BBR · Mirror-View · Find-My-Pet — A solo developer building AI services and writing about it. Practical How-to guides, build logs, and marketing automation."
   },
   "nav": {
     "home": "Home",

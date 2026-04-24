@@ -15,16 +15,33 @@ export async function generateMetadata(
   const { locale } = await params;
   if (!isValidLocale(locale)) return {};
   const dict = await getDictionary(locale);
+  const fullTitle = `${dict.site.name} — ${dict.site.tagline}`;
+  const url = `https://blog.platformholder.site/${locale}`;
   return {
     metadataBase: new URL("https://blog.platformholder.site"),
-    title: { default: dict.site.name, template: `%s · ${dict.site.name}` },
+    title: { default: fullTitle, template: `%s · ${dict.site.name}` },
     description: dict.site.description,
     alternates: {
+      canonical: `/${locale}`,
       languages: {
         ko: "/ko",
         en: "/en",
       },
     },
+    openGraph: {
+      title: fullTitle,
+      description: dict.site.description,
+      url,
+      siteName: dict.site.name,
+      locale,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description: dict.site.description,
+    },
+    robots: { index: true, follow: true },
   };
 }
 

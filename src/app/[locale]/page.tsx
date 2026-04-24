@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isValidLocale } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dict";
 import { getAllPosts } from "@/lib/posts";
+import { SiteJsonLd } from "@/components/SiteJsonLd";
 
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -12,9 +13,19 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
 
   return (
     <div className="space-y-12">
+      <SiteJsonLd
+        locale={locale}
+        siteName={dict.site.name}
+        description={dict.site.description}
+      />
       <section>
-        <h1 className="text-3xl font-bold tracking-tight">{dict.site.name}</h1>
-        <p className="mt-3 text-neutral-600">{dict.site.description}</p>
+        <h1 className="text-3xl font-bold tracking-tight">
+          {dict.site.name}
+          <span className="block text-lg font-normal text-neutral-600 mt-2">
+            {dict.site.tagline}
+          </span>
+        </h1>
+        <p className="mt-4 text-neutral-600 leading-relaxed">{dict.site.description}</p>
       </section>
 
       <section>
