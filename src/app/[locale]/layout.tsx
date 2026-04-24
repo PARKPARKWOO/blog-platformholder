@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { isValidLocale, locales } from "@/lib/i18n";
 import { getDictionary } from "@/lib/dict";
 import { SERVICES, VISIBLE_SERVICES } from "@/lib/services";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -64,7 +66,7 @@ export default async function LocaleLayout({
   const dict = await getDictionary(locale);
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <link
           rel="alternate"
@@ -73,8 +75,9 @@ export default async function LocaleLayout({
           href={`/${locale}/feed.xml`}
         />
       </head>
-      <body className="min-h-screen bg-white text-neutral-900 antialiased">
-        <header className="border-b border-neutral-200">
+      <body className="min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 antialiased">
+        <ThemeProvider>
+        <header className="border-b border-neutral-200 dark:border-neutral-800">
           <nav className="max-w-3xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3 text-sm">
             <Link href={`/${locale}`} className="font-semibold">
               {dict.site.name}
@@ -87,11 +90,19 @@ export default async function LocaleLayout({
                 {dict.nav.tags}
               </Link>
               <Link
+                href={`/${locale}/search`}
+                aria-label="Search"
+                className="text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100"
+              >
+                🔍
+              </Link>
+              <Link
                 href={locale === "ko" ? "/en" : "/ko"}
-                className="text-neutral-500 hover:text-neutral-900"
+                className="text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100"
               >
                 {locale === "ko" ? "EN" : "KO"}
               </Link>
+              <ThemeToggle />
             </div>
           </nav>
           <nav className="max-w-3xl mx-auto px-4 pb-3 flex flex-wrap gap-2 text-xs">
@@ -115,12 +126,19 @@ export default async function LocaleLayout({
             })}
           </nav>
         </header>
-        <main className="max-w-3xl mx-auto px-4 py-10">{children}</main>
-        <footer className="border-t border-neutral-200 mt-20">
-          <div className="max-w-3xl mx-auto px-4 py-6 text-sm text-neutral-500">
-            {dict.footer.built}
+        <main className="max-w-5xl mx-auto px-4 py-10">{children}</main>
+        <footer className="border-t border-neutral-200 dark:border-neutral-800 mt-20">
+          <div className="max-w-5xl mx-auto px-4 py-6 flex items-center justify-between text-sm text-neutral-500 dark:text-neutral-400">
+            <span>{dict.footer.built}</span>
+            <a
+              href={`/${locale}/feed.xml`}
+              className="hover:text-neutral-900 dark:hover:text-neutral-100"
+            >
+              RSS
+            </a>
           </div>
         </footer>
+        </ThemeProvider>
       </body>
     </html>
   );
