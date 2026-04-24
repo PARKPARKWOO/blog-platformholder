@@ -43,6 +43,9 @@ export async function generateMetadata(
       description: dict.site.description,
     },
     robots: { index: true, follow: true },
+    other: {
+      "alternate-rss": `https://blog.platformholder.site/${locale}/feed.xml`,
+    },
   };
 }
 
@@ -56,6 +59,14 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${dict.site.name} — ${dict.site.tagline}`}
+          href={`/${locale}/feed.xml`}
+        />
+      </head>
       <body className="min-h-screen bg-white text-neutral-900 antialiased">
         <header className="border-b border-neutral-200">
           <nav className="max-w-3xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3 text-sm">

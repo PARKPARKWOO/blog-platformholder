@@ -9,5 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: "https://blog.platformholder.site/sitemap.xml",
+    host: "https://blog.platformholder.site",
   };
 }
