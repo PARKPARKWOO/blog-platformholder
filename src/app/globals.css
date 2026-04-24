@@ -1,26 +1,179 @@
 @import "tailwindcss";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Noto Sans KR", system-ui, "Segoe UI", Roboto,
+    sans-serif;
+  --font-mono:
+    ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.dark {
+  --background: #0b0b0d;
+  --foreground: #ededed;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
+
+/* ─── Prose (포스트 본문) ──────────────────────── */
+.prose {
+  font-size: 1.125rem;
+  line-height: 1.85;
+  letter-spacing: -0.005em;
+  color: #1f2937;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 640px) {
+  .prose {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+}
+
+.dark .prose {
+  color: #d1d5db;
+}
+
+.prose h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+@media (max-width: 640px) {
+  .prose h1 { font-size: 1.875rem; }
+}
+.dark .prose h1 { color: #f5f5f5; }
+
+.prose h2 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+  margin-top: 2.5em;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid #e5e7eb;
+  color: #111827;
+}
+.dark .prose h2 {
+  border-bottom-color: #262626;
+  color: #f5f5f5;
+}
+
+.prose h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  margin-top: 2em;
+  color: #111827;
+}
+.dark .prose h3 { color: #e5e5e5; }
+
+.prose p {
+  margin-top: 1.1em;
+  margin-bottom: 1.1em;
+}
+
+.prose ul, .prose ol { margin-top: 1em; margin-bottom: 1em; }
+.prose li { margin-top: 0.4em; margin-bottom: 0.4em; }
+
+.prose a {
+  color: #0f766e;
+  font-weight: 500;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s ease;
+}
+.prose a:hover { color: #115e59; text-decoration-thickness: 2px; }
+.dark .prose a { color: #5eead4; }
+.dark .prose a:hover { color: #99f6e4; }
+
+.prose strong { color: inherit; font-weight: 700; }
+
+.prose blockquote {
+  border-left: 4px solid #5eead4;
+  background: #f0fdfa;
+  padding: 0.9em 1.2em;
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-style: normal;
+  quotes: none;
+}
+.prose blockquote p { margin: 0; }
+.prose blockquote p::before, .prose blockquote p::after { content: none; }
+.dark .prose blockquote {
+  border-left-color: #14b8a6;
+  background: #042f2e;
+  color: #ccfbf1;
+}
+
+.prose code {
+  background: #f1f5f9;
+  padding: 0.15em 0.4em;
+  border-radius: 0.3rem;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #0f766e;
+}
+.dark .prose code {
+  background: #1e293b;
+  color: #99f6e4;
+}
+.prose code::before, .prose code::after { content: none; }
+
+.prose pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1.1em 1.4em;
+  border-radius: 0.6rem;
+  font-size: 0.95em;
+  line-height: 1.65;
+}
+.prose pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.prose hr {
+  margin: 3em 0;
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+}
+.dark .prose hr { border-top-color: #262626; }
+
+.prose table {
+  font-size: 0.95rem;
+  border-collapse: collapse;
+}
+.prose thead { border-bottom: 2px solid #e5e7eb; }
+.dark .prose thead { border-bottom-color: #404040; }
+.prose th, .prose td { padding: 0.7em 1em; }
