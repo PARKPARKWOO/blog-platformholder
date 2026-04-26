@@ -1,0 +1,57 @@
+name: Notify Telegram on push
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Collect commit info
+        id: commit
+        run: |
+          MSG=$(git log -1 --pretty=%s)
+          AUTHOR=$(git log -1 --pretty=%an)
+          SHA_SHORT=$(git log -1 --pretty=%h)
+          FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null | head -8 | sed 's/^/- /' | tr '\n' '~' | sed 's/~/\\n/g')
+          echo "msg=$MSG" >> "$GITHUB_OUTPUT"
+          echo "author=$AUTHOR" >> "$GITHUB_OUTPUT"
+          echo "sha=$SHA_SHORT" >> "$GITHUB_OUTPUT"
+          {
+            echo 'files<<EOFFILES'
+            git diff --name-only HEAD~1 HEAD 2>/dev/null | head -8
+            echo EOFFILES
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send Telegram notification
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -z "$TG_TOKEN" ] || [ -z "$TG_CHAT" ]; then
+            echo "Telegram secrets missing — skipping"
+            exit 0
+          fi
+          TEXT="📝 *blog-platformholder* 새 push
+
+*${{ steps.commit.outputs.msg }}*
+by \`${{ steps.commit.outputs.author }}\` · \`${{ steps.commit.outputs.sha }}\`
+
+변경 파일:
+\`\`\`
+${{ steps.commit.outputs.files }}
+\`\`\`
+
+Vercel 자동 재배포 진행 중
+https://blog.platformholder.site"
+          curl -sf "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -d "chat_id=${TG_CHAT}" \
+            -d "parse_mode=Markdown" \
+            --data-urlencode "text=${TEXT}" \
+            -o /dev/null
+          echo "Telegram notified"
