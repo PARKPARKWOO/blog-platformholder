@@ -13,7 +13,15 @@ const LEGACY_SLUG_MAP: Record<string, string> = {
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   async redirects() {
-    const rules = [];
+    const rules: { source: string; destination: string; permanent: boolean }[] = [
+      // 루트 → 기본 로케일 (네이버·구글 봇 404 방지)
+      { source: "/", destination: "/ko", permanent: false },
+      { source: "/blog", destination: "/ko/blog", permanent: false },
+      { source: "/blog/:path*", destination: "/ko/blog/:path*", permanent: false },
+      { source: "/tags", destination: "/ko/tags", permanent: false },
+      { source: "/tags/:path*", destination: "/ko/tags/:path*", permanent: false },
+      { source: "/search", destination: "/ko/search", permanent: false },
+    ];
     for (const locale of ["ko", "en"]) {
       for (const [oldSlug, newPath] of Object.entries(LEGACY_SLUG_MAP)) {
         rules.push({
