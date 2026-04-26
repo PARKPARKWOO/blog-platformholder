@@ -47,9 +47,11 @@ export async function generateMetadata(
     robots: { index: true, follow: true },
     verification: {
       google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-      other: process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
-        ? { "naver-site-verification": process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION }
-        : undefined,
+      other: {
+        "naver-site-verification":
+          process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION ??
+          "a2423298e713e77c08b20501163dfa6510b4355c",
+      },
     },
     other: {
       "alternate-rss": `https://blog.platformholder.site/${locale}/feed.xml`,
