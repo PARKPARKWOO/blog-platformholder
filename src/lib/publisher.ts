@@ -12,7 +12,7 @@ export interface ContactLink {
 export const PUBLISHER = {
   name: "platformholder",
   email: "wy9295@naver.com",
-  linkedin: "https://www.linkedin.com/in/parkparkwoo",
+  linkedin: "https://www.linkedin.com/in/wooyoung-park-a42179263",
   github: "https://github.com/PARKPARKWOO",
 };
 
