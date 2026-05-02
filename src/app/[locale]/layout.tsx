@@ -138,8 +138,8 @@ export default async function LocaleLayout({
               </p>
               <p className="text-xs leading-relaxed">
                 {locale === "ko"
-                  ? "협업·피드백·제휴 문의 환영합니다."
-                  : "Open to collaborations, feedback, and partnerships."}
+                  ? "컨택하고 싶으시면 아래로 연락주세요."
+                  : "Want to get in touch? Reach me below."}
               </p>
             </div>
             <div className="flex flex-wrap items-start gap-x-5 gap-y-2 sm:justify-end">
