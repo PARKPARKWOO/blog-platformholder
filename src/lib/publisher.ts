@@ -1,15 +1,22 @@
 // 퍼블리셔 컨택 정보 (블로그 footer · about 등에서 사용)
 // 노출돼도 무방한 공개 정보만 (개인 휴대폰·집 주소 등은 절대 X)
 
+export interface ContactLink {
+  label: string;
+  href: string;
+  display: string;
+  aria: string;
+  external?: boolean;
+}
+
 export const PUBLISHER = {
   name: "platformholder",
-  email: "pwy9295@gmail.com",
+  email: "wy9295@naver.com",
   linkedin: "https://www.linkedin.com/in/parkparkwoo",
   github: "https://github.com/PARKPARKWOO",
-  twitter: undefined as string | undefined,
-} as const;
+};
 
-export const CONTACT_LINKS = [
+export const CONTACT_LINKS: ContactLink[] = [
   {
     label: "Email",
     href: `mailto:${PUBLISHER.email}`,
@@ -30,4 +37,4 @@ export const CONTACT_LINKS = [
     aria: "Visit platformholder GitHub",
     external: true,
   },
-] as const;
+];
