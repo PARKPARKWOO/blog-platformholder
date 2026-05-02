@@ -7,6 +7,7 @@ import { getDictionary } from "@/lib/dict";
 import { SERVICES, VISIBLE_SERVICES } from "@/lib/services";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CONTACT_LINKS } from "@/lib/publisher";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -130,14 +131,38 @@ export default async function LocaleLayout({
         </header>
         <main className="max-w-5xl mx-auto px-4 py-10">{children}</main>
         <footer className="border-t border-neutral-200 dark:border-neutral-800 mt-20">
-          <div className="max-w-5xl mx-auto px-4 py-6 flex items-center justify-between text-sm text-neutral-500 dark:text-neutral-400">
-            <span>{dict.footer.built}</span>
-            <a
-              href={`/${locale}/feed.xml`}
-              className="hover:text-neutral-900 dark:hover:text-neutral-100"
-            >
-              RSS
-            </a>
+          <div className="max-w-5xl mx-auto px-4 py-8 grid gap-6 sm:grid-cols-2 text-sm text-neutral-500 dark:text-neutral-400">
+            <div>
+              <p className="font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                {dict.footer.built}
+              </p>
+              <p className="text-xs leading-relaxed">
+                {locale === "ko"
+                  ? "협업·피드백·제휴 문의 환영합니다."
+                  : "Open to collaborations, feedback, and partnerships."}
+              </p>
+            </div>
+            <div className="flex flex-wrap items-start gap-x-5 gap-y-2 sm:justify-end">
+              {CONTACT_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  aria-label={link.aria}
+                  {...(link.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                  className="hover:text-neutral-900 dark:hover:text-neutral-100 transition"
+                >
+                  {link.display}
+                </a>
+              ))}
+              <a
+                href={`/${locale}/feed.xml`}
+                className="hover:text-neutral-900 dark:hover:text-neutral-100 transition"
+              >
+                RSS
+              </a>
+            </div>
           </div>
         </footer>
         </ThemeProvider>
