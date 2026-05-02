@@ -21,16 +21,16 @@ export interface ServiceMeta {
 export const SERVICES: Record<ServiceSlug, ServiceMeta> = {
   bbr: {
     slug: "bbr",
-    name: "BBR",
+    name: "PocketFit",
     tagline: {
-      ko: "AI 코치와 라이벌이 있는 헬스 앱 (iOS · Android)",
-      en: "AI coach and rivals keep you moving (iOS · Android app)",
+      ko: "주머니에 넣어 다니는 AI 피트니스 코치 (iOS · Android)",
+      en: "Fitness that fits in your pocket (iOS · Android)",
     },
     description: {
-      ko: "매주 월요일 AI가 맞춤 PT 계획을 자동 생성하고, 친구 라이벌·인증 트레이너까지 한 앱에서 연결합니다. iOS·Android 모바일 앱으로 제공됩니다.",
-      en: "Every Monday, AI generates a tailored PT plan. Rivals and certified trainers — all in one mobile app. iOS · Android.",
+      ko: "복잡한 헬스 앱은 많습니다. PocketFit은 주머니에 들어가는 만큼만 보여줍니다. AI가 매주 PT를 짜주고, 라이벌이 옆에 있고, 어디서든 5분 안에 시작할 수 있는 가벼운 피트니스 앱.",
+      en: "Most fitness apps overload you. PocketFit shows only what fits in your pocket — AI weekly PT plans, rivals beside you, start anywhere in 5 minutes.",
     },
-    emoji: "💪",
+    emoji: "📱",
     color: "#0F1113",
     bgSoft: "#F7F8FA",
   },
