@@ -13,7 +13,6 @@ export const PUBLISHER = {
   name: "platformholder",
   email: "wy9295@naver.com",
   linkedin: "https://www.linkedin.com/in/wooyoung-park-a42179263",
-  github: "https://github.com/PARKPARKWOO",
 };
 
 export const CONTACT_LINKS: ContactLink[] = [
@@ -28,13 +27,6 @@ export const CONTACT_LINKS: ContactLink[] = [
     href: PUBLISHER.linkedin,
     display: "LinkedIn",
     aria: "Visit platformholder LinkedIn profile",
-    external: true,
-  },
-  {
-    label: "GitHub",
-    href: PUBLISHER.github,
-    display: "GitHub",
-    aria: "Visit platformholder GitHub",
     external: true,
   },
 ];
