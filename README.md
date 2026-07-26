@@ -53,6 +53,25 @@ npm run dev
 
 `content/{locale}/{slug}.mdx` 파일 추가. frontmatter 규격은 마케팅 에이전트가 생성하는 형식과 동일.
 
+## IndexNow (Bing·Yandex·Naver 등)
+
+변경된 URL 을 검색엔진에 직접 통보한다. Google 은 IndexNow 에 참여하지 않으므로 Google
+대응은 기존 `sitemap.xml` + `lastmod` 경로를 그대로 유지한다 (IndexNow 는 sitemap 을
+대체하지 않는다). 키 파일은 `public/8f3c1d5a7b9e40628ad14c6f2be7d093.txt` 이고, 키는
+비밀값이 아니라 도메인 소유 증명용이라 공개가 전제다. 제출 대상은 sitemap 에서 뽑으므로
+`/llms.txt`·`/llms-full.txt`·raw 라우트는 자연히 빠지고, 스크립트에서 한 번 더 거른다.
+
+```bash
+npm run indexnow -- --dry-run       # 최근 7일 변경분 미리보기 (제출 없음)
+npm run indexnow                    # 최근 7일 변경분 제출
+npm run indexnow -- --since=30d     # 기간 조정
+npm run indexnow -- --all           # 전량 제출 (최초 1회·대규모 개편 때만)
+```
+
+sitemap 소스는 `.next/server/app/sitemap.xml.body`(빌드 산출물)를 먼저 보고, 없으면 라이브
+`sitemap.xml` 을 받는다. 실패해도 항상 exit 0 이라 배포를 깨지 않는다. 자세한 옵션은
+`npm run indexnow -- --help`.
+
 ## 배포 (TODO)
 
 1. GitHub 저장소 push

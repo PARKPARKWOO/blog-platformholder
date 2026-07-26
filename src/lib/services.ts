@@ -60,15 +60,20 @@ export const SERVICES: Record<ServiceSlug, ServiceMeta> = {
     subProducts: [
       {
         // 트레이너용 멀티테넌트 웹. 별도 서비스가 아니라 PocketFit 의 하위 프로덕트다.
-        // 2026-07-25 기준 공개 URL 없음 (브랜치 미머지 + Vercel 미연결) → status preparing / url 비움.
-        // 근거: marketing/reports/qc/bbr-drift-20260725.md
-        // 접속되는 주소가 확인되면 그때 url 을 채우고 status 를 live 로 바꾼다.
+        // ✅ 2026-07-26: 배포 확인 → status live / url 기재.
+        //    근거: feat/trainer-site-builder 가 main 에 머지(9fecde1) + Vercel 서빙 확인
+        //    (/ · /login · /console 모두 200, 응답 헤더 server: Vercel).
+        //    07-25 의 "브랜치 미머지 + Vercel 미연결" 근거는 폐기됐다.
+        // ⚠️ 공개 트레이너 사이트(/{slug})는 아직 발행된 것이 0건이라 임의 slug 는 404 다.
+        //    여기 url 은 콘솔 루트만 가리킨다. /{slug} 주소를 예시로 노출하지 말 것.
+        // 상세: marketing/reports/qc/trainer-web-status-20260726.md
         name: "PocketFit for Trainers",
         tagline: {
-          ko: "트레이너가 회원을 관리하는 웹 콘솔 (배포 준비 중)",
-          en: "A web console for trainers to manage their members (deployment pending)",
+          ko: "트레이너가 회원을 관리하는 웹 콘솔 (트레이너 로그인 필요)",
+          en: "A web console for trainers to manage their members (trainer sign-in required)",
         },
-        status: "preparing",
+        url: "https://trainer.platformholder.site",
+        status: "live",
       },
     ],
   },
