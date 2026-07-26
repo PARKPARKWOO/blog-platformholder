@@ -16,7 +16,20 @@
     "publishedOn": "Published",
     "noPosts": "No posts yet."
   },
+  "post": {
+    "keyTakeaways": "Key takeaways",
+    "faq": "Frequently asked questions"
+  },
   "footer": {
     "built": "platformholder · English"
+  },
+  "kakaoChat": {
+    "name": "Kakao OpenChat",
+    "footerTitle": "Updates and questions on Kakao OpenChat",
+    "footerBody": "An open chat room for service updates and new posts. Questions and reports are welcome here.",
+    "ctaTitle": "Ask the person building it",
+    "ctaBody": "Have a question or something to report about this post? Bring it to the open chat room.",
+    "button": "Join the open chat",
+    "ariaLabel": "Join the Kakao open chat (opens in a new tab)"
   }
 }

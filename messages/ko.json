@@ -16,7 +16,20 @@
     "publishedOn": "발행일",
     "noPosts": "아직 글이 없어요."
   },
+  "post": {
+    "keyTakeaways": "핵심 요약",
+    "faq": "자주 묻는 질문"
+  },
   "footer": {
     "built": "platformholder · 한국어"
+  },
+  "kakaoChat": {
+    "name": "카카오 오픈채팅",
+    "footerTitle": "업데이트·문의는 오픈채팅에서",
+    "footerBody": "서비스 업데이트와 새 글 소식을 공유하는 공개 채팅방입니다. 질문·제보도 여기로 남겨주세요.",
+    "ctaTitle": "만드는 사람에게 직접 물어보기",
+    "ctaBody": "이 글과 관련해 궁금한 점이나 제보가 있으면 오픈채팅방에서 이야기 나눌 수 있습니다.",
+    "button": "오픈채팅 참여하기",
+    "ariaLabel": "카카오 오픈채팅 참여하기 (새 창에서 열림)"
   }
 }

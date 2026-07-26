@@ -4,10 +4,13 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
 import { isValidLocale, locales } from "@/lib/i18n";
+import { getDictionary } from "@/lib/dict";
 import { getAllPosts, getPost, getRelatedPosts, readingTime } from "@/lib/posts";
 import { PostJsonLd } from "@/components/JsonLd";
 import { ServiceBadge } from "@/components/ServiceBadge";
 import { PostCard } from "@/components/PostCard";
+import { KeyTakeaways } from "@/components/KeyTakeaways";
+import { PostFaq } from "@/components/PostFaq";
 import { TableOfContents } from "@/components/TableOfContents";
 import { mdxComponents } from "@/components/mdx";
 import { getService, isValidService } from "@/lib/services";
@@ -44,6 +47,10 @@ export async function generateMetadata(
     alternates: {
       canonical: post.meta.canonical ?? `/${locale}/blog/${service}/${slug}`,
       languages: post.meta.hreflang,
+      // 같은 글의 마크다운 원문(/raw). AI 크롤러가 HTML 파싱 없이 원문을 찾아가게 한다
+      types: {
+        "text/markdown": `/${locale}/blog/${service}/${slug}/raw`,
+      },
     },
     openGraph: {
       title: post.meta.title,
@@ -75,6 +82,7 @@ export default async function PostPage({
   const svc = getService(service);
   if (!svc) notFound();
 
+  const dict = await getDictionary(locale);
   const related = await getRelatedPosts(locale, service, slug, 3);
   const reading = readingTime(post.meta.totalTime);
   const toc = extractToc(post.content);
@@ -112,6 +120,11 @@ export default async function PostPage({
               {post.meta.description}
             </p>
           )}
+          {/* TL;DR — JSON-LD abstract 와 같은 값을 화면에도 렌더한다. 없으면 빠진다 */}
+          <KeyTakeaways
+            items={post.meta.keyTakeaways}
+            title={dict.post.keyTakeaways}
+          />
           <hr className="my-8 border-neutral-200 dark:border-neutral-800" />
           <MDXRemote
             source={post.content}
@@ -119,6 +132,9 @@ export default async function PostPage({
             options={{ mdxOptions: { rehypePlugins: [rehypeSlug] } }}
           />
         </article>
+
+        {/* FAQPage 구조화 데이터(JsonLd)와 같은 소스를 화면에도 렌더한다 */}
+        <PostFaq items={post.meta.faq} title={dict.post.faq} />
 
         {related.length > 0 && (
           <section className="mt-16 border-t border-neutral-200 dark:border-neutral-800 pt-10">

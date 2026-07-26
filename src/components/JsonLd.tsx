@@ -1,5 +1,6 @@
 import type { PostMeta } from "@/lib/posts";
 import { getService } from "@/lib/services";
+import { PUBLISHER } from "@/lib/publisher";
 
 const SITE_NAME = "platformholder";
 const SITE_URL = "https://blog.platformholder.site";
@@ -10,19 +11,25 @@ interface Props {
 
 export function PostJsonLd({ meta }: Props) {
   const url = meta.canonical ?? `${SITE_URL}${meta.url}`;
-  const author = meta.author ?? "platformholder";
+  const author = meta.author ?? PUBLISHER.name;
   const svc = getService(meta.service);
 
   const articleSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": meta.type === "howto" ? "HowTo" : "Article",
+    "@id": `${url}#article`,
     name: meta.title,
     headline: meta.title,
     description: meta.description,
     image: meta.ogImage ? [meta.ogImage] : undefined,
     datePublished: meta.publishedAt || undefined,
-    dateModified: meta.publishedAt || undefined,
-    author: { "@type": "Person", name: author },
+    dateModified: meta.updatedAt || meta.publishedAt || undefined,
+    author: {
+      "@type": "Person",
+      name: author,
+      // 게스트 저자 글에 퍼블리셔 프로필을 붙이지 않는다
+      url: author === PUBLISHER.name ? PUBLISHER.linkedin : undefined,
+    },
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
@@ -30,6 +37,11 @@ export function PostJsonLd({ meta }: Props) {
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     inLanguage: meta.locale,
+    isAccessibleForFree: true,
+    articleSection: svc?.name ?? meta.service,
+    keywords: meta.tags.length > 0 ? meta.tags.join(", ") : undefined,
+    wordCount: meta.wordCount,
+    abstract: meta.keyTakeaways?.join(" "),
   };
 
   if (meta.type === "howto" && meta.howToSteps && meta.howToSteps.length > 0) {
@@ -40,10 +52,23 @@ export function PostJsonLd({ meta }: Props) {
       name: s.name,
       text: s.text,
     }));
-  } else {
-    articleSchema.articleSection = svc?.name ?? meta.service;
-    articleSchema.keywords = meta.tags.join(", ");
   }
+
+  const faqSchema =
+    meta.faq && meta.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "@id": `${url}#faq`,
+          inLanguage: meta.locale,
+          isPartOf: { "@id": url },
+          mainEntity: meta.faq.map((f) => ({
+            "@type": "Question",
+            name: f.question,
+            acceptedAnswer: { "@type": "Answer", text: f.answer },
+          })),
+        }
+      : null;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -80,12 +105,23 @@ export function PostJsonLd({ meta }: Props) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: ldJson(articleSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: ldJson(faqSchema) }}
+        />
+      )}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: ldJson(breadcrumbSchema) }}
       />
     </>
   );
+}
+
+// frontmatter 값이 그대로 들어가므로 `<` 를 이스케이프해 script 조기 종료를 막는다
+export function ldJson(value: unknown): string {
+  return JSON.stringify(value).replace(/</g, "\\u003c");
 }

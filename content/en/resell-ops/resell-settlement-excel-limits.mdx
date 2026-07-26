@@ -1,0 +1,168 @@
+---
+title: "Why Your Reseller Settlement Spreadsheet Drifts Every Month"
+slug: resell-settlement-excel-limits
+service: resell-ops
+type: article
+publishedAt: "2026-07-25"
+updatedAt: "2026-07-25"
+author: platformholder
+tags: [resell-ops, reseller-settlement, inventory-ledger, spreadsheet-limits, solo-seller, margin-calculation]
+description: "You logged every sale, yet month-end numbers still disagree. Reseller settlement spreadsheets drift from record structure, not arithmetic — five causes, five fixes."
+canonical: https://blog.platformholder.site/en/blog/resell-ops/resell-settlement-excel-limits
+hreflang:
+  ko: https://blog.platformholder.site/ko/blog/resell-ops/resell-settlement-excel-limits
+  en: https://blog.platformholder.site/en/blog/resell-ops/resell-settlement-excel-limits
+keyTakeaways:
+  - "Reseller settlement numbers drift because of timing, not arithmetic: the amount you record on the sale date always changes once fees, shipping, and returns settle."
+  - "Once you sell on two or more channels, the same column called 'sales amount' can mean gross before fees on one file and expected payout on another, so definitions must be reconciled before column names are."
+  - "Using product names as the join key breaks as soon as a channel is added; per-item profit requires an internal identifier the seller controls, with channel titles kept as aliases."
+  - "Overwriting a cell in a spreadsheet destroys the only evidence of when the number started to diverge; appending a new row instead of editing the old one is what preserves history."
+  - "Cost assumptions such as fee rates and shipping hard-coded inside formulas make past months impossible to recompute; store assumptions as versioned rows with an effective date instead."
+faq:
+  - question: "How should a reseller organize settlements in a spreadsheet?"
+    answer: "Record one event per row. Purchase, intake, sale, settlement confirmation, and return each get their own row, and corrections are appended as new rows rather than typed over old cells. Keep the raw channel export untouched and do all normalization in a separate sheet — that untouched copy is the only reference you will have when the numbers stop matching."
+  - question: "Which costs do resellers most often forget when calculating margin?"
+    answer: "Beyond the selling fee: outbound and return shipping, packaging, cancellation and return costs, promotion or coupon contributions, and the incidental costs attached to the purchase. All of them are finalized on the settlement date rather than the sale date, which is why a margin computed on the sale date is almost always too optimistic."
+  - question: "Every channel exports a different settlement file format. How do I merge them?"
+    answer: "Reconcile the meaning of each amount before matching column names. Write down, once per channel, whether the figure is gross or expected payout, whether tax is included, and whether cancellations arrive as negative rows or in a separate file. That one-time document removes a judgment call you would otherwise repeat every month."
+  - question: "When does a reseller inventory spreadsheet stop working?"
+    answer: "When the number of distinct file formats grows, not the number of transactions. Past two formats, with settlements confirming days or weeks after the sale, the time spent finding why numbers disagree exceeds the time spent merging them. If you sell on one channel with low volume, a spreadsheet is still the fastest tool."
+  - question: "Is there a tool I can use right now to manage reseller stock and settlements?"
+    answer: "Resell Ops, the tool we are building, has no installable build yet. Stock, order, and settlement features are still in development and nothing is usable at this point. The spreadsheet changes described in this post are deliberately limited to what you can apply today without any tool."
+---
+
+At month end you download each channel's settlement file and paste them into one sheet. You align the column names, subtract the fees, add the shipping.
+
+Then an item you marked as profitable last month shows up negative this month. Tracing where it went wrong usually costs an hour.
+
+The formula is not what's broken. In most cases **the number was written at a different time than the number was finalized**.
+
+<Callout type="note" title="Summary">
+- Settlements drift because of *when* and *how* things are recorded, not because of arithmetic
+- With two or more channels, reconcile **what each amount means** before matching column names
+- Use an internal identifier you control as the key — never the product title
+- Appending rows instead of overwriting cells is what preserves "when did this start to diverge"
+- With one channel and low volume, a spreadsheet is still the right answer
+</Callout>
+
+## Cause 1 — the sale date and the settlement date are not the same day
+
+The most common cause of settlement drift is that **the amount recorded on the sale date is not yet a final amount**.
+
+What you type in on the day a sale closes is an estimate. Several events arrive afterwards, in no particular order.
+
+- Fees are only final once the channel's settlement cycle runs
+- Outbound and return shipping are final once delivery finishes
+- Returns, cancellations, and refunds land days or weeks later
+- Promotion or coupon contributions are sometimes deducted after the fact
+
+A spreadsheet only remembers the last value typed into a cell. **It does not remember when that value became final.** So the figure you saw mid-month and the figure you see at month end disagree, and nothing in the sheet tells you which one to trust.
+
+## Cause 2 — the same word means different money on different channels
+
+The second cause is that **column names look similar while the definitions underneath differ**.
+
+On one export, "sales amount" is the gross figure before fees. On another, it is the expected payout. Paste them into the same column by name and the total is quietly wrong — with no error to warn you.
+
+Checking six things once, the first time you receive a channel's file, removes a judgment call you would otherwise repeat monthly.
+
+1. Gross price, or expected payout?
+2. Are fees a separate column, or already deducted?
+3. Who bears the shipping cost — seller or buyer?
+4. Is tax included in the figure?
+5. Do cancellations and returns arrive as negative rows, or in a separate file?
+6. Is the date column the sale date or the settlement date?
+
+## Cause 3 — the same item exists under a different name on every channel
+
+The third cause is **using the product title as the key**.
+
+The same physical item gets listed slightly differently everywhere: different colorway wording, different size notation, different spacing. Each new channel adds another spelling. In that state, a lookup matching correctly is closer to luck than to design.
+
+Per-item profit requires a key the seller controls — **an internal identifier**, with each channel's listing title kept as an alias attached to it.
+
+<Callout type="note" title="Something we have not settled either">
+We have not finalized this internal SKU schema ourselves. Whether brand, model, size, condition, or included accessories belong in the key is **deliberately on hold** until we can look at real channel data. Deciding early would mean remapping everything later.
+</Callout>
+
+## Cause 4 — overwriting a cell erases the history
+
+The fourth cause is that **overwriting is a spreadsheet's default behavior**.
+
+When settlement is confirmed, you type the final amount over the estimate. After a stock count, you correct the quantity cell. The previous value is gone at that moment. Later, when physical stock and records disagree, **there is nothing left to reconstruct when the divergence began.**
+
+This is exactly why accounting ledgers post a reversing entry instead of editing the original. Appending events rather than editing values is what leaves behind "what changed, and when."
+
+## Cause 5 — cost assumptions are scattered inside formulas
+
+The fifth cause is **treating cost assumptions as formulas rather than as data**.
+
+Hard-coding fee rates, average shipping, or a return provision inside a formula feels efficient in the moment. But once a rate changes, past months can no longer be recomputed on the same basis. Copy the sheet, overwrite the rate, and last month's numbers silently change with it.
+
+Assumptions are data — and **versioned data**. Stored in a separate sheet with an effective date, the same input still produces the same result three months later. The difference matters the moment you treat profit as something to *reproduce* rather than something to *calculate*.
+
+## What you can fix without changing tools
+
+Four of the five causes above shrink with **structural changes to the sheet alone**. In the order we would apply them:
+
+<Steps>
+<Step title="One event per row">
+Purchase, intake, sale, settlement confirmation, and return each get their own row. Do not pack every state of an item into a single line. You gain rows and you gain history.
+</Step>
+<Step title="Never edit the raw export">
+Keep the file downloaded from the channel exactly as it arrived, and do all normalization in a separate sheet. Edit the original and you lose your reference point.
+</Step>
+<Step title="Decide the keys">
+Join items on an internal identifier you assign, and transactions on the order number the channel gave you. Demote the product title to a reference column.
+</Step>
+<Step title="Separate the cost assumptions">
+Move fee rates, shipping, and return provisions to their own sheet, each row carrying an effective date. When a rate changes, add a row instead of editing one.
+</Step>
+<Step title="Add a confirmed flag">
+Mark whether each row's settlement is confirmed or still an estimate. Report the two separately mid-month. Merge them into one number and the drift returns.
+</Step>
+</Steps>
+
+Even with all five in place, **cause 1 does not disappear** — timing is a property of the business, not the sheet. What shrinks is the time it takes to find out why things disagree.
+
+## When a spreadsheet is still the right answer
+
+**With one channel and low monthly volume, a spreadsheet is still the fastest option.** That answer does not change because we happen to be building a tool.
+
+Manual reconciliation cost scales with the **number of distinct formats**, more than with transaction count. One format, settlements confirmed immediately — a single sheet beats any program on both accuracy and speed. The math changes past two formats, once settlements start confirming well after the sale.
+
+<Callout type="warning" title="On tax">
+Settlement and profit records form the basis of tax filings, but this post is not tax advice. Filing basis, documentation requirements, and income classification should be confirmed with a qualified tax professional.
+</Callout>
+
+## How we are trying to solve this
+
+We are building a tool (Resell Ops) that aims to bring purchases, stock, orders, settlements, and profit into **a single ledger**. The five causes above became design requirements directly: records are appended rather than overwritten, cost assumptions are kept as versions, and items are joined on an identifier rather than a name. Execution is designed to run on the user's own computer, and channel passwords, cookies, and sessions are not stored on our servers. We do not build purchase automation, raffle entry, or stock-grabbing. That said, **there is no installable build yet, and the stock, order, and settlement features are still being built.** Nothing is usable today.
+
+We will say so here first when that changes. The build log and launch notice go out in the open chat below.
+
+<KakaoChatCta locale="en" campaign="resell-ops-prelaunch-2026q3" content="resell-settlement-excel-limits" />
+
+## Frequently asked questions
+
+**How should a reseller organize settlements in a spreadsheet?**
+Record one event per row. Purchase, intake, sale, settlement confirmation, and return each get their own row, and corrections are appended as new rows rather than typed over old cells. Keep the raw channel export untouched and do all normalization in a separate sheet — that untouched copy is the only reference you will have when the numbers stop matching.
+
+**Which costs do resellers most often forget when calculating margin?**
+Beyond the selling fee: outbound and return shipping, packaging, cancellation and return costs, promotion or coupon contributions, and the incidental costs attached to the purchase. All of them are finalized on the settlement date rather than the sale date, which is why a margin computed on the sale date is almost always too optimistic.
+
+**Every channel exports a different settlement file format. How do I merge them?**
+Reconcile the meaning of each amount before matching column names. Write down, once per channel, whether the figure is gross or expected payout, whether tax is included, and whether cancellations arrive as negative rows or in a separate file. That one-time document removes a judgment call you would otherwise repeat every month.
+
+**When does a reseller inventory spreadsheet stop working?**
+When the number of distinct file formats grows, not the number of transactions. Past two formats, with settlements confirming days or weeks after the sale, the time spent finding why numbers disagree exceeds the time spent merging them. If you sell on one channel with low volume, a spreadsheet is still the fastest tool.
+
+**Is there a tool I can use right now to manage reseller stock and settlements?**
+Resell Ops, the tool we are building, has no installable build yet. Stock, order, and settlement features are still in development and nothing is usable at this point. The spreadsheet changes described in this post are deliberately limited to what you can apply today without any tool.
+
+---
+
+> If where your data lives matters to you, read [Why We Decided the Server Should Never Hold Your Channel Password](/en/blog/resell-ops/local-execution-first-design) next.
+
+> This is a product in development. There is no installable build yet, and the stock, order, and settlement features are still being built.
+> We are not affiliated with any channel. Channel terms of service may restrict automated access, and that judgment and its risk rest with the user.

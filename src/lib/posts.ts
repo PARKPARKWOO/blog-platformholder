@@ -15,12 +15,19 @@ export interface HowToStep {
   text: string;
 }
 
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 export interface PostMeta {
   slug: string;
   service: ServiceSlug;
   title: string;
   description?: string;
   publishedAt: string;
+  /** 본문 개정일. 없으면 publishedAt 을 최종 수정일로 본다 (lastModifiedOf) */
+  updatedAt?: string;
   tags: string[];
   locale: Locale;
   canonical?: string;
@@ -28,8 +35,13 @@ export interface PostMeta {
   ogImage?: string;
   type?: "article" | "howto";
   howToSteps?: HowToStep[];
+  faq?: FaqItem[];
+  /** 글 상단 TL;DR 요약. JSON-LD abstract 로도 나간다 */
+  keyTakeaways?: string[];
   totalTime?: string;
   author?: string;
+  /** 본문을 함께 읽은 경우에만 채워진다 (getPost) */
+  wordCount?: number;
   url: string;
 }
 
@@ -39,25 +51,84 @@ function buildUrl(locale: Locale, service: ServiceSlug, slug: string) {
   return `/${locale}/blog/${service}/${slug}`;
 }
 
+// YAML 은 따옴표 없는 `2026-05-04` 를 Date 로 파싱한다. 문자열/Date 둘 다 YYYY-MM-DD 로 정규화
+function parseDate(value: unknown): string | undefined {
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return value.toISOString().slice(0, 10);
+  }
+  if (typeof value === "string" && value.trim().length > 0) return value.trim();
+  return undefined;
+}
+
+/**
+ * frontmatter 의 문자열 필드 정규화.
+ *
+ * 빈 문자열(`ogImage: ""` 처럼 키만 있고 값이 없는 경우)은 `undefined` 로 낮춘다.
+ * `""` 를 그대로 두면 `meta.ogImage ?? 폴백` 같은 nullish 폴백이 살아나지 않아
+ * 공유 카드 이미지가 빈 URL 로 깨진다.
+ */
+function parseOptionalString(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : undefined;
+}
+
+function parseStringArray(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const items = value.filter((v): v is string => typeof v === "string" && v.length > 0);
+  return items.length > 0 ? items : undefined;
+}
+
+function parseFaq(value: unknown): FaqItem[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const items = value.filter(
+    (f): f is FaqItem =>
+      typeof f === "object" &&
+      f !== null &&
+      typeof (f as Partial<FaqItem>).question === "string" &&
+      typeof (f as Partial<FaqItem>).answer === "string"
+  );
+  return items.length > 0 ? items : undefined;
+}
+
+// 마크다운 장식·코드 블록을 걷어낸 뒤 공백 토큰 수를 센다 (한국어는 어절 기준)
+function countWords(markdown: string): number {
+  const plain = markdown
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`\n]*`/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/[#>*_~|-]+/g, " ");
+  return plain.split(/\s+/).filter(Boolean).length;
+}
+
+/** 최종 수정일. updatedAt 이 없으면 publishedAt 으로 폴백 */
+export function lastModifiedOf(post: PostMeta): string | undefined {
+  return post.updatedAt || post.publishedAt || undefined;
+}
+
 function parsePostMeta(
   locale: Locale,
   service: ServiceSlug,
   slug: string,
-  data: Record<string, unknown>
+  data: Record<string, unknown>,
+  content?: string
 ): PostMeta {
   return {
     slug,
     service,
-    title: typeof data.title === "string" ? data.title : slug,
-    description: typeof data.description === "string" ? data.description : undefined,
-    publishedAt: typeof data.publishedAt === "string" ? data.publishedAt : "",
+    title: parseOptionalString(data.title) ?? slug,
+    description: parseOptionalString(data.description),
+    publishedAt: parseDate(data.publishedAt) ?? "",
+    updatedAt: parseDate(data.updatedAt),
     tags: Array.isArray(data.tags)
       ? (data.tags.filter((t) => typeof t === "string") as string[])
       : [],
     locale,
-    canonical: typeof data.canonical === "string" ? data.canonical : undefined,
+    canonical: parseOptionalString(data.canonical),
     hreflang: (data.hreflang as PostMeta["hreflang"]) ?? undefined,
-    ogImage: typeof data.ogImage === "string" ? data.ogImage : undefined,
+    // 빈 값이면 undefined → 동적 OG 라우트(/og/{service}/{slug}) 폴백이 살아난다
+    ogImage: parseOptionalString(data.ogImage),
     type: data.type === "howto" ? "howto" : "article",
     howToSteps: Array.isArray(data.howToSteps)
       ? (data.howToSteps.filter(
@@ -65,8 +136,11 @@ function parsePostMeta(
             typeof s === "object" && s !== null && "name" in s && "text" in s
         ) as HowToStep[])
       : undefined,
-    totalTime: typeof data.totalTime === "string" ? data.totalTime : undefined,
-    author: typeof data.author === "string" ? data.author : undefined,
+    faq: parseFaq(data.faq),
+    keyTakeaways: parseStringArray(data.keyTakeaways),
+    totalTime: parseOptionalString(data.totalTime),
+    author: parseOptionalString(data.author),
+    wordCount: content !== undefined ? countWords(content) : undefined,
     url: buildUrl(locale, service, slug),
   };
 }
@@ -128,7 +202,7 @@ export async function getPost(
     try {
       const raw = await fs.readFile(filepath, "utf8");
       const { data, content } = matter(raw);
-      return { meta: parsePostMeta(locale, service, slug, data), content };
+      return { meta: parsePostMeta(locale, service, slug, data, content), content };
     } catch {
       continue;
     }

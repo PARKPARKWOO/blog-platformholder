@@ -1,122 +1,179 @@
 ---
-title: "Generate Interview Questions From Your Resume + a Job Posting (Mirror-View 5-Minute Guide)"
+title: "How to Generate Your Own Interview Questions From a Job Posting + Your Resume"
 slug: create-interview-questions
 service: mirror-view
 type: howto
-publishedAt: 2026-04-23
+publishedAt: "2026-04-23"
+updatedAt: "2026-07-25"
 author: platformholder
-tags: [mirror-view, ai-interview, resume-review, custom-questions, job-search, guide]
-description: "Stop practicing on generic question lists. Get personalized interview questions from your resume + a real job posting in 5 minutes with Mirror-View."
+tags: [mirror-view, interview-questions, interview-prep, job-description, jd-analysis, job-search, guide]
+description: "Interview questions come from the posting you applied to, not a list of 100 generic ones. A 5-step method to build 8-12 likely questions in about 30 minutes."
 canonical: https://blog.platformholder.site/en/blog/mirror-view/create-interview-questions
 hreflang:
   ko: https://blog.platformholder.site/ko/blog/mirror-view/create-interview-questions
   en: https://blog.platformholder.site/en/blog/mirror-view/create-interview-questions
-totalTime: PT5M
+totalTime: PT30M
 howToSteps:
-  - name: "Step 1 — Sign up via Kakao or Naver OAuth"
-    text: "Open Mirror-View on the app or web and sign in with Kakao or Naver in seconds."
-  - name: "Step 2 — Upload your resume PDF"
-    text: "From Profile, tap 'Add resume' and upload a PDF. Add a portfolio PDF too if you have one."
-  - name: "Step 3 — Add the job posting (JD)"
-    text: "In the JD menu, tap 'New posting' and either paste the job description text or paste the URL."
-  - name: "Step 4 — Request a question set"
-    text: "Pick a resume + a JD + number of questions and request generation. Async processing takes about 1–3 minutes."
-  - name: "Step 5 — Review questions, model answers, tips, and start practicing"
-    text: "Each question shows category, difficulty, a model answer, and an interview tip."
+  - name: "Step 1 — Copy 5–10 requirement lines verbatim from the posting"
+    text: "Open the posting's 'requirements' and 'responsibilities' sections and paste 5–10 lines into a document word for word. Do not summarize them."
+  - name: "Step 2 — Attach one line of resume evidence to each requirement"
+    text: "Next to each requirement, copy the sentence from your own resume that backs it up. If you can't find one, leave the cell blank."
+  - name: "Step 3 — Turn filled rows into depth questions and blank rows into gap questions"
+    text: "Rows with evidence become 'what was the hardest trade-off' style depth questions. Blank rows become 'how will you close this' style gap questions."
+  - name: "Step 4 — Draft a 60-second answer skeleton per question"
+    text: "Write four lines per question: situation, action, result, and the link back to the posting. Memorize the four lines, not the sentences."
+  - name: "Step 5 — Say the answer out loud, then read it back as text"
+    text: "Answer without looking at the skeleton, then transcribe what you said and check for phrases that repeat no matter which company you're talking about."
+feature_truth_synced_at: "2026-07-25"
+feature_truth_refs:
+  - live_interview_stt
+keyTakeaways:
+  - "Most interview questions are built by walking down the job posting's requirement list, so copying 5–10 requirement lines verbatim gives you the skeleton of the questions you'll actually be asked."
+  - "Attaching one line of resume evidence to each requirement splits your prep in two: rows with evidence become depth questions, and blank rows become gap questions."
+  - "Preparing 8–12 questions tied directly to the posting — each with a 60-second answer skeleton — is a better use of time than skimming 30 generic questions."
+  - "Reviewing answers by reading silently doesn't work; say the answer out loud and transcribe it, and the phrases you reuse at every company become countable."
+  - "The only Mirror-View feature currently available is in-browser speech-to-text on the web interview practice screen, and it runs only in WebGPU-capable browsers such as recent Chrome and Edge."
+faq:
+  - question: "How do I come up with likely interview questions?"
+    answer: "Start by copying 5–10 lines verbatim from the posting's requirements and responsibilities. Put your own resume's supporting sentence next to each line. Rows with evidence turn into depth questions, blank rows turn into gap questions — and that table is far closer to the real interview than any generic list."
+  - question: "Can I build interview questions from a job posting alone?"
+    answer: "The posting gets you halfway. It tells you what will be verified; your resume decides how deep the verification goes. You need both documents side by side, matched requirement against evidence, before the questions get specific."
+  - question: "How many interview questions should I prepare per company?"
+    answer: "Eight to twelve is usually enough. Postings tend to carry 5–10 real requirement lines, and each line yields one or two questions. Finishing ten questions with 60-second answer skeletons beats skimming thirty."
+  - question: "How do I check my answers when I'm practicing alone?"
+    answer: "Say the answer out loud, then read the transcript. Answers always feel fluent inside your head, but a transcript shows exactly how many times filler words like 'passionate' or 'growth' appear and whether the answer runs past 60–90 seconds."
+  - question: "What can I actually use in Mirror-View today?"
+    answer: "One thing: the web interview practice screen (`/interview`) opens without a login and converts what you say into text inside the browser. It requires a WebGPU-capable browser such as recent Chrome or Edge, and the first run downloads a speech recognition model. Resume review, question generation, and quizzes are still in development."
 ---
 
-If your interview answers always sound the same, it's not a willpower problem.
+If your interview answers always sound the same, it isn't a willpower problem.
 
 **You've been training on generic question lists.**
 
-Real interviewers ask whether you fit *their* JD — and that needs personalized prep.
+This guide shows how to build 8–12 likely interview questions from two documents you already have — the job posting and your resume. Once you've done it a couple of times it takes about 30 minutes per company, with no tools involved.
 
-**Mirror-View** turns your resume + a real job posting into a tailored interview question set.
+## How interviewers actually build questions
 
-**5 minutes from sign-up to your first set.**
+**Interview questions are mostly built by walking down the requirement list the company already wrote.** They aren't improvised on the spot — they follow a document that exists before you walk in.
 
-## Why personalized questions matter
+That's especially true in role-based hiring. The requirements for the seat are already written in the posting, and the interviewer brings that document into the room. So the thinking usually runs like this:
 
-"Top 100 interview questions" lists lack depth — interviewers care about whether you fit *their* posting.
+1. Read this candidate's resume
+2. Mark which lines of our posting overlap with it
+3. For overlapping lines, build a question that tests whether the depth is real
+4. For non-overlapping lines, build a question about how they'd close the gap
 
-Same role, same company — a different JD wording shifts the focus.
+Steps 3 and 4 are what matter to you: they split questions into two types. Doing that split in advance cuts your prep roughly in half.
 
-<Callout type="important">
-  Without knowing your resume's weak areas, you'll keep getting stuck in the same spots.
+<Callout type="important" title="Why '100 common questions' underperforms">
+  Generic lists only contain items that work for every company and every role. Step 2 above — matching against a specific posting — is missing entirely, so the answers you rehearse come out identical wherever you go. From the interviewer's seat that reads as "this person didn't read our posting."
 </Callout>
 
-## 5-step guide
+## The 30-minute, 5-step method
 
 <Steps>
-  <Step title="Step 1 — Sign up (Kakao / Naver OAuth)">
-    Open the Mirror-View app.
+  <Step title="Step 1 — Copy 5–10 requirement lines verbatim">
+    **Copy, don't summarize.** The moment you paraphrase, the posting's own vocabulary disappears — and that vocabulary is the raw material for the questions.
 
-    Sign in with Kakao or Naver in seconds.
+    Open a document and paste 5–10 lines from the posting's "requirements" and "responsibilities" into the left column, word for word.
+
+    - Include the "nice to have" lines — they often produce the questions that separate candidates
+    - Drop boilerplate lines like "strong communication skills" — no verifiable question comes out of them
+    - Always keep lines that name a specific tool or technology
+
+    Time: 5 minutes
   </Step>
 
-  <Step title="Step 2 — Upload your resume PDF">
-    Profile → "Add resume" → pick the PDF.
+  <Step title="Step 2 — Attach one line of resume evidence to each requirement">
+    In the right column, paste **a sentence that already exists in your resume**. Don't invent anything.
 
-    Adding a portfolio PDF improves accuracy.
+    | Posting requirement (verbatim) | My resume evidence (verbatim) |
+    |---|---|
+    | "Experience designing APIs under high traffic" | "Designed and operated a payments API at ~3M requests/day" |
+    | "Experience with Kafka-based event processing" | *(blank)* |
+    | "Comfortable in a strong testing culture" | "Introduced integration tests; deploy rollbacks decreased" |
 
-    <Callout type="note">
-      Bilingual KO/EN resumes are fine — the AI handles both.
-    </Callout>
-  </Step>
-
-  <Step title="Step 3 — Add the job posting">
-    JD menu → "New posting", two options:
-
-    - **Paste the JD text**
-    - **Paste the URL** (auto-crawled)
+    If you can't find evidence, **leave it blank.** A blank isn't embarrassing — a blank becomes a question in step 3.
 
     <Callout type="tip">
-      The more detailed the requirements/preferred-skills/responsibilities, the more accurate the matching.
+      If you actually did the work but there's no sentence for it in your resume, that's a resume problem, not an interview problem. Add the line to your resume first.
     </Callout>
+
+    Time: 10 minutes
   </Step>
 
-  <Step title="Step 4 — Generate a question set">
-    Pick 1 resume + 1 JD + question count (10 / 15 / 20).
+  <Step title="Step 3 — Filled rows become depth questions, blanks become gap questions">
+    Convert each row into a question. There are only two rules.
 
-    Tap "Generate". Status flips to `PENDING` and back to `COMPLETED` in 1–3 minutes.
+    **Right column filled → depth question**
+    - "What was the hardest trade-off when you designed that API?"
+    - "At what point did 3M requests/day start to bottleneck, and what did you change?"
+    - "If you did it again, which decision would you make differently?"
 
-    **Watch a rewarded ad to use it for free**.
+    **Right column blank → gap question**
+    - "You haven't worked with Kafka — how would you pick it up after joining?"
+    - "Have you solved a similar problem with a different tool?"
+
+    Each requirement yields one or two questions, so 5–10 lines produce **8–12 questions**. That's your company-specific question set.
+
+    Time: 10 minutes
   </Step>
 
-  <Step title="Step 5 — Review + practice">
-    Each question shows:
+  <Step title="Step 4 — Draft a 60-second answer skeleton per question">
+    Don't write full sentences. Write **four lines**. If you memorize prose, one missing word collapses the whole answer.
 
-    - **Category**: technical / experience / behavioral / scenario
-    - **Difficulty**: ★ ★ ★
-    - **Model answer** (a starting point)
-    - **Interview tip** (what to emphasize)
+    1. **Situation** — when, under what constraints
+    2. **Action** — one decision you actually made
+    3. **Result** — with a number where possible
+    4. **Link** — which line of *this* posting it maps to
 
-    Practice options:
-    - Type answers — feed weakness analysis
-    - **Real-time AI mock interview** (voice and video, rolling out progressively)
+    The fourth line is the one that matters. With it, the same experience produces a different answer at every company.
+
+    For gap questions, two lines are enough: **acknowledge + plan**. "I haven't done that yet" followed by "I've handled a similar problem with ○○, and I plan to get through ○○ before I start."
+
+    Time: 2–3 minutes per question
+  </Step>
+
+  <Step title="Step 5 — Say it out loud, then read the transcript">
+    **Silent reading is not review.** Inside your head the sentences always connect smoothly.
+
+    Cover the skeleton, answer out loud, then transcribe what you said and read it back. Check three things:
+
+    - Did it finish inside 60 seconds? (If not, the situation setup is too long.)
+    - **How many sentences still make sense with the company name deleted?** If many do, line 4 (the link) is missing.
+    - How many times did "passionate", "growth", or "various" appear?
+
+    You can transcribe by hand or with a speech-to-text tool. What matters is getting **your spoken words into visible text**.
   </Step>
 </Steps>
 
-## Going further
+## We're building a tool to automate this
 
-**Weakness analysis**
+The five steps above take 30 minutes per company. Five applications is two and a half hours, and a changed posting means starting over. **Mirror-View** is what we're building to shrink that loop.
 
-After 5+ submissions, your **home dashboard** shows top-5 weakness keywords as data.
+The idea is to run steps 1–3 for you from a resume and a posting. **What's publicly available right now is one piece of step 5.**
 
-You'll know exactly what to drill.
+On the web interview practice screen ([web.mirror-view.platformholder.site/interview](https://web.mirror-view.platformholder.site/interview?utm_source=blog&utm_medium=organic&utm_campaign=mv-2026q3&utm_content=create-interview-questions)) you can open the page without signing in, press the mic button, speak your answer, and see it converted to text inside the browser. The audio is processed in the browser and is not sent to a server.
 
-**Attendance streak**
+<Callout type="warning" title="Before you try it">
+  - **It only runs in WebGPU-capable browsers** (recent Chrome, Edge, and similar). On unsupported browsers the model-loading screen never finishes.
+  - The first run downloads a speech recognition model, so expect a wait and some data usage.
+  - The converted text is shown in an input field and is not saved. Copy it out if you want to keep it.
+  - There's a length limit per recognition pass, so it works better if you speak in paragraph-sized chunks.
+</Callout>
 
-One visit a day builds a streak with milestone rewards.
+Resume review, automatic question generation, and quiz-based weakness analysis are **still in development**, so this post doesn't walk through screens for them. We'll post when they're ready.
 
-**Resume review**
-
-Request a review on the same resume for instant section-by-section strengths/weaknesses.
+<KakaoChatCta locale="en" campaign="mv-2026q3" content="create-interview-questions" />
 
 ## Wrap-up
 
-The hard part of prep is knowing *what* to practice.
+The hard part of interview prep is knowing **what to practice**.
 
-Mirror-View gives you that starting point in 5 minutes.
+The moment you copy 5–10 requirement lines verbatim and attach your resume evidence, the practice list appears in front of you. It's something you can do today, with no tool at all.
 
-**Search 'Mirror-View' on the App Store / Google Play**
+> Wondering why answers repeat in the first place? [Why your interview answers always sound the same](/en/blog/mirror-view/why-same-interview-answers)
+
+---
+
+*This post is published by platformholder, the team building Mirror-View, and describes our own service.*

@@ -1,0 +1,143 @@
+---
+title: "Why the Watcher Stops at the Alert — Cutting Auto-Booking From v1"
+slug: why-we-stop-at-the-alert
+service: public-data
+type: article
+publishedAt: "2026-07-25"
+updatedAt: "2026-07-25"
+author: platformholder
+tags: [public-data, devlog, architecture, buildinpublic, seat-monitoring, side-project]
+description: "The first question a seat-watching tool gets is whether it books the ticket for you. This is the design record of why that was cut from v1, what was built instead, and what each choice costs."
+canonical: https://blog.platformholder.site/en/blog/public-data/why-we-stop-at-the-alert
+hreflang:
+  ko: https://blog.platformholder.site/ko/blog/public-data/why-we-stop-at-the-alert
+  en: https://blog.platformholder.site/en/blog/public-data/why-we-stop-at-the-alert
+totalTime: "PT11M"
+keyTakeaways:
+  - "Deciding not to hold booking-account credentials removes auto-booking as an option automatically, because a read-only lookup client has no login or reservation calls in it at all."
+  - "A lookup path built on an unofficial protocol is not an availability contract: endpoints, response codes, and seat flags can change without notice, so no success rate and no outcome promise can be published."
+  - "Limiting observations to AVAILABLE, SOLD_OUT, and UNKNOWN keeps timeouts, blocks, and response-format changes from being promoted into a seat-found alert (in development)."
+  - "Provider load should be grouped by number of conditions, not number of users — identical conditions are queried once and the result fanned out to every subscription (in development)."
+  - "Target polling narrows to 5 minutes, 1 minute, and 20 seconds as departure approaches, but the safety limits deliberately outrank the target interval (in development)."
+faq:
+  - question: "Can a seat-alert service book the ticket for me?"
+    answer: "This one deliberately does not, and that was cut from the v1 scope. Booking on someone's behalf requires their booking-account credentials, and the earlier decision was to never receive or store those. The alert is where the service's part ends; you open the booking screen yourself."
+  - question: "Doesn't a monitoring tool like this hammer the provider?"
+    answer: "Reducing that load was the central design constraint. A shared global call limit caps concurrent lookups, identical conditions are queried once and fanned out to many subscriptions, and three consecutive errors of the same class open a circuit that backs off from 1 minute up to 15 minutes — all in development. Nothing is built to get around rate limits or access controls."
+  - question: "Can a service built on an unofficial API just stop working?"
+    answer: "Yes. Endpoints, query keys, response codes, and seat flags can change without notice, and none of that is treated as an availability contract. That is why the product description states up front that lookups can be delayed or stop."
+  - question: "Is the seat monitoring real time?"
+    answer: "It is not real time. The design narrows the target interval to 5 minutes, 1 minute, or 20 seconds depending on time to departure, and provider-protection limits take priority over that target. The intervals are goals, not guarantees."
+  - question: "Can I try it now?"
+    answer: "Not yet. There is no deployed address and no signup path. The current code does not perform a single seat lookup when you run it, and this post is a design record rather than a launch announcement."
+---
+
+Whenever I describe a tool that watches sold-out trains, the first question is always the same.
+
+**"So does it get the ticket for you?"**
+
+No. This post is the record of how that answer was decided. It is not a feature tour — it is about **what got cut and what that cost** — and everything described here is a design still **in development**, not deployed.
+
+## The conclusion: the ceiling of what can be promised is "watch and tell you"
+
+What a product can promise is set by **what it controls**, not by what it can implement. Looking up seat status is inside my control. Whether that seat ends up with the person who got the alert is not. So the promise boundary was drawn not between observation and notification, but **between notification and booking**.
+
+That single line is the scope declaration: watch on your behalf, notify once, stop there.
+
+## Decision 1. Refusing credentials removes auto-booking by itself
+
+The first thing settled was not "what should this build" but **"what should this never hold"**. The moment you decide not to receive booking-account credentials, booking on the user's behalf disappears from the option set, because buying a ticket for someone requires the account permissions you just refused.
+
+That decision shows up in the code. The lookup client written for the first provider has no login, reservation, or cancellation calls in it. A capability that does not exist cannot be switched on by mistake.
+
+<Callout type="note" title="The trade-off">
+The cost is obvious: it moves the product **one step away from the outcome users actually want**, which is a ticket. "We only send an alert" is a weaker pitch than "we buy it for you". But accepting account permissions means the user and I jointly carry the risk — responsibility if the account is misused, retention questions, blast radius on a leak. That is not a risk a solo side project should be asking anyone to take.
+</Callout>
+
+## Decision 2. An unofficial protocol is not an availability contract
+
+The lookup path used by the first provider is not an official Open API. Endpoints, query keys, response codes, and seat flags **can change without notice**. That fact was treated not as a risk footnote but as the **ceiling on every product claim**.
+
+The rules that follow are simple:
+
+- No success rates. There is no observation data to base one on.
+- No "always works". Lookups can be delayed or stop for reasons on the provider's side.
+- So the product description says **"this can stop"** first, not last.
+
+The moment copy runs ahead of code, the copy becomes a lie. Pre-launch content is where that rule is hardest to keep.
+
+## Decision 3. Never mistake a failure for an open seat
+
+The most damaging bug in a watcher is treating a failed lookup as a discovery. The user gets an alert, opens the booking screen, and finds nothing. Two or three of those and the alerts are worthless.
+
+So the contract in development limits what a provider may hand the core to **three values: `AVAILABLE`, `SOLD_OUT`, `UNKNOWN`**. Timeouts, blocks, and response-format changes all become `UNKNOWN`, and there is no path that promotes `UNKNOWN` into an alert.
+
+The trade-off: **if a real seat existed during a response we could not parse, that chance passes by.** Given a choice between a missed seat and a false alert, the missed seat wins. A false alert spends the user's time, and that spend is never refunded.
+
+## Decision 4. Group provider load by conditions, not by users
+
+Monitoring tools burden providers not because they have many users, but because **they query separately for each user**. So the unit of a lookup moved from user to condition.
+
+The structure in development has three layers.
+
+1. **A shared global call limit** — not a per-process in-memory limiter, but a store-backed lease that several workers draw from. Adding instances does not multiply the calls the provider receives.
+2. **Duplicate-condition elimination** — `provider + criteria version + HMAC of the normalized criteria` forms a unique key, so however many people register the same condition, it is looked up once and the result is fanned out to every subscription.
+3. **Circuit breaking** — three consecutive errors of the same class open the circuit and back off 1 → 2 → 4 → 8 minutes, up to 15. When the provider signals strain, the answer is to slow down, not to knock harder.
+
+Nothing is built to get around rate limits or access controls. The chosen posture is **watching patiently rather than knocking fast**.
+
+## Decision 5. Narrow the interval, but let safety limits outrank it
+
+Seat status changes more often as departure approaches, so the polling interval narrows with time to departure (in development).
+
+- More than **24 hours** to departure — target interval `5 minutes`
+- **2 to 24 hours** to departure — target interval `1 minute`
+- **Under 2 hours** to departure — target interval `20 seconds`
+
+Up to 10% jitter is added on top so that many watches do not fire in the same second.
+
+One caveat matters: **these are target intervals, not guaranteed ones.** The global call limit and the circuit breaker take priority over them. When a limit is hit, the 20-second interval is not honoured — and that is correct behaviour. It is also why this cannot be called real time.
+
+## Decision 6. Alert once, then pause the watch itself
+
+The second way an alert service loses people is by never shutting up. Seat status flips within seconds, so alerting on every observation would flood the notification tray.
+
+So the state machine in development **sends one alert and automatically pauses the watch** when a seat is seen. What happens next is the user's call: the alert carries exactly three buttons — `Booked`, `Retry`, `Stop`.
+
+The channel boundary was settled alongside it. Creating and editing watch conditions happens on the web only; Telegram is **for receiving alerts and answering those three buttons** (in development — the bot has not been created and the integration is disabled by default). Accepting conditions through chat invites misparsing, and a misparsed condition becomes a silently wrong watch.
+
+Delivery itself can fail too, so the design (in development) writes sends to an outbox and retries at 1 minute, 5 minutes, 15 minutes, 1 hour, and 6 hours, up to five attempts. None of this has run yet — no alert has ever been sent.
+
+## Decision 7. Delete it when it is over
+
+A watch condition is a travel plan. When and from where to where, in a single row. So the raw criteria are stored encrypted, and deduplication runs on an HMAC key rather than the plaintext.
+
+Retention is fixed in code as well (in development):
+
+- Finished watches and history: deleted after **30 days**
+- Temporary data such as link codes, invitations, and one-time tokens: deleted after **24 hours**
+
+Giving up the convenience of "we can show it to you again later" was the price for leaving less behind after someone stops using the service.
+
+## Where it stands: it has never looked up a single seat
+
+Stated plainly: **the service does not work yet.**
+
+- No provider adapter is registered, so the catalog is empty and the readiness check fails on purpose. The worker loop does not start until that check passes.
+- In other words, running the current code performs no seat lookup at all.
+- There is no deployed address, no signup path, and no Telegram bot.
+- What remains: connecting the provider, registering the bot, running production migrations, and deploying.
+
+On top of that, **the scope may shrink or the project may stop.** The lookup path is an unofficial protocol, and the terms-of-use review can change the plan. Saying that now, inside the design record, seems better than saying it later in an apology.
+
+## So what is being built
+
+Public Data Service is a public-data monitoring service **in development**: register a set of conditions once on the web, and the goal is that it checks seat status on a periodic schedule and sends a single Telegram alert when a seat becomes visible. It does not book, pay, or store rail accounts. The first provider is a single one — Korail's published train seat lookup — and expanding to other data sources is outside the v1 scope.
+
+For what you can do today without any tool, see [what to check instead of refreshing](/en/blog/public-data/sold-out-train-cancellation-guide).
+
+Launch news and further build notes go to the open chat first. If you want to hear when it ships, come say hello below.
+
+<KakaoChatCta locale="en" campaign="public-data-prelaunch" content="why-we-stop-at-the-alert" />
+
+> This is an individual side project. It is not affiliated with, endorsed by, or partnered with Korail, the Korean public data portal, or any government body. It is in development and not available yet.

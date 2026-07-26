@@ -31,6 +31,9 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next|api|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|txt|xml|json|woff|woff2|ttf|otf)).*)",
+    // `r/` = 마케팅 단축 링크(`/r/[slug]`). 로케일 prefix 가 없는 게 정상이므로
+    // 로케일 리다이렉트 대상에서 제외한다. 제외하지 않으면 `/r/kakao` 가
+    // `/ko/r/kakao` 로 넘어가 404 가 된다.
+    "/((?!_next|api|r/|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|txt|xml|json|woff|woff2|ttf|otf)).*)",
   ],
 };

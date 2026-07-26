@@ -1,0 +1,178 @@
+---
+title: "Why We Decided the Server Should Never Hold Your Channel Password"
+slug: local-execution-first-design
+service: resell-ops
+type: article
+publishedAt: "2026-07-25"
+updatedAt: "2026-07-25"
+author: platformholder
+tags: [resell-ops, design-note, local-first, privacy, seller-tools, build-log]
+description: "Most seller tools ask for your channel account. We chose the opposite: execution stays on your own computer. The design reasoning, and what that choice costs us."
+canonical: https://blog.platformholder.site/en/blog/resell-ops/local-execution-first-design
+hreflang:
+  ko: https://blog.platformholder.site/ko/blog/resell-ops/local-execution-first-design
+  en: https://blog.platformholder.site/en/blog/resell-ops/local-execution-first-design
+keyTakeaways:
+  - "A delegation model where the vendor's server signs in on your behalf is convenient, but it makes one server breach reach every user's channel account at once."
+  - "Putting execution on the user's own computer keeps channel sessions off the cloud, at the cost that nothing runs at all while that computer is off."
+  - "Resell Ops is designed to keep the device private key in the OS secure store (macOS Keychain / Windows DPAPI) and send only the public key to the server; it is in development and not deployed."
+  - "'We collect nothing' would be inaccurate: the server stores a license identifier, device metadata, a job ledger, and error metadata with no original text."
+  - "The first release scope was drawn at zero outbound requests to any channel — local validation of files the user downloaded themselves, capped at 5 MiB and 10,000 rows."
+faq:
+  - question: "Is it safe to type my channel account password into a seller tool?"
+    answer: "That call is yours, but three things are worth confirming first: where the password and session are stored, whether the vendor's server signs in to the channel on your behalf, and how far the impact reaches if that server is breached. Resell Ops is designed so channel passwords, cookies, and sessions are never stored on our servers — though it is still in development, so there is no build for you to verify that against."
+  - question: "How is a locally executed program different from a cloud service?"
+    answer: "The difference is who executes. In a cloud delegation model the vendor's server performs the work using your account; in a local execution model your own computer does. The trade is that nothing progresses while your computer is off, and installation, updates, and OS compatibility remain a burden on both sides."
+  - question: "Can a reselling automation tool get my channel account suspended?"
+    answer: "The possibility cannot be ruled out, and no tool can promise otherwise. Channel terms of service may restrict automated access, and that judgment and its risk rest with the user. We do not build purchase automation, raffle entry, stock-grabbing, detection evasion, or CAPTCHA/OTP handling, and the first release scope sends zero requests to any channel."
+  - question: "Is Resell Ops an official service of any marketplace?"
+    answer: "No. We have no partnership or affiliation with any channel and no endorsement from any of them. We are building an independent tool that helps a seller organize their own sales records."
+  - question: "Can I install and try it now?"
+    answer: "Not yet. Windows code signing and macOS Developer ID notarization are not complete, so no installable build exists at all. The stock, order, and settlement ledger is also still in development. We will announce it on this blog and in the open chat when that changes."
+---
+
+Right before paying for a seller tool, the careful ones stop at the same question.
+
+**"Where does this program keep my account?"**
+
+Feature pages rarely answer it. They say "stored securely" and stop there — not where, not in what form. We treated that question as the product's first design decision. What follows is the reasoning, and everything the choice costs us.
+
+<Callout type="note" title="Summary">
+- A delegation model concentrates breach impact across every user's channel account
+- So we put the execution on the **user's own computer**
+- The cost: nothing runs while that computer is off. This is not unattended operation
+- "We collect nothing" is not true, so we do not say it — the storage boundary is a table below
+- There is no installable build yet. What we can publish today is the design reasoning only
+</Callout>
+
+## Why delegation feels good, and what it leaves behind
+
+**A model where the vendor's server connects to the channel for you has a far better user experience.** No installation, it keeps running when your machine is off, and any browser can check on it. Those advantages are real.
+
+The problem is that the whole price of that convenience is paid on the credential side.
+
+1. **A storage surface appears.** To sign in for you, the server has to keep a password or a session cookie in some form. Even encrypted, somewhere inside the service there is a place that can decrypt it.
+2. **The session leaves your hands.** Once the logged-in state lives somewhere other than your device, your ability to see what ran and when shrinks.
+3. **The blast radius becomes everyone.** One compromised server means every channel account belonging to every user of that service. However careful an individual user is, they carry a risk that was never theirs.
+
+For a solo reseller, the channel account is the asset the stock and settlement history hangs on. We chose not to pool that risk on our servers.
+
+## So execution runs on the user's computer
+
+**The executor is a desktop program on the user's machine; the server keeps the ledger and the status view only.** In our own docs we call this decision local-execution-first.
+
+Concretely, the line falls here.
+
+- Channel sign-in and security checks (OTP, CAPTCHA, and so on) are done **by the user, in a browser they can see**. We do not handle them on your behalf.
+- The key that opens a device is an Ed25519 keypair generated on the user's computer. The private key stays encrypted in the OS secure store (macOS Keychain / Windows DPAPI), and **only the public key goes to the server**.
+- The server's device table holds the public key only. There is no column for a channel password, cookie, or session — the slot was never created.
+- The activation key (a 256-bit random value) is not stored in its original form; only a versioned HMAC digest is kept.
+
+A server-side execution target exists in the code as an enum and an interface, reserved but switched off for the commercial scope. If it is ever going to be turned on for convenience, the default has to be *off* from the start.
+
+## What this choice costs
+
+A design note that lists only the upside is an advertisement. Here is the downside.
+
+- **Nothing runs while the computer is off.** This is not 24/7 unattended operation. That is not a bug; it is the definition of the design.
+- **Installation and updates stay a burden.** The starting cost is higher than a service you simply open in a browser.
+- **The supported surface narrows.** Windows 11 64-bit, Windows 10 22H2 (ESU only), and macOS 13+. Mobile-only sellers are not the target.
+- **Distribution itself becomes a project.** Windows code signing and macOS Developer ID notarization must be finished before an installable artifact exists. **We have not finished that step.**
+- **Today the agent path is closed in the production profile.** The signature verifier is not implemented yet, and rather than leaving the path open while it is missing, requests are rejected outright (fail-closed). The current state is not "works loosely" — it is "does not work."
+
+## What the server stores, and what it does not
+
+**"We collect nothing" is not a true statement, so we do not use it.** The precise boundary looks like this.
+
+| Never stored on the server | Stored on the server |
+|---|---|
+| Channel login passwords | License identifier (a public ID registered without a platform account) |
+| Channel session cookies / login state | Device public key and device metadata (OS, version) |
+| Device private key (OS secure store only) | Job ledger (when a job was created, completed, or failed) |
+| Activation key in original form | HMAC digest of the activation key |
+| Original error message, stack trace, file path | Error category, severity, timestamp, sha256 fingerprint |
+| Original cell values from settlement files | — |
+
+Error diagnostics are built without original text for the same reason. The moment raw messages and paths enter diagnostic data, product names, order numbers, and file paths ride along with them. **Refusing the original text means diagnostics can never be all-knowing.** It also means nothing leaves the machine that the user did not expect. We took the second one.
+
+## Why the first release scope is "zero requests to any channel"
+
+**The first release scope is drawn at the point where zero requests go out to a channel's servers.**
+
+Connectors are **designed** so that they cannot run arbitrary code: a release runs only when it matches the approved list exactly. Exactly one release is entered in that configured list, and it is pinned with **network egress switched off**. A kill switch that blocks an individual capability immediately was designed alongside it. As noted above, though, the signature verifier is unimplemented, so the production profile refuses this whole path fail-closed — the gate is not sitting there running anything today.
+
+So this is the whole of what step one is **designed** to do (🚧 not released — there is no installable build, so nobody can run it yet).
+
+- The user selects a file **they downloaded from the channel themselves**
+- The program validates it **inside the user's own computer** — encoding, header structure, duplicate order identifiers, totals that do not reconcile
+- Limits are 5 MiB per file and 10,000 data rows, across 36 kinds of issue it can flag
+- The result **carries no original cell values** — only an issue code, its scope, the row number, and the column name
+
+It does not pull orders in automatically. It does not fetch settlement files for you. It cannot: it does not send requests to the channel. It is a slow, unimpressive first step, but starting from the point of lowest account risk was the right call.
+
+<Callout type="warning" title="Loading validated files into the ledger is not built yet">
+The designed scope stops at **local validation**. Writing validated data into a stock or settlement ledger is still being built and does not work today.
+</Callout>
+
+## What we are not building
+
+Since this is a post about narrowing scope, here is what stays out. All of it is written into the product spec as a non-goal.
+
+- Automated purchasing, automated sourcing, one-click buying — **we do not build this.**
+- Drop entries and raffle automation — **we do not build this.**
+- Stock grabbing or securing inventory ahead of others — **we do not build this.**
+- Detection evasion, proxy or IP rotation, hiding automation traces — **we do not build this.**
+- Automated CAPTCHA solving, OTP entry, sign-in on your behalf — **we do not build this.**
+- Running multiple accounts at once, signing in as someone else — **we do not build this.**
+
+What is in scope is **the operational work a seller is already doing themselves**: recording stock, organizing orders, managing shipments, reconciling settlements, calculating profit.
+
+And even with the scope this narrow, **we cannot promise your account is safe.** Channel terms of service may restrict automated access, and that judgment and its risk rest with the user. Leaving that sentence in is the most honest thing we can do.
+
+## Where the build actually stands
+
+| Area | Status |
+|---|---|
+| Execution model and credential isolation design | 🚧 Code written, not deployed |
+| Device presence and job lifecycle | 🚧 Code written, blocked fail-closed in the production profile |
+| Account-free licensing, support inbox, error diagnostics | 🚧 Code written, not deployed |
+| Local file validation (step one) | 🚧 Validation designed; loading into the ledger not built |
+| **Product, stock, order, settlement, and profit ledger (the actual product)** | 🚧 **None of it implemented** |
+| Multi-channel consolidation and stock allocation | 📅 Design documents only |
+| Signed installer and auto-update | 📅 Not implemented — **no installable artifact** |
+
+Channel support is **planned** in the order KREAM → MUSINSA SOLDOUT → StockX. In code today, the first reaches only local file validation (🚧 specified and partially built, not deployed and not runnable), the second is refused because we have not obtained the export format the channel provides, and the third has no code at all because we are waiting on approval to use its public API. **We have no affiliation with any of the three.**
+
+We will not promise a launch date. We will publish the conditions instead: the ledger core, plus the pre-launch gates (a non-affiliation notice and a data-flow map), have to be finished first.
+
+## So what is being built
+
+To restate it plainly: we are building a tool (Resell Ops) for solo and small-team resellers that aims to bring purchases, stock, orders, settlements, and profit into a single ledger. Execution runs on the user's computer, the server keeps only the ledger and status view, and channel passwords, cookies, and sessions are not stored on our servers. **There is no installable build yet and the ledger itself is still in development, so nothing is usable today.** What we can do meanwhile is keep publishing how it is being built and why.
+
+We will say so here first when that changes. Launch notice and the biweekly build log go out in the open chat below.
+
+<KakaoChatCta locale="en" campaign="resell-ops-prelaunch-2026q3" content="local-execution-first-design" />
+
+## Frequently asked questions
+
+**Is it safe to type my channel account password into a seller tool?**
+That call is yours, but three things are worth confirming first: where the password and session are stored, whether the vendor's server signs in to the channel on your behalf, and how far the impact reaches if that server is breached. Resell Ops is designed so channel passwords, cookies, and sessions are never stored on our servers — though it is still in development, so there is no build for you to verify that against.
+
+**How is a locally executed program different from a cloud service?**
+The difference is who executes. In a cloud delegation model the vendor's server performs the work using your account; in a local execution model your own computer does. The trade is that nothing progresses while your computer is off, and installation, updates, and OS compatibility remain a burden on both sides.
+
+**Can a reselling automation tool get my channel account suspended?**
+The possibility cannot be ruled out, and no tool can promise otherwise. Channel terms of service may restrict automated access, and that judgment and its risk rest with the user. We do not build purchase automation, raffle entry, stock-grabbing, detection evasion, or CAPTCHA/OTP handling, and the first release scope sends zero requests to any channel.
+
+**Is Resell Ops an official service of any marketplace?**
+No. We have no partnership or affiliation with any channel and no endorsement from any of them. We are building an independent tool that helps a seller organize their own sales records.
+
+**Can I install and try it now?**
+Not yet. Windows code signing and macOS Developer ID notarization are not complete, so no installable build exists at all. The stock, order, and settlement ledger is also still in development. We will announce it on this blog and in the open chat when that changes.
+
+---
+
+> If you would rather start with why the numbers move every month, read [Why Your Reseller Settlement Spreadsheet Drifts Every Month](/en/blog/resell-ops/resell-settlement-excel-limits).
+
+> This is a product in development. There is no installable build yet, and the stock, order, and settlement features are still being built.
+> We are not affiliated with any channel. Channel terms of service may restrict automated access, and that judgment and its risk rest with the user.

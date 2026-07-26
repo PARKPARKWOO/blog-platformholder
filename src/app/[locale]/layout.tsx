@@ -7,7 +7,11 @@ import { getDictionary } from "@/lib/dict";
 import { SERVICES, VISIBLE_SERVICES } from "@/lib/services";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { CONTACT_LINKS } from "@/lib/publisher";
+import {
+  CONTACT_LINKS,
+  isKakaoChatEnabled,
+  kakaoChatUrl,
+} from "@/lib/publisher";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -131,6 +135,32 @@ export default async function LocaleLayout({
         </header>
         <main className="max-w-5xl mx-auto px-4 py-10">{children}</main>
         <footer className="border-t border-neutral-200 dark:border-neutral-800 mt-20">
+          {/* 전 서비스 공통 소통 채널. 링크 미확보 시 렌더하지 않는다 (publisher.ts 참고) */}
+          {isKakaoChatEnabled() && (
+            <div className="max-w-5xl mx-auto px-4 pt-8">
+              <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 rounded-xl border border-neutral-200 bg-neutral-50 px-5 py-4 dark:border-neutral-800 dark:bg-neutral-900">
+                <div>
+                  <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+                    {dict.kakaoChat.footerTitle}
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-neutral-600 dark:text-neutral-400">
+                    {dict.kakaoChat.footerBody}
+                  </p>
+                </div>
+                <a
+                  href={kakaoChatUrl({ medium: "footer", campaign: "global" })}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={dict.kakaoChat.ariaLabel}
+                  className="inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-semibold transition hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 dark:focus-visible:outline-neutral-100"
+                  style={{ backgroundColor: "#FEE500", color: "#191919" }}
+                >
+                  <span aria-hidden>💬</span>
+                  {dict.kakaoChat.button}
+                </a>
+              </div>
+            </div>
+          )}
           <div className="max-w-5xl mx-auto px-4 py-8 grid gap-6 sm:grid-cols-2 text-sm text-neutral-500 dark:text-neutral-400">
             <div>
               <p className="font-medium text-neutral-700 dark:text-neutral-300 mb-2">
