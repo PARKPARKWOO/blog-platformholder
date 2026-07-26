@@ -129,9 +129,13 @@ export const SERVICES: Record<ServiceSlug, ServiceMeta> = {
     emoji: "📡",
     color: "#116A5B",
     bgSoft: "#F3F8F6",
-    // 2026-07-25 첫 글 2편(ko/en) 발행으로 hidden 해제. 제품은 여전히 프리런칭이라
-    // status 는 "preparing" 유지 — 인덱스 페이지의 "준비 중" 안내가 계속 필요하다.
+    // 2026-07-26 다시 hidden. 1차 Provider 가 미결정 상태로 되돌아갔다 —
+    // 코레일 좌석은 데이터가 없는 게 아니라 합법적 접근권이 없다는 결론이 나왔고(조사 확정),
+    // 그 전제로 쓴 글 2편은 content/{ko,en}/public-data/_drafts/ 로 내렸다.
+    // 무엇을 감시하는 서비스인지 사실대로 쓸 수 있을 때까지 노출하지 않는다.
+    // 글 0편이라 인덱스가 살아 있으면 thin content 이기도 하다.
     status: "preparing",
+    hidden: true,
   },
   "resell-ops": {
     slug: "resell-ops",
