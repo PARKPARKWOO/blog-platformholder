@@ -4,9 +4,9 @@ slug: how-to-use-resume-review
 service: mirror-view
 type: howto
 publishedAt: "2026-05-02"
-updatedAt: "2026-07-25"
+updatedAt: "2026-07-26"
 author: platformholder
-tags: [mirror-view, resume-feedback, resume-review, job-search, cover-letter, interview-prep]
+tags: [resume-feedback, resume-review, resume-editing, job-search, resume-revision, interview-prep]
 description: "Resume feedback isn't one-and-done. Set a baseline with no posting, fix 1-2 items per cycle, then carry the findings into your interview answers."
 canonical: https://blog.platformholder.site/en/blog/mirror-view/how-to-use-resume-review
 hreflang:
@@ -24,15 +24,16 @@ howToSteps:
     text: "Keep a one-line record per cycle: date, target posting, the one or two key findings, and the next change you plan to try."
   - name: "5. Carry the findings into your interview answers"
     text: "Turn flagged strengths into keywords you raise early in the interview, and flagged weaknesses into a prepared 'acknowledge plus plan' answer."
-feature_truth_synced_at: "2026-07-25"
-feature_truth_refs:
-  - live_interview_stt
+feature_truth_synced_at: "2026-07-26"
+feature_truth_refs: []
 keyTakeaways:
   - "The first pass of resume feedback should exclude the job posting entirely, because structure, phrasing, redundancy, and omissions are posting-independent problems that distort any matching feedback that follows."
   - "Holding the same resume against 3–5 different postings reveals which items come up empty everywhere — and the item that repeats is the resume's real weakness rather than a fit problem."
   - "Fixing every flagged item at once makes it impossible to tell which edit worked; changing 1–2 items per cycle and re-checking against the same criteria is what makes improvement visible."
   - "One line per cycle — date, target posting, key finding, next change — is enough that after 4–6 weeks you can separate areas that improved from areas that keep drawing the same comment."
   - "Items flagged as strengths become the keywords you raise first in an interview, and items flagged as weaknesses are the ones an interviewer is most likely to probe, so prepare an acknowledgement and a plan in advance."
+  - "Asking someone to 'take a look' rarely gets a reply; narrowing the request to one or two specific questions — and keeping the reviewer's effort under ten minutes — is what determines the response rate."
+  - "Three kinds of feedback should not be applied as given: suggestions that change the underlying facts, format notes that come from the reviewer's personal taste, and advice given while misunderstanding the role you're targeting."
 faq:
   - question: "Where should I get resume feedback?"
     answer: "Self-review, a peer or someone working in the role, and AI tools are the three practical options, and each catches different problems. Self-review catches omissions and typos, a practitioner catches phrasing that doesn't land in that field, and AI tools are relatively good at structure and redundancy. Use at least two rather than relying on one."
@@ -42,8 +43,10 @@ faq:
     answer: "Four to six cycles of fixing 1–2 items each usually gets the shape right. The real criterion isn't the count but whether the same comment stops appearing. If a comment repeats three or more times, the problem is the underlying experience, not the wording."
   - question: "How do I use resume feedback for interview prep?"
     answer: "Move flagged strengths into the keywords you raise early, and turn flagged weaknesses into a written 'one line of acknowledgement plus one line of plan.' Whatever stood out in your resume stands out to the interviewer too, so the feedback list overlaps heavily with the likely-question list."
-  - question: "Can I use Mirror-View's resume review today?"
-    answer: "Not yet. AI resume review is still in development, so this post doesn't walk through it. The one feature currently usable on the web without signing in is in-browser speech-to-text on the interview practice screen, which requires a WebGPU-capable browser such as recent Chrome or Edge."
+  - question: "How should I ask someone in the field to review my resume?"
+    answer: "Don't send 'could you take a look?' — narrow it to one or two questions. Something like 'of these three experience entries, which one reads weakest for this role?' gets answered because the reply is one line. Keeping the reviewer's effort under ten minutes is what determines whether you get a response at all."
+  - question: "Should I apply every piece of feedback I get?"
+    answer: "Three kinds are better left unapplied: suggestions to change the underlying facts, format notes that come from the reviewer's personal taste (fonts, colors), and advice given while misunderstanding the role you're targeting. Apply a note when two different reviewers raise the same one."
 ---
 
 Plenty of people get one round of resume feedback, make the edits, and move on.
@@ -172,15 +175,52 @@ Follow "make it more impactful" into exaggeration and the interview question "ho
 
 The most common mistake. Four to six cycles is what creates the change.
 
-## We're building a tool to automate this cycle
+## How to ask a person for a review — requests that get answered
 
-All five angles above can be done by hand, but each cycle costs about 30 minutes. **Mirror-View** is where we're building AI resume review driven by your resume and a job posting to shrink that loop.
+Angles 2 and 3 go much faster with someone else's eyes on the page. The bottleneck is **the shape of the request.** "Could you take a look at my resume?" usually gets no reply — the reader doesn't know what to look for, and doing it properly would take half an hour.
 
-It's **not released yet**, so this post doesn't describe screens or button sequences for it. The one thing usable today without signing in is **in-browser speech-to-text** on the web interview practice screen — useful for step 5, where you say the prepared answer out loud and read back what you actually said.
+Response rate isn't driven by how well you know the person. It's driven by **whether you kept their effort under ten minutes.**
 
-[web.mirror-view.platformholder.site/interview](https://web.mirror-view.platformholder.site/interview?utm_source=blog&utm_medium=organic&utm_campaign=mv-2026q3&utm_content=how-to-use-resume-review) — WebGPU-capable browsers only (recent Chrome, Edge, and similar), and the first run downloads a recognition model. The converted text isn't saved, so copy it out if you need it.
+### Four things to put in the message
 
-<KakaoChatCta locale="en" campaign="mv-2026q3" content="how-to-use-resume-review" />
+1. **The target role, one line** — "applying to backend roles, mostly commerce domain"
+2. **One or two specific questions** — "of these three experience entries, which one reads weakest for this role?"
+3. **The reply format you'll accept** — "one line is plenty" / "just the number is fine"
+4. **A deadline that isn't one** — "no rush if this week doesn't work"
+
+<Callout type="tip" title="Same ask, different outcome">
+  ❌ "Whenever you have time, could you take a look at my resume? Attached."
+
+  ✅ "I'm applying to backend roles — in the attached resume, could you pick **which one of the three experience entries reads weakest for this kind of role**? Just the number is fine."
+
+  The second one can be answered in 30 seconds.
+</Callout>
+
+### Different reviewers, different questions
+
+- **Someone doing the same job** — "does this phrasing land in this field?", "how hard does this project read?"
+- **Someone who has hired** — "what gets read first?", "if you passed on this, which line caused it?"
+- **A friend outside the field** — "after 30 seconds, what kind of person is this?" (non-specialists are actually more accurate here)
+- **An AI tool** — form-level problems: structure, redundancy, vague modifiers
+
+Don't ask one person all four. The answers blur together.
+
+## Three signals that feedback shouldn't be applied as given
+
+Once you're collecting feedback, contradictory advice piles up. Apply all of it and the resume stops belonging to anyone. Decide the **filters** in advance.
+
+**1. Suggestions that change the underlying facts**
+"You basically led that — why not just say you led it?" This is where things break. The follow-up question "which parts did you lead?" arrives immediately. **Clarifying** the phrasing is the ceiling; changing the size of the fact crosses the line.
+
+**2. Format notes from personal taste**
+Fonts, colors, section order — different reviewers say opposite things. Apply it **only when two or more people raise the same note.** Follow one person's format preference and the next reviewer tells you to undo it.
+
+**3. Advice given while misunderstanding the role**
+"Trim the tech stack and lead with soft skills" flips depending on the job. That's exactly why the request message needs **one line naming the target role.**
+
+<Callout type="important" title="How to settle contradictory feedback">
+  When you can't tell which advice is right, let **the job posting** decide. If the posting uses that word, keep it; if it doesn't, cut it. The posting outranks the reviewer's taste.
+</Callout>
 
 ## Wrap-up — "feedback is a conversation, not a tool"
 
@@ -192,4 +232,6 @@ The only thing you have to do today is item 1. Close the postings, open the resu
 
 ---
 
-*This post is published by platformholder, the team building Mirror-View, and describes our own service.*
+*This article was written with the assistance of AI tools.*
+
+{/* 출시 후 추가할 유스케이스: 이력서 + JD 로 AI 리뷰를 반복 실행하고 사이클별 지적 이력을 자동 기록해 정체 영역을 표시 (앱 스토어 출시 후) */}

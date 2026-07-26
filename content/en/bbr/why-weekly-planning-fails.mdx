@@ -4,9 +4,9 @@ slug: why-weekly-planning-fails
 service: bbr
 type: article
 publishedAt: "2026-04-26"
-updatedAt: "2026-07-25"
+updatedAt: "2026-07-26"
 author: platformholder
-tags: [bbr, workout-planning, decision-fatigue, gym-routine, motivation, ai-pt]
+tags: [workout-planning, decision-fatigue, gym-routine, training-habits, progressive-overload, workout-log]
 description: "Sunday-night workout planning isn't a willpower problem. It's decision fatigue — seven decisions in one sitting, and the two numbers that collapse most of them."
 canonical: https://blog.platformholder.site/en/blog/bbr/why-weekly-planning-fails
 hreflang:
@@ -17,7 +17,7 @@ keyTakeaways:
   - "Under decision fatigue people default to whatever they did last time, so planning every week from scratch is what makes the same routine repeat and plateaus arrive."
   - "Planning and form coaching are separate problems. Form correction needs a person in the room; choosing this week's sets is a calculation from a few conditions."
   - "Two numbers decide most of a weekly plan — how many sessions you can realistically make, and how many minutes each session gets."
-  - "PocketFit is built around those two inputs, and the app is not on any store yet — it is in pre-launch."
+  - "The strongest way to remove decisions is three rules written down in advance — when load goes up, how you restart after missing, and when a painful exercise gets swapped."
 faq:
   - question: "Why is planning my weekly workouts so exhausting?"
     answer: "It isn't one decision, it's about seven stacked together: goal, split, muscle grouping, exercise selection, sets and load, recovery spacing, and time budget. Doing all of them in one Sunday-evening sitting — after a full week of decisions at work — is what makes it feel disproportionately heavy."
@@ -27,8 +27,10 @@ faq:
     answer: "Mostly yes. What in-person coaching does uniquely well is form correction and live feedback, which is hard to replace with an app or a document. Deciding what to do this week and for how many sets is a calculation from your session count, time budget, and recent logs — you can do that on your own."
   - question: "Can I trust an AI-generated workout plan?"
     answer: "Treat it as a starting point and adjust it against how you are recovering. The value of a generated plan is that you don't start from a blank page, not that it is correct for your body. If you have pain or an injury history, follow the signal over the plan and talk to a professional."
-  - question: "Can I download the PocketFit app right now?"
-    answer: "Not yet. PocketFit is not listed on any app store and is currently in pre-launch. Features described here are built, which is not the same as available to use today."
+  - question: "I skipped a whole week. How do I restart?"
+    answer: "Pick the same plan back up with about 10% less load and refill one full week. Cramming the missed sessions into the next week, or restarting at the best numbers you hit before the break, is what makes form break down in the first session back. After two weeks or more off, treat the first week as a re-entry week with fewer exercises."
+  - question: "How often should I change my routine?"
+    answer: "Changing it because it feels boring is the most common mistake — repeating the same exercises is exactly what lets you see whether the load moved. There are two legitimate triggers: your available session count changed, or four weeks passed with neither load nor reps improving. Otherwise keep the exercises and move only load and sets."
 ---
 
 Sunday, 9 PM.
@@ -96,18 +98,43 @@ Finished bench press at 60kg × 8 last week? The next step is usually one of two
 
 Without a record, that calculation is impossible and you start from scratch every week. **The cheapest investment in lighter planning is a log.** Three columns — load, sets, reps — on paper or in a notes app is enough.
 
-## How PocketFit approaches this
+## The real decision-killer — three rules written down in advance
 
-PocketFit's target is narrow: **cut the time spent deciding how to fill this week.** The order described above is the product's structure.
+Instead of judging fresh every week, **settle the criteria once** and afterwards you only read the log and execute. Write these three sentences at the top of your plan. They permanently remove three or four of the seven decisions.
 
-- **Two inputs** — sessions per week (1–7) and session length (15–180 minutes, on a 15-minute slider). There is deliberately no screen for ticking individual weekdays, for the reason above: a count is easier to keep than a calendar.
-- **Generation happens when you tap it** — there is no scheduler that quietly prepares a plan every week. You generate one when you need it, and it takes roughly 10–30 seconds.
-- **Recent logs shape the plan** — at generation time, the last 14 days of training records are fed into the AI prompt so intensity and volume adjust. The model is Gemini 3 Flash Preview.
-- **Three things you can do with the result** — open an exercise's detail, read the AI's advice, or start the session.
+**Rule 1 — When load goes up**
 
-<Callout type="important" title="Not downloadable yet">
-PocketFit is **not listed on any app store.** Everything above describes work that is finished in the build, not something you can use today. We'll announce the launch here on the blog first.
+"Hit the target reps on **every set** → add 2.5–5kg next session."
+
+This is commonly called double progression. Reps climb first; when they max out, load climbs and reps reset to the bottom of the range. With an 8–12 target, you push to 12 across all sets, add weight, and start building from 8 again. The question "what weight should I use this week" disappears at that point.
+
+**Rule 2 — How you restart after missing**
+
+"One week missed → resume the same plan at 10% less load. Two weeks or more → first week at half the exercises."
+
+Coming back is hard because "where do I restart from" is a brand-new decision. Decide it in advance and a missed week becomes a branch inside the plan rather than the end of it. Delete "cram the missed sessions into next week" from the option list entirely.
+
+**Rule 3 — When a painful exercise gets swapped**
+
+"Pain in the same exercise two sessions in a row → swap it for another movement in the same area and watch for two weeks."
+
+Re-deciding "should I push through this?" every time usually ends with pushing through. A numeric swap condition automates the judgment. If pain is severe or persists in daily life, of course, a professional comes before the rule.
+
+<Callout type="tip" title="Rules belong at the top of the plan">
+  A rule that lives only in your head doesn't fire under decision fatigue. Written on the first line of the plan or notes app, Sunday night collapses to a single judgment: how many sessions can I make this week.
 </Callout>
+
+## The 10-minute Sunday checklist
+
+Once the three rules are in place, weekly planning is five questions. Copy them down and just fill in the answers.
+
+1. **How many sessions did I actually do last week?** — the real number, not the planned one
+2. **What's realistic this week?** — pick within ±1 of that real number
+3. **How many minutes per session?** — rounded to 15-minute blocks
+4. **Any exercise that triggered Rule 1?** — add load only where every set hit the target reps
+5. **Any pain or missed sessions?** — if yes, apply Rules 2 and 3; if no, copy last week's plan as-is
+
+Only questions 2 and 3 involve a fresh judgment; the rest is transcription from the log. That's where planning drops from an hour to ten minutes.
 
 ## Closing — "A sustainable pace"
 
@@ -122,3 +149,5 @@ Reducing that weight is a matter of order, not tooling. Lock the count and the m
 ---
 
 *This post is general reference information. Appropriate training volume varies with fitness level and injury history — if something hurts, consult a professional.*
+
+{/* 출시 후 추가할 유스케이스: 7가지 결정을 주 횟수·1회 시간 두 입력으로 압축하고 최근 14일 기록을 반영하는 AI 주간 계획 생성 문단을 '규칙 세 줄' 뒤에 추가 */}

@@ -4,9 +4,9 @@ slug: running-crew-meets-ai-coach
 service: bbr
 type: article
 publishedAt: "2026-04-28"
-updatedAt: "2026-07-25"
+updatedAt: "2026-07-26"
 author: platformholder
-tags: [bbr, running-crew, running, ai-coach, strength-training, motivation]
+tags: [running-crew, running, strength-for-runners, injury-prevention, weekly-schedule, training-load]
 description: "Running crews deliver attendance and pace. Strength work and recovery stay on you. Here's how to design the 1–2 weekly strength sessions a runner actually needs."
 canonical: https://blog.platformholder.site/en/blog/bbr/running-crew-meets-ai-coach
 hreflang:
@@ -17,7 +17,7 @@ keyTakeaways:
   - "A running crew solves the people problem — attendance and pace — while strength work, recovery judgment, and non-running days structurally stay with the individual."
   - "One to two strength sessions a week is enough for most runners, prioritizing the glutes, core, and hamstrings that absorb landing impact."
   - "Place strength work away from the day before a long run, and keep leg-focused sessions off interval days, to protect recovery."
-  - "PocketFit builds weekly plans from two inputs and feeds the last 14 days of records into the prompt, and the app is not on any store yet — it is in pre-launch."
+  - "Never raise running volume and strength load in the same week — moving one variable at a time is what lets you trace the cause when something starts hurting."
 faq:
   - question: "Is running alone enough, or do I need strength training too?"
     answer: "If you plan to increase mileage, adding strength work is the safer path. Common running injuries — runner's knee, shin splints, achilles issues — often show up when muscle can't absorb landing impact and the load reaches the joint instead. One to two sessions of 30–40 minutes a week is enough to start."
@@ -27,8 +27,10 @@ faq:
     answer: "Avoid the day immediately before a long run. Running long on legs that are still fatigued means form breaks down first. If crew runs are Monday, Wednesday, and Friday, strength on Tuesday and Thursday with a clear day around Saturday's long run is a workable layout."
   - question: "Why am I not getting faster even though I show up to every crew run?"
     answer: "Repeating the same distance at the same pace keeps the stimulus constant, and progress flattens. Crew runs are strong on attendance and pace discipline but don't individualize intensity. Adding one different stimulus a week — intervals or hills — supported by strength work is the usual fix."
-  - question: "Can I download the PocketFit app right now?"
-    answer: "Not yet. PocketFit is not listed on any app store and is in pre-launch. Features described here are built, which is not the same as available to use today."
+  - question: "How fast can I increase weekly mileage?"
+    answer: "The widely cited rule of thumb is no more than 10% per week. Evidence that the rule actually prevents injury is not established, so treat it as a ceiling rather than a law. In practice two other habits matter more: run three build weeks followed by one lighter week, and never raise distance and intensity — intervals or hills — in the same week."
+  - question: "Will strength training make my running pace slower?"
+    answer: "Legs can feel heavy for a day or two after a strength session, so time trials run in that window will look slower. That's an argument for spacing strength days away from measurement days, not for skipping strength. The point of the work isn't this week's pace — it's widening the range of mileage you can repeat without breaking down."
 ---
 
 6 AM at the Han River park, a group in matching shirts knocks out a 5K together.
@@ -94,19 +96,44 @@ Mixing crew runs with strength work produces roughly this shape. Treat it as a s
 
 If five days is too much, cutting strength to Tuesday only beats dropping it entirely.
 
-## How PocketFit approaches this
+## An 8-week progression for the strength work
 
-PocketFit isn't aimed at your running — it's aimed at **every decision outside the run**, which is exactly the space a crew leaves open.
+Strength work needs progression too. For a runner, though, the goal isn't adding plates quickly — it's **raising your tolerance while running volume climbs.** An eight-week shape like this collides least with a running schedule.
 
-- **Weekly plan generation** — set sessions per week (1–7) and session length (15–180 minutes, on a 15-minute slider) and a matching plan is generated. There's no scheduler quietly preparing one each week; you generate it when you need it.
-- **Recent logs shape the plan** — the last 14 days of records go into the AI prompt at generation time so intensity and volume adjust. The model is Gemini 3 Flash Preview.
-- **Logging and review** — load, sets, reps, and attendance with today / week / month calendar views, plus a screen comparing past runs of the same routine by date — useful for spotting when strength work has stalled.
-- **Health app sync** — HealthKit / Health Connect pull heart rate, calories, steps, weight, sleep, and running distance. Android permissions are wired up; iOS still needs some manual setup.
-- **Rivals** — rival requests by handle, with accept and decline, are built. Prodding is built on the sending side only; the realtime delivery that would surface the nudge on the other person's phone is still in development. It isn't a replacement for a crew's social pull, more a way to hold the days the crew doesn't cover.
+| Weeks | Frequency | Focus | Load / volume |
+|---|---|---|---|
+| 1–2 | 2×/week | Learn the movements | Bodyweight or very light, 3 × 12 |
+| 3–4 | 2×/week | Add load while form holds | A 10-rep load, 3 × 10 |
+| 5–6 | 2×/week | Small increase on lower compounds only | +2.5–5kg; core and ankle unchanged |
+| 7 | 1×/week | Deload | Cut to 2 sets |
+| 8 | 2×/week | Reassess | Continue loading only pain-free movements |
 
-<Callout type="important" title="Not downloadable yet">
-  PocketFit is **not listed on any app store.** The above describes a finished build, not something you can use today. We'll announce the launch here on the blog first.
+Week seven drops volume because running fatigue and strength fatigue accumulate in the same legs. If your mileage build and your loading build keep overlapping, pain arrives without telling you which one caused it.
+
+<Callout type="tip" title="One variable at a time">
+  Raised your mileage this week? Hold the strength loads. Added weight to the squat? Hold the mileage. That single rule is what lets you answer "what did I change last week?" when something starts to hurt.
 </Callout>
+
+## Raising running volume — the 10% rule and its limits
+
+The most quoted guideline for increasing weekly distance is **no more than 10% per week.** Ran 20K last week, cap this week at 22K.
+
+Evidence that the rule actually reduces injuries is not established, though. Treat it as an easy-to-remember ceiling and pair it with two habits that matter more in practice.
+
+- **Three build weeks, one lighter week** — increase gently for three weeks, then cut 20–30% in the fourth for recovery. Bodies follow that better than a monotone weekly climb
+- **Never raise distance and intensity in the same week** — the week you add mileage is not the week you add intervals or hills, and vice versa
+
+<Callout type="warning" title="Pain outranks the rule">
+  Numeric rules are planning tools for pain-free weeks. If something hurts while you run, if soreness is still there the next day, or if discomfort changes how you move, follow the signal over the plan and consult a professional when needed.
+</Callout>
+
+## Three things to check in your strength log
+
+Your watch records running distance whether you think about it or not; strength work leaves nothing behind unless you write it down. Three columns — load, sets, reps — are enough, and every four weeks you only need to check these three things.
+
+- **Did the lower-body compound load move at all in four weeks?** If it never did, running fatigue is probably still sitting in your legs on strength day. Move that day one more day away from your hardest run
+- **Did core holds get longer?** For movements like planks, time is the metric instead of load. Thirty seconds becoming forty-five is progress
+- **Do missed strength sessions cluster on one weekday?** If Thursday is always the one that disappears, that's a scheduling problem, not a discipline problem — and moving the day often solves it outright
 
 ## Wrap-up — "Together you go far, alone you handle the details"
 
@@ -121,3 +148,5 @@ The same person makes both kinds of decisions every week. Neither one alone tend
 ---
 
 *This post is general reference information. If you have pain or an injury history, follow the signal over the plan and consult a professional when needed.*
+
+{/* 출시 후 추가할 유스케이스: 건강앱(HealthKit/Health Connect) 러닝 거리·심박 자동 동기화와 같은 루틴 지난 기록 비교로 보강 정체를 판단하는 문단 추가 */}

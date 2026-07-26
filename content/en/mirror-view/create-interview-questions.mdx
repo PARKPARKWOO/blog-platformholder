@@ -4,9 +4,9 @@ slug: create-interview-questions
 service: mirror-view
 type: howto
 publishedAt: "2026-04-23"
-updatedAt: "2026-07-25"
+updatedAt: "2026-07-26"
 author: platformholder
-tags: [mirror-view, interview-questions, interview-prep, job-description, jd-analysis, job-search, guide]
+tags: [interview-questions, interview-prep, job-description, jd-analysis, likely-questions, job-search]
 description: "Interview questions come from the posting you applied to, not a list of 100 generic ones. A 5-step method to build 8-12 likely questions in about 30 minutes."
 canonical: https://blog.platformholder.site/en/blog/mirror-view/create-interview-questions
 hreflang:
@@ -24,15 +24,14 @@ howToSteps:
     text: "Write four lines per question: situation, action, result, and the link back to the posting. Memorize the four lines, not the sentences."
   - name: "Step 5 — Say the answer out loud, then read it back as text"
     text: "Answer without looking at the skeleton, then transcribe what you said and check for phrases that repeat no matter which company you're talking about."
-feature_truth_synced_at: "2026-07-25"
-feature_truth_refs:
-  - live_interview_stt
+feature_truth_synced_at: "2026-07-26"
+feature_truth_refs: []
 keyTakeaways:
   - "Most interview questions are built by walking down the job posting's requirement list, so copying 5–10 requirement lines verbatim gives you the skeleton of the questions you'll actually be asked."
   - "Attaching one line of resume evidence to each requirement splits your prep in two: rows with evidence become depth questions, and blank rows become gap questions."
   - "Preparing 8–12 questions tied directly to the posting — each with a 60-second answer skeleton — is a better use of time than skimming 30 generic questions."
   - "Reviewing answers by reading silently doesn't work; say the answer out loud and transcribe it, and the phrases you reuse at every company become countable."
-  - "The only Mirror-View feature currently available is in-browser speech-to-text on the web interview practice screen, and it runs only in WebGPU-capable browsers such as recent Chrome and Edge."
+  - "When a posting carries only two or three vague lines, the requirements can be reconstructed from four sources: the company engineering blog, other postings at the same company, comparable postings at competitors, and the public profiles of people already on the team."
 faq:
   - question: "How do I come up with likely interview questions?"
     answer: "Start by copying 5–10 lines verbatim from the posting's requirements and responsibilities. Put your own resume's supporting sentence next to each line. Rows with evidence turn into depth questions, blank rows turn into gap questions — and that table is far closer to the real interview than any generic list."
@@ -42,8 +41,10 @@ faq:
     answer: "Eight to twelve is usually enough. Postings tend to carry 5–10 real requirement lines, and each line yields one or two questions. Finishing ten questions with 60-second answer skeletons beats skimming thirty."
   - question: "How do I check my answers when I'm practicing alone?"
     answer: "Say the answer out loud, then read the transcript. Answers always feel fluent inside your head, but a transcript shows exactly how many times filler words like 'passionate' or 'growth' appear and whether the answer runs past 60–90 seconds."
-  - question: "What can I actually use in Mirror-View today?"
-    answer: "One thing: the web interview practice screen (`/interview`) opens without a login and converts what you say into text inside the browser. It requires a WebGPU-capable browser such as recent Chrome or Edge, and the first run downloads a speech recognition model. Resume review, question generation, and quizzes are still in development."
+  - question: "What if the posting is too short to pull requirements from?"
+    answer: "Reconstruct them from outside the posting. The company engineering blog or newsroom shows what the team is spending time on, another posting at the same company usually reuses the same boilerplate in more detail, a competitor's posting for the same role shows the industry baseline, and public profiles of current team members reveal the stack in practice. Mark anything reconstructed this way as an assumption and raise it as a question rather than a statement."
+  - question: "The interview is tomorrow — which prepared questions should I review first?"
+    answer: "Start with the questions tied to the requirements listed earliest in the posting, since the top of a posting usually describes the core of the seat. Take the gap questions next. One question you have no answer for weighs more on the outcome than five answers you've already polished."
 ---
 
 If your interview answers always sound the same, it isn't a willpower problem.
@@ -147,24 +148,47 @@ Steps 3 and 4 are what matter to you: they split questions into two types. Doing
   </Step>
 </Steps>
 
-## We're building a tool to automate this
+## When the posting is three vague lines — four places to reconstruct requirements
 
-The five steps above take 30 minutes per company. Five applications is two and a half hours, and a changed posting means starting over. **Mirror-View** is what we're building to shrink that loop.
+The whole method assumes **the posting actually lists requirements**. Plenty of postings don't: three lines of "relevant experience" and "someone to grow with our team," and that's it.
 
-The idea is to run steps 1–3 for you from a resume and a posting. **What's publicly available right now is one piece of step 5.**
+In that case you rebuild the requirements from outside the posting. There are four sources.
 
-On the web interview practice screen ([web.mirror-view.platformholder.site/interview](https://web.mirror-view.platformholder.site/interview?utm_source=blog&utm_medium=organic&utm_campaign=mv-2026q3&utm_content=create-interview-questions)) you can open the page without signing in, press the mic button, speak your answer, and see it converted to text inside the browser. The audio is processed in the browser and is not sent to a server.
+**1. The company engineering blog or newsroom (most accurate)**
+Skimming six months of post titles tells you where the team is spending its time. A question that starts with "I read your recent post about migrating to ○○" comes straight back at you in the interview — in a good way.
 
-<Callout type="warning" title="Before you try it">
-  - **It only runs in WebGPU-capable browsers** (recent Chrome, Edge, and similar). On unsupported browsers the model-loading screen never finishes.
-  - The first run downloads a speech recognition model, so expect a wait and some data usage.
-  - The converted text is shown in an input field and is not saved. Copy it out if you want to keep it.
-  - There's a length limit per recognition pass, so it works better if you speak in paragraph-sized chunks.
+**2. Other postings at the same company**
+Companies reuse posting templates. A different role's posting frequently spells out the shared context — how the team collaborates, which tools they use, how the org is structured — in far more detail.
+
+**3. Postings for the same role at competitors or similarly sized companies**
+These show you the standard requirements for the role. Read three side by side; whatever appears in all three is the baseline for that job.
+
+**4. Public profiles of recruiters and current team members**
+The tools and experience listed on the public profiles of people already on that team are, in practice, the requirements for the seat.
+
+<Callout type="warning" title="Mark reconstructed requirements as assumptions">
+  Anything pulled from outside the posting is not a confirmed requirement. Tag it `(assumed)` in your table and raise it in the interview **as a question** — "is that something this team handles as well?" State it as fact and, if it isn't their work, you look less prepared rather than more.
 </Callout>
 
-Resume review, automatic question generation, and quiz-based weakness analysis are **still in development**, so this post doesn't walk through screens for them. We'll post when they're ready.
+## Reviewing your 8–12 questions the night before
 
-<KakaoChatCta locale="en" campaign="mv-2026q3" content="create-interview-questions" />
+If you built the question set and then re-read it cold the night before, you run out of time. **Rank it in advance** and 30 minutes is enough.
+
+Order by three criteria.
+
+1. **Earlier in the posting, earlier in your review.** The top of a posting usually describes the core of the seat.
+2. **Gap questions before depth questions.** One question you have no answer for weighs more than five polished ones.
+3. **Number-carrying answers last.** Figures are the easiest thing to forget, so check them closest to the interview.
+
+A 30-minute split that works:
+
+| Time | What to do |
+|---|---|
+| 0–10 min | Say the "acknowledge + plan" two-liners for your 2–3 gap questions out loud |
+| 10–25 min | Skim the four-line skeletons of your top 4–5 depth questions, re-checking that each "link" line uses *this* posting's wording |
+| 25–30 min | Re-read only the sentences that carry numbers, dates, or scale |
+
+You don't need to touch the rest. **Skimming everything shallowly almost never beats being solid on the top five.**
 
 ## Wrap-up
 
@@ -176,4 +200,6 @@ The moment you copy 5–10 requirement lines verbatim and attach your resume evi
 
 ---
 
-*This post is published by platformholder, the team building Mirror-View, and describes our own service.*
+*This article was written with the assistance of AI tools.*
+
+{/* 출시 후 추가할 유스케이스: 이력서 + JD 를 넣으면 1~3단계(요구사항 추출·근거 매칭·질문 변환)를 자동 실행해 질문 세트로 반환 (앱 스토어 출시 후) */}

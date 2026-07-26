@@ -4,9 +4,9 @@ slug: beginner-resume-checklist
 service: mirror-view
 type: howto
 publishedAt: "2026-05-04"
-updatedAt: "2026-07-25"
+updatedAt: "2026-07-26"
 author: platformholder
-tags: [mirror-view, resume, job-search, entry-level, checklist, guide]
+tags: [resume-writing, entry-level-resume, resume-checklist, job-search, first-resume, quantify-resume]
 description: "Writing your first resume and unsure if it's good enough? Self-audit 30 checkpoints — from contact info to job posting keyword matching — before you hit send."
 canonical: https://blog.platformholder.site/en/blog/mirror-view/beginner-resume-checklist
 hreflang:
@@ -24,15 +24,15 @@ howToSteps:
     text: "Let one person skim the resume for 30 seconds, then have them describe what kind of candidate you are. If it doesn't match your intent, fix what sits at the top of the page."
   - name: "Step 5 — Log unchecked items and fix 1–2 at a time"
     text: "Write down every unchecked item, change only one or two, then run the same checklist again and repeat the cycle."
-feature_truth_synced_at: "2026-07-25"
-feature_truth_refs:
-  - live_interview_stt
+feature_truth_synced_at: "2026-07-26"
+feature_truth_refs: []
 keyTakeaways:
   - "First-time resumes stall not because there's nothing to write but because there's no standard for deciding when it's done; breaking that standard into checkable items supplies one."
   - "One page is the default for entry-level and internship resumes, with body text in no more than two fonts at a consistent 10–11 pt."
   - "Experience bullets should read as 'did X and achieved Y' rather than 'was responsible for X', with a number attached wherever one exists."
   - "Pulling 5–10 keywords from the job posting and confirming each appears in your resume — exactly or as a close synonym — is the last gate before you submit."
   - "If fewer than 15 items are checked, rewriting content beats fixing formatting, and rewriting experience bullets into result-and-number form has the largest effect."
+  - "Split any experience bullet into four pieces — situation, your action, what changed, and the size of it — and the result sentence writes itself; when no number exists, frequency/duration, scope/scale, and before-after comparison substitute for it."
 faq:
   - question: "How long should an entry-level resume be?"
     answer: "One page is the default for entry-level and internship applications. Stretching to two pages early in your career pushes the important items below the fold where they don't get read. If you're over, cut unrelated certifications and duplicated descriptions first."
@@ -44,6 +44,10 @@ faq:
     answer: "For work you've actually done, using the posting's own wording helps — the reader can find the match by eye. Don't do it for items you haven't done, though; that decision comes back as an interview question you can't answer."
   - question: "How can I review my own resume without help?"
     answer: "Work through a checklist item by item, then let one person skim it for 30 seconds and tell you what kind of candidate they saw. If that 30-second impression doesn't match your intent, the problem is usually what sits at the top of the page, not the content itself."
+  - question: "What if I have no numbers to put on my resume?"
+    answer: "Three things substitute for a metric. Frequency and duration ('three times a week', 'over six months'), scope and scale ('a team of four', 'a 200-member community'), and a before-after comparison ('moved attendance tracking from paper to a shared spreadsheet'). If none of the three attaches to an entry, that entry can usually give its space to something else."
+  - question: "Do I need to rewrite my resume for every company?"
+    answer: "Keep the experience bullets fixed and change only the top summary and the ordering. What you did doesn't change, but which experience should be read first does change per posting. Save a separate file per application and put the role in the filename so you can tell the versions apart."
 ---
 
 When you write your first resume, the question that hits you hardest isn't "what do I fill in?"
@@ -156,13 +160,57 @@ If two or more lines have no match, either the posting is a stretch right now, o
   AI resume tools are worth using for structure, redundancy, and vague phrasing, but they can't judge how hard the work actually was. Treat the output as **reference-level feedback**, and don't follow "make this more impactful" into exaggeration — that sentence becomes an interview question later.
 </Callout>
 
-## We're building a tool to automate this audit
+## The formula for turning a bullet into a result
 
-All three methods above are manual, and the time multiplies with every posting you apply to. **Mirror-View** is where we're building AI resume review and tailored interview question generation to shrink that loop.
+Section D is where most people stall. "Write the result, not the responsibility" makes sense as advice, but when your own sentence is in front of you it's hard to tell what the result even was.
 
-It's **not released yet**, so this post doesn't describe screens or button sequences for it. The one thing usable today without signing in is **in-browser speech-to-text** on the web interview practice screen — useful for explaining a resume entry out loud and reading back what you actually said. It requires a WebGPU-capable browser such as recent Chrome or Edge, and the first run downloads a recognition model.
+Split the sentence into four pieces and the rewrite becomes mechanical.
 
-[web.mirror-view.platformholder.site/interview](https://web.mirror-view.platformholder.site/interview?utm_source=blog&utm_medium=organic&utm_campaign=mv-2026q3&utm_content=beginner-resume-checklist)
+> **[situation] + [what you did] + [what changed] + [how much]**
+
+| Before | After |
+|---|---|
+| Handled department promotion | Ran the department Instagram three times a week, growing followers from 500 to 1,200 over six months |
+| Café part-time job | Rearranged the order-handoff flow, cutting average peak-hour wait time |
+| Participated in development on a team project | Designed and built the signup and auth API as the sole backend owner on a four-person team |
+| Ran a data analysis study group | Ran a 12-week study group, prepared weekly session material, kept 8 of 10 members active |
+| Various volunteer work | 14 weekend shifts (56 hours) at a local library, assisting the children's reading program |
+
+The right column isn't a more impressive experience. It's **the same experience, written in pieces**.
+
+### When no number exists — three substitutes
+
+Not every experience leaves a metric behind. Three things can stand in for one.
+
+1. **Frequency and duration** — "three times a week", "over six months", "14 sessions". Not an outcome, but evidence of **consistency**.
+2. **Scope and scale** — "a team of four", "a 200-member community", "across three departments". It shows the **size** of the work.
+3. **Before and after** — "moved attendance tracking from paper to a shared spreadsheet." No number, but the **direction of the change** survives.
+
+An entry that takes none of the three can usually be cut. Give that space to something else.
+
+### Two things to avoid here
+
+- **Presenting an estimate as a measurement.** If you write "improved by 30%", the interview question "how did you measure that 30%?" is coming. If you can't answer it, drop the number and write honestly: "wait times dropped noticeably."
+- **Borrowing team results as your own.** "Team hit $2M in revenue" is not your contribution. "Owned landing-page A/B testing on a $2M revenue project" is accurate — and holds up far better under follow-up.
+
+## Applying to many places — what to change and what to freeze
+
+Once you're applying broadly, the question becomes "do I rewrite this every time?" No. **Separate the layer that moves from the layer that doesn't** and each application takes about ten minutes.
+
+**Frozen layer (write it well once, reuse it)**
+
+- The body of every experience bullet — the work is a fact and doesn't change per company
+- Education, certifications, contact details
+- Your result-and-number phrasing
+
+**Per-posting layer (about ten minutes)**
+
+- Keywords in the 2–3 line summary — swap in that posting's core terms
+- The **order** of experience entries — closest match to this posting goes on top
+- The order of the skills list — put the stack the posting names first
+- The filename — `FirstName_LastName_Role_Resume.pdf`
+
+Set it up this way and a "tailored" resume stops meaning "a resume written from scratch." Start editing the bullet bodies per company instead, and versions fork until **you no longer know which file went where.** Keep a one-sheet log: date, company, filename.
 
 ## Wrap-up
 
@@ -176,4 +224,6 @@ Work through it one section at a time.
 
 ---
 
-*This post is published by platformholder, the team building Mirror-View, and describes our own service.*
+*This article was written with the assistance of AI tools.*
+
+{/* 출시 후 추가할 유스케이스: 이력서 PDF 업로드 → AI 리뷰가 30개 항목 중 미충족 항목을 자동 표시하고 결과·수치 문장 후보를 제안 (앱 스토어 출시 후) */}

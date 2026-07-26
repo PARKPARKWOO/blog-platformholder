@@ -4,23 +4,23 @@ slug: post-public-recruitment-era
 service: mirror-view
 type: article
 publishedAt: "2026-04-28"
-updatedAt: "2026-07-25"
+updatedAt: "2026-07-26"
 author: platformholder
-tags: [mirror-view, hiring-trends, rolling-hiring, interview-prep, job-matching, 2026-jobs]
+tags: [rolling-hiring, hiring-trends, interview-prep, job-matching, job-search, 2026-jobs]
 description: "As mass hiring shrinks and role-based rolling hiring grows, interview questions change shape. Why generic prep underperforms and how to rebuild it."
 canonical: https://blog.platformholder.site/en/blog/mirror-view/post-public-recruitment-era
 hreflang:
   ko: https://blog.platformholder.site/ko/blog/mirror-view/post-public-recruitment-era
   en: https://blog.platformholder.site/en/blog/mirror-view/post-public-recruitment-era
-feature_truth_synced_at: "2026-07-25"
-feature_truth_refs:
-  - live_interview_stt
+feature_truth_synced_at: "2026-07-26"
+feature_truth_refs: []
 keyTakeaways:
   - "As periodic mass hiring shrinks and role-based rolling hiring grows, the axis of interview questions moves from 'evaluate the common denominator' to 'verify fit against this posting'."
   - "In rolling hiring the requirements for the seat already exist as a written posting, so interviewers build questions from that document — which means your prep has to start from the same document."
   - "Even for the same 'backend engineer' title, companies emphasize different requirements, so covering several companies with one set of 100 generic questions spreads prep too thin."
   - "Quoting even one phrase from the posting inside your answer structurally prevents the answer from being reused unchanged at the next company."
   - "Rolling hiring is closer to looking for someone who knows how to close a gap than someone with no gaps, so every empty requirement line deserves one line of acknowledgement and one line of plan."
+  - "Because postings appear without warning, the preparation has to be finished before one opens; a deck of 8–10 experience cards, a 20–30 company list, and duplicated posting alerts reduce the per-posting work to about 30 minutes."
 faq:
   - question: "If mass public hiring shrinks, how does job prep change?"
     answer: "The unit of preparation moves from 'season' to 'posting'. Mass hiring rewarded finishing a set of common answers ahead of each cycle, while rolling hiring rewards short, posting-specific prep repeated whenever a role opens. Building a repeatable 30-minute procedure per posting beats one long prep block."
@@ -30,6 +30,10 @@ faq:
     answer: "Yes, within the range of work you've actually done. Using the posting's own words spares the interviewer from hunting for the match. Pulling in terminology for things you haven't done is the risk — it surfaces immediately in the follow-up question."
   - question: "Do I have to prepare separately for every company?"
     answer: "Reuse the experience, rewrite only the link sentence. Situation, action, and result stay the same story anywhere; what changes per company is which line of the posting your experience maps to. Swapping that one line keeps the extra prep small."
+  - question: "Postings appear without warning — is there anything I can prepare in advance?"
+    answer: "Three things cut the per-posting work dramatically. First, 8–10 experience cards of four lines each (situation, action, result, what you'd change). Second, a list of 20–30 target companies with their careers-page links. Third, keyword alerts on job platforms. When a posting appears, you pick from those materials and write only the new link sentence."
+  - question: "How do I avoid missing rolling-hiring postings?"
+    answer: "Run two channels. Set keyword alerts on job platforms for the role title and the stack names separately, and check your target companies' own careers pages once a week on a fixed day. Some roles are posted only on the company site and never reach the platforms. Fixing the day keeps you from burning time checking daily."
 ---
 
 A few years ago, periodic mass hiring announcements were the anchor of job preparation. You prepared against the spring and autumn cycles and that was the calendar.
@@ -114,15 +118,52 @@ Open one posting you plan to apply to and copy 5–10 lines of its requirements 
 
 That single table is your company-specific question set. The full procedure is written up as five steps in [how to generate your own interview questions from a job posting + your resume](/en/blog/mirror-view/create-interview-questions).
 
-## We're building a tool to automate the matching
+## Three things to finish before a posting opens
 
-The problem is that this repeats per posting. Five applications, five passes — and once more when the wording changes.
+The real difficulty of rolling hiring isn't difficulty — it's **timing.** A posting appears without warning, closes in two or three weeks, and in that window you have to revise a resume, build a question set, and sit the interview. Start preparing after you see the posting and you're always short.
 
-**Mirror-View** is the service we're building to automate that matching. Tailored question generation and AI resume review are **not released yet**, so this post doesn't walk through them.
+So most of the preparation has to be **done before the posting exists.** Three things can be built in advance.
 
-The one thing usable today without signing in is **in-browser speech-to-text** on the web interview practice screen — for saying your prepared answers out loud and reading back what you actually said. WebGPU-capable browsers only (recent Chrome, Edge, and similar), and the first run downloads a recognition model.
+### 1. A deck of 8–10 experience cards (the important one)
 
-[web.mirror-view.platformholder.site/interview](https://web.mirror-view.platformholder.site/interview?utm_source=blog&utm_medium=organic&utm_campaign=mv-2026q3&utm_content=post-public-recruitment-era)
+Turn each thing worth talking about into a card. A card is four lines.
+
+| Line | Content |
+|---|---|
+| Situation | When, under what constraints, what the problem was |
+| Action | One decision you actually made |
+| Result | With a number where one exists |
+| Learned | What you'd change if you did it again |
+
+**A card with the fourth line filled in is already an interview answer.** When a posting opens you pick the cards that overlap it and write only the new "link" line, which is what collapses per-company prep time.
+
+Eight to ten cards cover most questions. Don't chase more — write **one card properly** instead.
+
+### 2. A list of 20–30 target companies
+
+A four-column sheet is enough: company, role, careers-page link, last checked. With the list already built, you don't start from "wait, what does this company do?" the day a posting appears.
+
+Read each company's engineering blog or team page once while building the list, and the raw material for your "link" sentences accumulates as a side effect.
+
+### 3. Duplicate your alerts
+
+- **Keyword alerts on job platforms** — set the role title (backend engineer) and the stack names (Kotlin, Spring) as **separate** alerts. One alert misses postings that use different wording.
+- **Company careers pages, checked directly** — once a week, on a fixed day. Some companies post only on their own site.
+
+<Callout type="tip" title="Don't check every day">
+  Refreshing job boards daily is attrition, not preparation. Pick a day and check only then. The time you get back is better spent writing one more experience card.
+</Callout>
+
+### The 30 minutes after a posting opens
+
+With those three in place, each posting compresses to this:
+
+1. Copy 5–10 requirement lines verbatim (5 min)
+2. Pick the experience cards that overlap (10 min)
+3. Write one new "link" line per card — which line of *this* posting it maps to (10 min)
+4. Write "acknowledge + plan" for the requirements with no evidence (5 min)
+
+The amount of preparation didn't shrink. **The timing moved earlier.**
 
 ## Wrap-up
 
@@ -134,4 +175,6 @@ Prep has to follow. **From "memorize the common denominator" to "*my* resume × 
 
 ---
 
-*This post is published by platformholder, the team building Mirror-View, and describes our own service.*
+*This article was written with the assistance of AI tools.*
+
+{/* 출시 후 추가할 유스케이스: 저장해 둔 JD 목록과 이력서를 묶어 공고가 뜰 때마다 맞춤 예상 질문 세트를 자동 생성 (앱 스토어 출시 후) */}
