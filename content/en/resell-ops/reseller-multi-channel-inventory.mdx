@@ -7,166 +7,144 @@ publishedAt: "2026-07-26"
 updatedAt: "2026-07-30"
 author: platformholder
 tags: [resell-ops, reseller-inventory, double-selling, multi-channel, solo-seller, stock-ledger]
-description: "One item on two channels doubles exposure and cancellation risk alike. The cause is not a miscount but a missing column: five failure points, five spreadsheet fixes."
+description: "Listing one item on several channels can create more sales commitments than available stock. A manual review method without frequency, penalty, or visibility claims."
 canonical: https://blog.platformholder.site/en/blog/resell-ops/reseller-multi-channel-inventory
 hreflang:
   ko: https://blog.platformholder.site/ko/blog/resell-ops/reseller-multi-channel-inventory
   en: https://blog.platformholder.site/en/blog/resell-ops/reseller-multi-channel-inventory
 keyTakeaways:
-  - "Double selling is not a counting error. One physical unit is carrying two sales promises at once, and nothing in the sheet records those promises."
-  - "Sellable quantity is a different number from physical quantity: sold-but-unshipped, in transit, in return inspection, and moving to a channel warehouse all sit in the building but cannot be sold again."
-  - "The moment you delist and the moment the channel reflects that delisting are not the same. Every additional channel widens that gap, and double sales happen inside it."
-  - "For unique, single-unit items, listing on one channel only is the most reliable prevention. Reserve multi-channel listing for items with spare quantity and fast turnover."
-  - "Logging cancellations with a reason code makes the pattern visible at month end — which channel combination and which price band produce accidents. Without the log, every incident just looks like bad luck."
+  - "Listing one physical unit on several channels can create more sales commitments than available stock. This is an operational risk, not a measured frequency claim."
+  - "Separate physical quantity from quantity available for a new order. Define sold, inspection, and transfer states from the official channel rules and your operating policy."
+  - "Manual work creates an interval between seeing one sale and updating other listings. Check each channel's current policy and live status rather than assuming platform behavior."
+  - "Keeping a single-unit item on one channel can be a conservative internal default. It is not a universal optimum for every seller."
+  - "Recording listing, delisting, sale, and cancellation events with reason codes lets you inspect patterns in your own records without inferring policy outcomes."
 faq:
-  - question: "Is it fine to list the same item on several channels at once?"
-    answer: "For items with spare quantity and fast turnover, extra exposure usually wins. The problem is the unique, single-unit item. The moment one physical unit carries two sales promises, one of them has to be cancelled. The higher the price and the less replaceable the item, the more a single-channel listing costs you less."
-  - question: "Can a spreadsheet prevent reseller double selling and overselling?"
-    answer: "Not completely, but most of it. The key move is adding a separate 'sellable quantity' column next to physical quantity and making every list/delist decision from that column alone. Add a per-item rule for whether it is exclusive to one channel or shared across several, and the remaining risk narrows down to a handful of unique items."
-  - question: "How do I calculate sellable quantity?"
-    answer: "Take physical quantity and subtract what is already promised: sold but not yet shipped, in transit, under return inspection, and moving to or awaiting intake at a channel warehouse. These units are still visible in the building or in the system, so they stay in physical quantity — but they are not available to sell again right now."
-  - question: "How should I track stock I sent ahead to a channel warehouse?"
-    answer: "Count it as sellable from the moment the channel confirms intake, not from the moment you shipped it. If you count units in transit as sellable, they get listed elsewhere, and a single failed intake inspection removes the whole quantity while the sales promise remains. Record a warehouse move as a status change, not as a stock movement."
+  - question: "Can I list the same item on several channels at once?"
+    answer: "This article does not decide whether a channel permits it. Check the current official seller policy first. Operationally, keep total commitments within available quantity, define exclusive and shared rules, and consider one channel as a conservative default for a single-unit item."
+  - question: "Can a spreadsheet prevent reseller double-selling risk?"
+    answer: "Complete prevention cannot be guaranteed. Separate physical and available quantity, listing channels, committed quantity, and last-checked time to give manual decisions more context. Verify actual order status and policy on each channel."
+  - question: "How do I calculate available quantity?"
+    answer: "Start with quantity you own and have received, then subtract committed orders and internal holds such as inspection, return, or transfer states. Document the exact states using official channel definitions and your operating policy."
+  - question: "How should I track stock sent to a channel warehouse?"
+    answer: "Record shipped, in transit, intake confirmed, and inspection hold as separate states. Check the channel's current official intake status and policy before treating it as available; a conservative internal rule can keep it on hold until confirmed."
   - question: "What should I look for in a reseller inventory tool?"
-    answer: "Three things before feature count: does it separate sellable quantity from physical quantity, does it keep listing, delisting, and cancellation as history, and where does it store your channel account credentials. The last one is harder to reverse than switching tools, so check first whether it asks you to upload passwords, cookies, or sessions to its servers."
+    answer: "Check whether it separates physical, available, and committed quantity; preserves listing and adjustment history; and explains where channel credentials are stored. Review the data flow and current channel policy instead of relying on a security or compliance guarantee."
 feature_truth_synced_at: "2026-07-25"
 feature_truth_refs: []
 
 ---
 
-You list one pair of shoes on two channels. Only one of them needs to sell, and twice the people see it. Obvious call.
+If two orders arrive close together while one physical unit is listed on several channels, a seller may be unable to fulfill both.
 
-Then you find out about the sale roughly thirty minutes late. You rush to pull the other listing down — and there is already an order sitting on it.
+This article does not claim how often that occurs, what penalty a particular channel applies, or how multi-channel listing affects visibility. It covers one narrower task: **tracking how many sales commitments sit against one physical unit**.
 
-From here you have no options. One side gets cancelled, and that side keeps the penalty and the dent in your seller rating. Next month the same thing happens again.
-
-<Callout type="note" title="Summary">
-- Double selling is not a counting problem. It is a **missing column for promises**
-- Physical quantity and **sellable quantity** are different numbers
-- There is always a gap between when you delist and when the channel reflects it
-- Single-unit unique items are safest on one channel only
-- Log cancellations with a reason, or the pattern stays invisible
+<Callout type="note" title="Scope of this article">
+- no frequency or sales-performance estimate
+- no interpretation of a channel's permission, prohibition, or enforcement
+- current official seller policies must be checked before acting
+- a manual stock-sheet workaround you can use today
 </Callout>
 
-## 1. The problem is not the quantity, it's the promise
+## Risk 1 — the sheet stores physical quantity but not commitments
 
-Open the stock sheet and the quantity reads exactly 1. You have never miscounted.
+A stock sheet may show `1` while listings remain open on several channels. If the sheet contains only physical quantity, it cannot show where the item is listed or whether an order has already committed it.
 
-What is wrong is not the counting — it is **how many promises that 1 is carrying**. The moment it goes up on two channels, that single pair carries two sales promises simultaneously. Both cannot be honored.
+Separate these fields per item.
 
-A spreadsheet's quantity cell answers only "how many are there right now." **There was never a cell for "what is this unit already promised to."** So the sheet stays silent until the last possible moment. The number is still 1, after all.
+| Field | What to record |
+|---|---|
+| physical quantity | quantity you own and have checked |
+| available quantity | quantity your internal policy allows for a new order |
+| committed quantity | quantity already assigned to a confirmed sale or other commitment |
+| listing channels | channels whose current listing status you checked |
+| last checked | time you reconciled the channel view with the sheet |
 
-## 2. Delisting time and reflected time are not the same
+## Risk 2 — manual updates take several steps
 
-The second failure point is lag.
+In a manual workflow, you see a sale, open another channel, find the item, and update its listing status in sequence. Another order is an operational possibility during that work interval.
 
-You see the sale notification, open the app, find the other listing, take it down. That costs a few minutes. The channel then takes its own time to reflect that removal in listings. Cached lists and search results can hold on a little longer still.
+Display-update time, order-confirmation conditions, and cancellation outcomes may differ by channel. Do not state that one channel is slower or that repeated cancellations reduce visibility without current official evidence.
 
-**This gap does not add up with each channel — it multiplies.** With three channels, one confirmed sale means two places to pull down, and one of them being slow is enough. Pulling listings by hand without a fixed order means a different channel is late every time.
+## Risk 3 — owned quantity is confused with available quantity
 
-If the sale lands overnight, the gap stretches until morning. That is why double sales cluster in the small hours.
+An item may be owned or visible in a system while your policy keeps it unavailable for a new order.
 
-## 3. Stock you don't actually have leaks into sellable quantity
+- sold but not yet shipped
+- return or inspection hold
+- transfer to another location or channel warehouse
+- purchased but not yet received and checked
 
-The third failure point is that **having it physically does not mean you can sell it**.
+The exact states subtracted from available quantity must follow official channel definitions and your own documented policy. This list is a review example.
 
-Units can be sitting in the room and still be off-limits.
+## Risk 4 — cancellation work is not recorded
 
-- Sold and confirmed, but not yet shipped
-- Already shipped and in transit (still on the sheet because of refusal or return risk)
-- Returned and under inspection — resale eligibility not yet decided
-- On its way to a channel warehouse, or waiting for intake inspection
-- Purchased but not yet delivered to you
+An unfulfilled order can create operational work: updating listings, communicating with a buyer, reconciling source records, and adjusting the stock sheet. Specific fees, ratings, or selling-rights effects depend on channel policy and are not asserted here.
 
-All five stay in physical quantity but **none of them is sellable quantity**. The last one is the most dangerous: listing something because it is "arriving soon" leaves you holding only the sales promise if the purchase falls through or intake is rejected.
+Record date, item ID, channel, reason, and work performed. The log is for examining your own operation, not measuring industry frequency or policy consequences.
 
-## 4. A cancellation costs more than the penalty fee
+## Risk 5 — there is no exclusive or shared rule
 
-Most sellers already know points 1 through 3. Unique items keep going up on multiple channels anyway, because the cost of a cancellation gets counted as the penalty fee and nothing else.
+Applying the same listing method to every item makes it hard to distinguish a single-unit item from one with spare quantity.
 
-In practice these come attached:
+Two internal states can serve as a starting point:
 
-- Channels differ, but cancellation and non-fulfillment carry sanctions, and repeats affect exposure or selling privileges
-- It lands on your seller rating and reviews, which take time to work back up
-- The cancelled item has to be relisted — photos, description, price, all reassembled
-- Buyer communication costs time, and it rarely ends with an apology
-- The sale date for that item slides back entirely
+- `exclusive` — listed on one channel at a time
+- `shared` — listed on several channels while available and committed quantity are checked
 
-**The dividing line is whether you have ever put the gain from doubled exposure and the cost of one cancellation in the same table.** For fast-moving, low-priced items exposure usually wins. For high-priced, single-unit items the cancellation cost usually wins.
+Making a single-unit item `exclusive` is a conservative option. Check each channel's current official policy for whether multiple listings are allowed and what counts as a confirmed order.
 
-## 5. Which is why one quantity cell cannot answer
-
-Put together, the questions a stock sheet has to answer are not "how many."
-
-- How many can I **safely sell right now**
-- **Which channels** is that quantity committed to
-- When it sells, **which listing do I pull first**
-
-One quantity cell answers none of the three. That is not a reason to abandon the sheet — a few extra columns cover most of it.
-
-## What you can change in the sheet today
+## Fields you can add today
 
 <Steps>
-<Step title="Add a sellable quantity column">
-Next to physical quantity, add a separate column computed as `sellable = physical − sold/unshipped − in transit − in return inspection − moving to warehouse − purchased but undelivered`. Make every listing and delisting decision **from this column only**. Physical quantity is for stock counts.
+<Step title="Separate available quantity">
+Start with `available = received and checked − committed − internal holds`. Document the state definitions for your operation.
 </Step>
-<Step title="Mark each item exclusive or shared">
-`Exclusive` means one channel only; `shared` means listed on several. One character at item creation is enough. **Default anything with sellable quantity of 1 to exclusive.** When you make an exception, the only check is whether you could absorb a cancellation at that price.
+<Step title="Assign exclusive or shared status">
+Set an internal listing rule per item. You can start single-unit items as exclusive and review exceptions manually.
 </Step>
-<Step title="Fix the delisting order in writing">
-Decide in advance which channel comes down first when something sells. One criterion: **whichever is slowest to reflect changes, or has the most eyes on it, goes first.** A fixed order removes judgment from the panicked moment, and stops a different channel being the late one each time.
+<Step title="Record listing state and last-checked time">
+Keep a row for where the item is listed and when you last checked it. Re-check the actual channel state instead of trusting the sheet alone.
 </Step>
-<Step title="Log listings and delistings as rows">
-Record when an item went up on which channel and when it came down — in a separate sheet, one row each, not squeezed into the item row. It looks like overhead until the day you need to answer "I definitely pulled it, so why did an order arrive."
+<Step title="Write the update sequence">
+Base the sequence on official procedures and your actual workflow. Do not invent rankings about visibility or platform update speed.
 </Step>
-<Step title="Record cancellations with a reason code">
-`double-sale`, `stock-mismatch`, `price-error`, `shipping-delay` is enough of a vocabulary. Three fields per incident: date, channel, reason. After two or three months you can see which channel combinations and which price bands produce accidents. Without the log, every incident just reads as bad luck.
+<Step title="Log cancellations and adjustments with reason codes">
+Use internal codes such as `duplicate-commitment`, `stock-mismatch`, `price-error`, or `shipping-issue`, then record the work performed. Review patterns only in your own data.
 </Step>
 </Steps>
 
-The first two alone remove most unique-item accidents. The other three exist so you can find out *why* the remaining ones happened.
+This sheet cannot guarantee that a duplicate sale is prevented. It is a temporary way to bring manual-decision states and check times into one place.
 
-## When multi-channel listing is still the right call
-
-**If quantity is comfortable and turnover is fast, list on several channels.** This post is not an argument for fewer channels.
-
-The rule is simple. If sellable quantity is 2 or more and one sale still leaves stock for the next order, sharing costs you little. If sellable quantity is 1 with no replacement, the price of doubled exposure is the entire cancellation risk.
-
-<Callout type="warning" title="On channel policies">
-Rules for listing the same item across channels, and the sanctions for cancellation or non-fulfillment, differ by channel and change often. This post is a general operational view, not an interpretation of any channel's terms. Verify the current terms and seller policy of the channels you actually use.
+<Callout type="warning" title="Channel-policy notice">
+Check the current official terms and seller policies for multi-channel listings, order confirmation, and cancellation or non-fulfillment handling. This article does not interpret a specific policy or decide what is permitted.
 </Callout>
 
-## Why we are working on this problem
+## Resell Ops is still in development
 
-We are building a tool (Resell Ops) that brings purchases, stock, orders, settlements, and profit into **a single ledger**. The five points above became design requirements directly: sellable quantity separated from physical quantity, a per-item channel allocation rule, and listing, delisting, and cancellation kept as events.
+We are building Resell Ops toward a single ledger for purchases, inventory, orders, settlements, and profit. There is no installable distribution yet, and multi-channel allocation and double-sale prevention are not implemented product features.
 
-Execution is designed to run on the user's own computer, and the design **keeps channel passwords, cookies, and sessions off our servers**. What we deliberately do not build: purchase automation, raffle entry, stock-grabbing. This is a tool for a seller's own operating records.
+Execution is being designed for the user's computer, with channel passwords, cookies, and sessions kept off our servers. We do not build purchase, raffle-entry, stock-grabbing, or security-control bypass features, and we do not advise bypassing channel policies.
 
-The more useful question runs the other way. **How are you managing stock right now?** How many channels, which kinds of items produce your double sales, what columns your sheet already has. Tell us in the open chat below and it goes into the design — that is also where the build gets shared.
+We want to understand the columns you use and the sequence after a sale. Share only the operating structure, without personal data, in the open chat below; we will review it as design input and share the build process there.
 
 <KakaoChatCta locale="en" campaign="resell-ops-prelaunch-2026q3" content="reseller-multi-channel-inventory" />
 
 ## Frequently asked questions
 
-**Is it fine to list the same item on several channels at once?**
-For items with spare quantity and fast turnover, extra exposure usually wins. The problem is the unique, single-unit item. The moment one physical unit carries two sales promises, one of them has to be cancelled. The higher the price and the less replaceable the item, the more a single-channel listing costs you less.
+**Should a single-unit item be listed on only one channel?**
+This article offers `exclusive` as a conservative internal default, not a universal rule. Check the current official policy of each channel before multi-listing.
 
-**Can a spreadsheet prevent reseller double selling and overselling?**
-Not completely, but most of it. The key move is adding a separate "sellable quantity" column next to physical quantity and making every list/delist decision from that column alone. Add a per-item rule for whether it is exclusive to one channel or shared across several, and the remaining risk narrows down to a handful of unique items.
+**Why is available quantity different from physical quantity?**
+It avoids promising a unit already committed to another order or held for inspection or transfer. Define the held states for your operation.
 
-**How do I calculate sellable quantity?**
-Take physical quantity and subtract what is already promised: sold but not yet shipped, in transit, under return inspection, and moving to or awaiting intake at a channel warehouse. These units are still visible in the building or in the system, so they stay in physical quantity — but they are not available to sell again right now.
-
-**How should I track stock I sent ahead to a channel warehouse?**
-Count it as sellable from the moment the channel confirms intake, not from the moment you shipped it. If you count units in transit as sellable, they get listed elsewhere, and a single failed intake inspection removes the whole quantity while the sales promise remains. Record a warehouse move as a status change, not as a stock movement.
-
-**What should I look for in a reseller inventory tool?**
-Three things before feature count: does it separate sellable quantity from physical quantity, does it keep listing, delisting, and cancellation as history, and where does it store your channel account credentials. The last one is harder to reverse than switching tools, so check first whether it asks you to upload passwords, cookies, or sessions to its servers.
+**Which channel listing should I update first?**
+There is no universal channel ranking here. Use official procedures and your actual workflow, then directly confirm the current state on each channel after a sale.
 
 ---
 
 > If the settlement side is more urgent, read [Why Your Reseller Settlement Spreadsheet Drifts Every Month](/en/blog/resell-ops/resell-settlement-excel-limits) next.
 
+> This product is in development. There is no installable distribution yet, and inventory, order, and settlement functions are still being built.
 > We are not affiliated with any channel. Channel terms of service may restrict automated access, and that judgment and its risk rest with the user.
 
 *This article was drafted with AI assistance and fact-checked and edited by platformholder.*

@@ -353,3 +353,117 @@ Validation results and the final commit are also recorded in the task report at 
 - Public-route HTTP 200 checks do not prove a specific user account, notification delivery, or operational deployment SHA.
 - Shelter notice status does not establish an animal's current outcome; the shelter remains the authoritative contact.
 - Search-radius UI is a product estimate and is never presented as a biological boundary.
+
+---
+
+# Mirror-View, Resell Ops, and portfolio introduction upgrade
+
+## Scope
+
+This section covers five published Korean/English Mirror-View pairs, two published Korean/English Resell Ops pairs, and the Korean/English `platformholder/hello` introduction revised on 2026-07-30. Korean remains the editorial source; English carries the same facts, limitations, examples, product state, and calls to action.
+
+| Area | Editorial boundary |
+|---|---|
+| Mirror-View | Knowledge-only career guidance. Application and interview advice is a review heuristic that defers to employer instructions. No current product URL or product CTA remains. |
+| Resell Ops | PRE_LAUNCH problem analysis. Scenarios are operational risks, not measured frequency; manual spreadsheet workarounds and the open-chat invitation remain. |
+| Portfolio introduction | Reader-problem-first explanation of the current PocketFit, Mirror-View, Find-My-Pet, and Resell Ops guide portfolio. Links go only to the four localized service indexes. |
+
+## Source and claim map
+
+No exact recruiter-reading-time, hiring-outcome, universal ATS, channel-ranking, platform-penalty, reseller-frequency, or financial-performance claim was retained. As a result, no secondary recruiting or reseller source was introduced.
+
+| ID | Claim class | Disposition and basis |
+|---|---|---|
+| MV-C1 | Resume length, typography, ordering, and required fields | Reframed as editing baselines only when the employer gives no instructions. Employer postings and application forms remain the direct first-party authority for a specific application. |
+| MV-C2 | A recruiter reads for 30 seconds | Removed. The 30-second exercise remains only as an explicitly arbitrary peer-comparison interval, not a recruiter-reading-time claim. |
+| MV-C3 | Interviewers build questions by following a posting | Removed as a universal description of interviewer behavior. The same table remains as an applicant worksheet that turns public duties into practice prompts. |
+| MV-C4 | A particular number of prompts, answer length, or preparation minutes improves outcomes | Reframed as an editorial scope example. Employer-provided interview format and evaluation guidance take priority. |
+| MV-C5 | ATS keyword or layout rules | No processing rule retained. The article states that behavior can differ by product, employer, and configuration and makes no outcome claim. |
+| MV-C6 | Current Mirror-View use | Removed from rendered copy, including the existing web URL and speech-to-text CTA. `live_interview_stt` remains in frontmatter because existing feature references were explicitly protected. |
+| RO-C1 | Settlement drift has one most common cause or a predictable time/cost threshold | Removed. Sale-date versus final-state differences, file definitions, identifiers, edit history, and dated assumptions are presented as manual review risks. |
+| RO-C2 | Multi-channel listing doubles visibility, incidents cluster at a time of day, or one channel updates more slowly | Removed. The article describes only the manual interval between seeing a sale and updating other listings. |
+| RO-C3 | Cancellation causes a named penalty, ranking change, rating loss, or selling-rights effect | Removed. Readers are directed to the current official terms and seller policy for the channels they use; the article does not interpret them. |
+| RO-C4 | A spreadsheet prevents most duplicate sales or becomes unsuitable after a fixed channel/file count | Removed. The sheet is a temporary decision record with no prevention or speed guarantee. |
+| RO-C5 | Tax or profit result | No financial result is promised. The settlement guide is explicitly not tax advice and refers filing questions to a qualified professional. |
+| RO-C6 | Resell Ops availability and automation scope | Both pairs state that no installable distribution exists and ledger/allocation functions remain in development. Both retain open chat, non-affiliation, credential-storage design language, and explicit no-purchase/no-raffle/no-stock-grabbing/no-security-bypass language. |
+| PH-C1 | Portfolio availability | The introduction says availability differs by service and that each article follows current feature truth. It links only to `/blog/bbr`, `/blog/mirror-view`, `/blog/find-my-pet`, and `/blog/resell-ops` in the matching locale. |
+
+The read-only factual sources for current product scope were `marketing/brand/publisher-meta.md` plus the Mirror-View and Resell Ops `feature-truth.md`, `brand.md`, `audience.md`, `messaging.md`, and `channels.md` files. The marketing repository was not modified.
+
+## Exact editorial changes
+
+### Mirror-View
+
+- `beginner-resume-checklist`: replaced the mandatory one-page rule in body, FAQ, takeaways, and HowTo JSON-LD with an employer-instructions-first baseline; explicitly separated the peer 30-second test from recruiter behavior.
+- `create-interview-questions`: preserved the requirement/evidence table and practice-question method while replacing the claimed interviewer workflow with an applicant-side heuristic; marked counts, timing, and examples as editorial or fictional.
+- `how-to-use-resume-review`: preserved the five-pass worksheet and sample request while removing response-rate, fixed-cycle, known-probe, and hiring-effect claims.
+- `post-public-recruitment-era`: replaced unsourced mass-versus-rolling-hiring trend and ATS claims with a role-specific application guide bounded by the current employer's public instructions.
+- `why-same-interview-answers`: preserved transcript comparison, before/after answers, link patterns, and experience cards; removed the Mirror-View web URL, product CTA, and assertions about how interviewers interpret an answer.
+
+### Resell Ops
+
+- `resell-settlement-excel-limits`: converted five asserted causes into five operational risks; preserved one-event-per-row, raw-export preservation, identifier mapping, dated cost assumptions, tax caution, PRE_LAUNCH open chat, and fixed disclosures.
+- `reseller-multi-channel-inventory`: removed visibility, ranking, penalty, time-of-day, and guaranteed-prevention language; preserved physical/available/committed quantity, exclusive/shared status, last-checked time, event logging, PRE_LAUNCH open chat, and fixed disclosures.
+
+### Portfolio introduction
+
+- Both `hello.mdx` files now open with the reader problem of useful guidance being mixed with unavailable product promises.
+- Both name the current four-service portfolio, explain per-service availability and feature-truth boundaries, and link only to the four localized blog indexes.
+- Legacy solo-developer build-log positioning and old BBR/Mirror-View product descriptions were removed.
+
+## Structured metadata review
+
+Frontmatter was reviewed as rendered and JSON-LD content. Career caveats were applied to `description`, `howToSteps`, `keyTakeaways`, and `faq` fields as well as the body. Reseller frequency and policy caveats were applied to `description`, `keyTakeaways`, and `faq`. Protected metadata comparison against `cd18d6f8` passed for all 16 content files: `slug`, `publishedAt`, `canonical`, `hreflang`, and `feature_truth_refs` are unchanged.
+
+## Content-ops quality gate
+
+The panel below is an internal editorial self-assessment, not independent validation.
+
+| Expert | Lens |
+|---|---|
+| Career-guidance editor | Employer-instruction priority, no universal recruiter behavior, and no outcome promise. |
+| Recruiting-claims auditor | Resume timing, ATS, question-generation, and hiring claims across frontmatter and body. |
+| Reseller operations editor | Manual spreadsheet usefulness without frequency or prevention guarantees. |
+| Platform-policy editor | No uncited ranking, visibility, penalty, enforcement, or permission claims. |
+| Product-truth gate | Mirror knowledge-only boundary; Resell Ops PRE_LAUNCH, open chat, non-affiliation, and no-bypass scope. |
+| Structured-content editor | Descriptions, FAQs, HowTo steps, key takeaways, and final disclosures. |
+| Bilingual localization editor | Korean-source/English fact, limitation, CTA, and metadata equivalence. |
+| AI writing detector (1.5×) | Banned vocabulary, formulaic conclusions, excessive em dashes, and promotional tone. |
+
+### Result: 93.1/100 — PASS
+
+| Expert | Score | Key feedback |
+|---|---:|---|
+| Career-guidance editor | 93 | Each heuristic now defers to employer instructions and labels time/count examples. |
+| Recruiting-claims auditor | 92 | Universal recruiter and ATS behavior is absent; the remaining exact numbers are explicitly worksheet or fictional values. |
+| Reseller operations editor | 94 | Both workarounds remain usable while incidents and reconciliation differences are bounded as risks. |
+| Platform-policy editor | 95 | No channel-specific penalty, ranking, visibility, update-speed, or enforcement conclusion remains. |
+| Product-truth gate | 96 | Mirror rendered copy has no product surface; all four Resell files state PRE_LAUNCH and retain required scope language. |
+| Structured-content editor | 92 | Frontmatter caveats match the bodies; examples remain dense but functional. |
+| Bilingual localization editor | 94 | KO/EN structured-field counts, feature references, claims, limitations, and CTAs match by slug. |
+| AI writing detector (1.5×) | 90 | English banned-vocabulary scan is clean; repeated caution language is necessary for recruiting and policy boundaries. |
+
+**Weighted aggregate:** 93.1/100. All lenses reached 90, so no recursive rewrite round was required. This score is an editorial heuristic only.
+
+## Validation
+
+| Check | Result |
+|---|---|
+| `npm run audit:content` | Exit 0: PASS for 42 published posts and 21 bilingual pairs. Length warnings only. |
+| `npm run lint` | Exit 0 with no ESLint errors. |
+| `npm run build` in sandbox | Failed before compilation because Turbopack could not bind an internal port (`Operation not permitted`). |
+| `npm run build` outside sandbox | Exit 0: compiled successfully, TypeScript passed, and 333 static pages generated. Existing workspace-root, CSS `@import`, and broad NFT trace warnings remain. |
+| `git diff --check` | Exit 0. |
+| Protected metadata parser against `cd18d6f8` | PASS for 16 files: no change to slug, publication date, canonical, hreflang, or feature-reference arrays. |
+| KO/EN structured-field and feature-reference comparison | PASS: matching counts for `keyTakeaways`, `faq`, and `howToSteps`; matching protected feature references. |
+| Mirror product-surface scan | Zero matches for the former web host, `/interview`, and current-use CTA phrases across the ten published files. |
+| Resell scope scan | All four published files contain the open-chat CTA, no-installable-distribution wording, non-affiliation disclosure, and no-security-bypass language. |
+| English humanizer banned-vocabulary scan | Zero matches across the seven English service articles and the English portfolio introduction. |
+
+## Remaining limitations
+
+- The Mirror-View articles intentionally preserve editorial counts such as checklist size, example practice prompts, and `totalTime` metadata. The copy labels them as workflow examples, not researched hiring thresholds.
+- `live_interview_stt` remains in one Mirror-View frontmatter block because feature references were protected, even though the rendered article is now product-free.
+- Resell Ops policy wording is deliberately non-specific. Readers must consult each channel's current official terms and seller policy before acting.
+- The Resell Ops open chat is a shared cross-service channel; articles ask for operating structure only and prohibit account credentials, cookies, and order-level personal data.
+- Build warnings originate in existing project configuration and CSS and were not changed in this content-only task.
