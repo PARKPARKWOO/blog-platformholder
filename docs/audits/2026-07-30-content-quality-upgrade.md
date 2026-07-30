@@ -195,3 +195,161 @@ After those fixes, `npm run audit:content` passed again and the approved outside
 - Official public-health guidance is not an individualized training prescription. The articles say so and refer pain, injury history, and health conditions to qualified professionals.
 - The forbidden-language command intentionally sees two non-rendered maintenance comments. Removing those warnings would weaken future product-truth safeguards; rendered content has zero matches.
 - Build warnings originate in existing project configuration/CSS and were not changed in this content-only task.
+
+---
+
+# Find-My-Pet search-intent and evidence upgrade
+
+## Scope and editorial roles
+
+This section covers the eight published Korean/English Find-My-Pet pairs revised on 2026-07-30. Korean and English carry equivalent facts, limitations, sources, feature claims, and internal-link destinations.
+
+| Slug | Non-overlapping role |
+|---|---|
+| `lost-pet-5-step-guide` | Pillar: ordered response checklist from the last-seen point through reporting, sharing, shelter checks, sightings, and closure. |
+| `why-first-hour-matters` | Immediate fact preservation and role coordination, without a universal golden-hour promise. |
+| `how-far-do-lost-pets-travel` | Expansion from the loss point using outdoor history, terrain, and sightings, without a universal radius. |
+| `check-shelter-notices-by-region` | Active official notices, adjacent districts, shelter contacts, and the separate seven-day notice and ten-day ownership rules. |
+| `how-to-write-a-flyer` | Identifying information, contact-safety choices, permission-based print distribution, and collection. |
+| `beginner-pet-prep` | Readable ID tag, registered microchip data, current photographs, and reporting/service readiness. |
+| `saw-a-stray-what-to-do` | Safe observation, public missing-post checks, and official reporting without assumptions about ownership or abandonment. |
+| `holiday-season-pet-safety` | Prevention around doors, visitors, transport, unfamiliar accommodation, and identification. |
+
+## Direct source map
+
+Legal, reporting, behavioral, distance, urgency, and identification claims use current government/statute pages or primary research. Secondary rescue blogs, news summaries, and unsourced radius rules were not used.
+
+| ID | Direct source | What it supports and does not support |
+|---|---|---|
+| FMP-S1 | [Korea Animal Protection Act, Articles 39–43, effective 2026-07-07](https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1028318771) | Reporting to a local government or animal shelter; notice for at least seven days; return while protected; possible local-government ownership ten days after the notice date when the owner remains unknown. It does not make seven and ten days one universal “shelter period.” |
+| FMP-S2 | [Korea Animal Protection Act, Article 15](https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1028318041) | Registration of covered animals and reporting a registered animal as lost or reporting changed registration details. |
+| FMP-S3 | [Animal Protection Act Enforcement Decree, Article 11](https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1028781975) | An owner phone-number change is among the registration changes that must be reported. |
+| FMP-S4 | [Ministry of Agriculture, Food and Rural Affairs, lost/abandoned-animal reporting guidance, 2026-03-17](https://mafra.go.kr/bbs/home/792/577317/artclView.do) | National-system online reporting, the 1577-0954 connection line, 24-hour online intake, and official handover even after personal rescue. |
+| FMP-S5 | [Ministry of Agriculture, Food and Rural Affairs, holiday pet guidance, 2026-02-12](https://www.mafra.go.kr/home/5109/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGaG9tZSUyRjc5MiUyRjU3Njk2MiUyRmFydGNsVmlldy5kbyUzRg%3D%3D) | Preparing a separate space during holiday visits and using the national system for lost/found reporting. It does not support a fixed pre-visit walk duration. |
+| FMP-S6 | [Weiss, Slater, and Lord, Frequency of Lost Dogs and Cats and Methods Used to Locate Them](https://pmc.ncbi.nlm.nih.gov/articles/PMC4494319/) | Primary US household survey showing species differences in recovery methods. It does not establish a Korean universal recovery rate, radius, or time window. |
+| FMP-S7 | [Huang et al., Search Methods Used to Locate Missing Cats and Locations Where Missing Cats Are Found](https://pmc.ncbi.nlm.nih.gov/articles/PMC5789300/) | Primary retrospective survey: physical searching and found distance varied with prior outdoor access. The articles state the self-selected, recall-survey limits and do not transplant its distance percentiles into a universal radius. |
+| FMP-S8 | [Lord et al., Search and identification methods that owners use to find a lost dog](https://experts.arizona.edu/en/publications/search-and-identification-methods-that-owners-use-to-find-a-lost-/) | Primary one-county study identifying animal-agency contact, identification, and neighborhood signs as different recovery routes. It does not establish a universal flyer count, radius, reading time, or success rate. |
+| FMP-S9 | [Lancaster et al., Problems Associated with Microchip Data of Stray Dogs and Cats Entering RSPCA Queensland Shelters](https://pmc.ncbi.nlm.nih.gov/articles/PMC4494412/) | Primary shelter-admission analysis of inaccurate microchip registry data and owner contact. It is not a study of Korea's registration system and is not presented as one. |
+
+## Pre-edit risky-claim ledger
+
+Each row covers equivalent claims in Korean and English frontmatter, FAQs, HowTo JSON-LD fields, key takeaways, and body content. Structured metadata was treated as rendered content.
+
+| Article | Risky pre-edit claim group | Disposition | Basis and resulting edit |
+|---|---|---|---|
+| Pillar | Every pet stays within a fixed short radius for a universal first one-to-two-hour period. | removed | No selected direct source supports a universal combined-species radius or time window. The response now begins at the last-seen point and updates from terrain and sightings. |
+| Pillar | Dogs and cats share one hiding and movement pattern. | softened + cited | FMP-S6 and FMP-S7 support separating species and outdoor history; study limits are stated. |
+| Pillar | Current Find-My-Pet post, status, radius-map, share, sighting, and notice behavior. | retained + keyed | Retained only against `post_create`, `post_status_change`, `search_radius_map`, `sighting_report`, `share_buttons`, and `abandoned_notice_status`; registration path returned HTTP 200. |
+| First hour | The first hour is a universal reunion guarantee or scientifically fixed golden hour. | removed | Reframed as an operational coordination window, not a biological or outcome guarantee. |
+| First hour | Every lost animal hides close by and should be handled with the same search method. | softened + cited | FMP-S6 and FMP-S7 show species and outdoor-history differences, not one rule. |
+| First hour | Flyers, insurers, registries, and ads can always wait an exact number of hours without effect. | removed | No direct source supports that delay or outcome claim. |
+| Distance | Universal 500 m–1 km and 5 km search rules in frontmatter, FAQs, and body. | removed | FMP-S7 is context-specific and explicitly shows variation; no fixed number remains in published files. |
+| Distance | A cat will stay close or a dog will move far as a species-wide rule. | softened + cited | Prior outdoor access, terrain, roads, and actual sightings now determine expansion; FMP-S6 and FMP-S7 limitations are visible. |
+| Distance | Find-My-Pet's three-band map is a reliable boundary. | retained with limitation + keyed | `search_radius_map`, `time_phase_ui`, `breed_master`, `post_create`, `post_detail`, and `kakao_map_view`; copy repeatedly says “reference estimate, not a boundary.” |
+| Shelter notices | “The notice period is ten days.” | corrected + cited | FMP-S1 separates at least seven days of notice under Article 40 from possible ownership acquisition ten days after the notice date under Article 43. |
+| Shelter notices | Checking every day for the first ten days is universally the most important routine. | softened | Readers are told to keep a checking record, include adjacent districts, and act directly on specific sightings without ranking one method universally. |
+| Shelter notices | Hourly public-data synchronization and closed notices as a known outcome. | corrected + keyed | Removed the sync-frequency promise; closed status is not interpreted. Regional pages and alerts remain under current shipped keys. |
+| Flyer | One photo, five fields, three-second readability, a fixed print count, fixed radius, and current print prices are universal. | removed | FMP-S8 does not support those design, quantity, distance, speed, or price claims. |
+| Flyer | Particular street fixtures are always legal or illegal posting sites nationwide. | softened | Readers must obtain site/manager permission and follow removal conditions; no nationwide legal conclusion remains. |
+| Flyer | Flyer creation requires an owned missing post and offers only three A4 templates. | corrected + keyed | Current `flyer_standalone` and `flyer_print`: public `/flyer`, no sign-in or missing post required, six paper sizes and six templates; route returned HTTP 200. |
+| Beginner prep | Every step takes five minutes, an ID tag must be fitted on one exact day, and photos must be replaced monthly. | removed | Readiness uses readability, attachment security, appearance change, and identification value rather than unsupported timing. |
+| Beginner prep | A microchip is useful without current registry details or functions like tracking. | corrected + cited | FMP-S2, FMP-S3, and FMP-S9; the chip is described as an identifier, not GPS, and contact information must be current. |
+| Beginner prep | Current web, image, login, sighting, and in-app notification actions. | retained + keyed | Retained against the six preserved non-empty feature keys; public home returned HTTP 200. |
+| Loose animal | A universal three-minute capture flow, chasing behavior claim, and exact per-step completion times. | removed | Replaced with safety, observation, and reporting; no behavior guarantee or timing promise remains. |
+| Loose animal | A finder may report to the local government/shelter, use the national system, and must use the official process after personal rescue. | cited | FMP-S1 and FMP-S4 provide the direct current basis. |
+| Loose animal | Current public search, nearby filter, detail, sighting, notification, bookmark, and Kakao login behavior. | retained + keyed | Preserved feature references remain supported; `/search` returned HTTP 200. |
+| Holiday safety | Holiday risk is proven to rise universally, and a fixed pre-visit walk reduces escape behavior. | removed | FMP-S5 supports a separate space, not the risk comparison or fixed exercise prescription. |
+| Holiday safety | Separate visitor space, current registration contact, and actual travel-location reporting. | cited | FMP-S2, FMP-S3, and FMP-S5. |
+| Holiday safety | Find-My-Pet is a reachable web service and missing-post creation requires Kakao sign-in. | retained + keyed | `post_create` and `kakao_login`; public home and registration routes returned HTTP 200. |
+
+**Disposition summary:** 24 pre-edit claim groups: 8 removed, 5 softened, and 11 corrected, directly cited, or retained with matching feature-truth keys.
+
+## Internal-link map
+
+Links below are body links, excluding canonical and hreflang metadata. Each locale mirrors the same map.
+
+| Source | Pillar/back link | At most one adjacent support link |
+|---|---|---|
+| Pillar | n/a | Links once each to all seven focused guides in context. |
+| First hour | Pillar | Distance |
+| Distance | Pillar | Shelter notices |
+| Shelter notices | Pillar | Distance |
+| Flyer | Pillar | First hour |
+| Beginner prep | Pillar | Holiday safety |
+| Loose animal | Pillar | Shelter notices |
+| Holiday safety | Pillar | Beginner prep |
+
+All Korean body links use `/ko/blog/find-my-pet/...`; all English body links use `/en/blog/find-my-pet/...`.
+
+## Feature-truth and public-route checks
+
+The marketing repository was read-only throughout this task. Feature checks use the 2026-07-28 Find-My-Pet feature-truth digest plus direct public HTTP checks.
+
+| Article | Retained feature keys | Public action retained |
+|---|---|---|
+| Pillar | `post_create`, `post_status_change`, `search_radius_map`, `sighting_report`, `share_buttons`, `abandoned_notice_status` | `/register` |
+| First hour | `post_create`, `post_list_public`, `post_detail`, `share_buttons` | `/register` |
+| Distance | `search_radius_map`, `time_phase_ui`, `breed_master`, `post_create`, `post_detail`, `kakao_map_view` | `/register` |
+| Shelter notices | Existing nine keys preserved | `/abandonment/region` |
+| Flyer | `flyer_standalone`, `flyer_print` | `/flyer` |
+| Beginner prep | Existing six keys preserved | `/` |
+| Loose animal | Existing nine keys preserved | `/search` |
+| Holiday safety | `post_create`, `kakao_login` | `/` |
+
+Direct checks on 2026-07-30 returned HTTP 200 for `/`, `/flyer`, `/abandonment/region`, `/guide`, `/search`, and `/register`. These checks establish reachability, not an operating-status or outcome guarantee.
+
+## Find-My-Pet content-ops self-assessment
+
+The scoring panel is an internal editorial heuristic, not independent validation.
+
+| Expert | Lens |
+|---|---|
+| Korean lost-pet service editor | Calm, practical, non-blaming response language. |
+| Animal-protection-law editor | Current notice, ownership, registration, and reporting wording. |
+| Veterinary-behavior evidence auditor | Species, outdoor-history, distance, and urgency boundaries. |
+| Public-safety editor | Finder safety, official reporting, and no ownership assumptions. |
+| Product-truth gate | Reachable actions and matching shipped keys. |
+| Search-intent editor | Eight distinct roles without duplicate universal checklists. |
+| Bilingual localization editor | Fact, limitation, source, and link equivalence. |
+| AI writing detector (1.5×) | Banned vocabulary, formulaic claims, excessive bolding, and generic conclusions. |
+
+### Round 1 — 91/100 — PASS
+
+| Expert | Score | Key feedback |
+|---|---:|---|
+| Korean lost-pet service editor | 92 | Urgent copy is calm and avoids blame or despair. |
+| Animal-protection-law editor | 94 | Seven-day notice and ten-day ownership provisions are separated and linked to the live statute. |
+| Veterinary-behavior evidence auditor | 90 | Universal distance and time rules are gone; retrospective-study limits are visible. |
+| Public-safety editor | 92 | Loose-animal guidance avoids ownership assumptions and directs hazardous cases to authorities. |
+| Product-truth gate | 95 | Every product action has a non-empty current key and a directly checked route. |
+| Search-intent editor | 90 | Pillar and seven support roles are distinct and linked deterministically. |
+| Bilingual localization editor | 94 | Sources, numbers, cautions, feature claims, and internal map match across locales. |
+| AI writing detector (1.5×) | 90 | No English banned-vocabulary hits; lists are functional, not decorative. Some repeated “do not” safety phrasing is necessary. |
+
+**Weighted aggregate:** 92.0/100. All panel lenses reached 90+, so no recursive content-ops rewrite round was required.
+
+## Find-My-Pet validation
+
+Validation results and the final commit are also recorded in the task report at `.superpowers/sdd/task-5-report.md`.
+
+| Check | Result |
+|---|---|
+| `rg -n "feature_truth_refs\|findmypet\\.platformholder\\.site\|animal\\.go\\.kr" content/ko/find-my-pet content/en/find-my-pet` | Exit 0; product claims and feature-reference blocks were enumerated. Direct legal support uses current statute links rather than a generic `animal.go.kr` homepage. |
+| Fixed radius/time scan over the 16 published files | Zero matches for the removed 500 m–1 km, 5 km, universal one-to-two-hour, first-30-minute, and golden-hour phrases. |
+| Internal-link script, body only | Both locales: pillar has seven unique focused links; every focused guide has exactly two unique links, one to the pillar and one adjacent guide. |
+| Preserved-feature comparison to `ab04c018` | Every previously non-empty feature-reference set is preserved without a missing key; previously empty files now carry keys for retained product claims. |
+| Feature-key scan against read-only `marketing/services/find-my-pet/feature-truth.md` | Every referenced key was found in the current digest. Marketing files remained untouched. |
+| KO/EN direct-source comparison per slug | Exact source-set parity for all eight pairs. |
+| English content-ops banned-vocabulary scan | Zero matches across the eight published English files. |
+| `npm run audit:content` | Exit 0: PASS for 42 published posts and 21 bilingual pairs. Length warnings only. |
+| `npm run build` in sandbox | Failed before compilation because Turbopack could not bind an internal port (`Operation not permitted`). |
+| `npm run build` outside sandbox | Exit 0: compiled successfully, TypeScript passed, and 333 static pages generated. Existing warnings: inferred workspace root, CSS `@import` order, and broad NFT trace. |
+| `git diff --check` | Exit 0. |
+| Protected metadata diff against `ab04c018` | Zero output for changes to slug, `publishedAt`, canonical, and hreflang values. |
+
+## Find-My-Pet remaining limitations
+
+- FMP-S6 through FMP-S9 are non-Korean studies with specific survey or shelter contexts. The articles name those boundaries and do not transplant their rates or distances.
+- Public-route HTTP 200 checks do not prove a specific user account, notification delivery, or operational deployment SHA.
+- Shelter notice status does not establish an animal's current outcome; the shelter remains the authoritative contact.
+- Search-radius UI is a product estimate and is never presented as a biological boundary.
