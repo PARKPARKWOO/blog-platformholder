@@ -360,7 +360,7 @@ Validation results and the final commit are also recorded in the task report at 
 
 ## Scope
 
-This section covers five published Korean/English Mirror-View pairs, two published Korean/English Resell Ops pairs, and the Korean/English `platformholder/hello` introduction revised on 2026-07-30. Korean remains the editorial source; English carries the same facts, limitations, examples, product state, and calls to action.
+This section covers five published Korean/English Mirror-View pairs, two published Korean/English Resell Ops pairs, and the Korean/English `platformholder/hello` introduction revised on 2026-07-30. Korean remains the editorial source; final pair review confirmed equivalent claims, limitations, optional procedures, examples, product state, and calls to action without requiring word-for-word translation.
 
 | Area | Editorial boundary |
 |---|---|
@@ -441,7 +441,7 @@ The panel below is an internal editorial self-assessment, not independent valida
 | Platform-policy editor | 95 | No channel-specific penalty, ranking, visibility, update-speed, or enforcement conclusion remains. |
 | Product-truth gate | 96 | Mirror rendered copy has no product surface; all four Resell files state PRE_LAUNCH and retain required scope language. |
 | Structured-content editor | 92 | Frontmatter caveats match the bodies; examples remain dense but functional. |
-| Bilingual localization editor | 94 | The internal review compared KO/EN structured-field counts, feature references, limitations, and CTA parameters by slug. |
+| Bilingual localization editor | 94 | The internal review compared KO/EN structured fields, feature references, limitations, optionality, example framing, and CTA parameters by slug. |
 | AI writing detector (1.5×) | 90 | English banned-vocabulary scan is clean; repeated caution language is necessary for recruiting and policy boundaries. |
 
 **Weighted aggregate:** 93.1/100. This is an internal editorial self-assessment only, not an external review score, measured product result, or hiring/content-performance claim.
