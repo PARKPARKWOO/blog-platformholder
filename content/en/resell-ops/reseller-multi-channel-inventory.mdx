@@ -45,7 +45,7 @@ This article does not claim how often that occurs, what penalty a particular cha
 - a manual stock-sheet workaround you can use today
 </Callout>
 
-## Risk 1 — the sheet stores physical quantity but not commitments
+## Risk 1: the sheet stores physical quantity but not commitments
 
 A stock sheet may show `1` while listings remain open on several channels. If the sheet contains only physical quantity, it cannot show where the item is listed or whether an order has already committed it.
 
@@ -59,13 +59,13 @@ Separate these fields per item.
 | listing channels | channels whose current listing status you checked |
 | last checked | time you reconciled the channel view with the sheet |
 
-## Risk 2 — manual updates take several steps
+## Risk 2: manual updates take several steps
 
 In a manual workflow, you see a sale, open another channel, find the item, and update its listing status in sequence. Another order is an operational possibility during that work interval.
 
 Display-update time, order-confirmation conditions, and cancellation outcomes may differ by channel. Do not state that one channel is slower or that repeated cancellations reduce visibility without current official evidence.
 
-## Risk 3 — owned quantity is confused with available quantity
+## Risk 3: owned quantity is confused with available quantity
 
 An item may be owned or visible in a system while your policy keeps it unavailable for a new order.
 
@@ -76,20 +76,20 @@ An item may be owned or visible in a system while your policy keeps it unavailab
 
 The exact states subtracted from available quantity must follow official channel definitions and your own documented policy. This list is a review example.
 
-## Risk 4 — cancellation work is not recorded
+## Risk 4: cancellation work is not recorded
 
 An unfulfilled order can create operational work: updating listings, communicating with a buyer, reconciling source records, and adjusting the stock sheet. Specific fees, ratings, or selling-rights effects depend on channel policy and are not asserted here.
 
 Record date, item ID, channel, reason, and work performed. The log is for examining your own operation, not measuring industry frequency or policy consequences.
 
-## Risk 5 — there is no exclusive or shared rule
+## Risk 5: there is no exclusive or shared rule
 
 Applying the same listing method to every item makes it hard to distinguish a single-unit item from one with spare quantity.
 
 Two internal states can serve as a starting point:
 
-- `exclusive` — listed on one channel at a time
-- `shared` — listed on several channels while available and committed quantity are checked
+- `exclusive`: listed on one channel at a time
+- `shared`: listed on several channels while available and committed quantity are checked
 
 Making a single-unit item `exclusive` is a conservative option. Check each channel's current official policy for whether multiple listings are allowed and what counts as a confirmed order.
 

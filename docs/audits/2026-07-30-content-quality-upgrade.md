@@ -470,3 +470,147 @@ The panel below is an internal editorial self-assessment, not independent valida
 - Resell Ops policy wording is deliberately non-specific. Readers must consult each channel's current official terms and seller policy before acting.
 - The Resell Ops open chat is a shared cross-service channel; articles ask for operating structure only and prohibit account credentials, cookies, and order-level personal data.
 - Build warnings originate in existing project configuration and CSS and were not changed in this content-only task.
+
+---
+
+# Final full-corpus Content-Ops quality loop
+
+## Scope and scoring contract
+
+This final gate reviewed all 42 published MDX files and 21 Korean/English pairs as one corpus. Draft and memo directories were excluded. Every score below is an **internal editorial assessment**, not an independent reviewer score, traffic result, product result, or publishing authorization. External review remains the release gate.
+
+Each expert scored four dimensions from 0 to 25:
+
+- Hook Power
+- Voice Authenticity
+- Value Density
+- Engagement Potential
+
+The first eight experts have weight 1.0. AI Writing Detector has weight 1.5. The weighted aggregate is `(sum of first eight totals + AI total × 1.5) / 9.5`. In addition to the aggregate threshold, this final gate required every individual expert to score at least 90.
+
+## Nine-expert panel
+
+| Expert | Review lens |
+|---|---|
+| Content Strategist | Corpus roles, differentiation, sequencing, and reader outcome. |
+| Search Intent Editor | Query fit, title/body promise, bilingual intent, and useful internal routing. |
+| Audience Empathy Reviewer | Reader anxiety, blame avoidance, clarity, and realistic constraints. |
+| Actionability Editor | Concrete next actions, usable worksheets, and explicit decision boundaries. |
+| Product Truth Reviewer | Service availability, feature keys, URLs, CTA state, and PRE_LAUNCH boundaries. |
+| Evidence/Risk Reviewer | Claim support, uncertainty, legal/safety caveats, and prohibited guarantees. |
+| CTA Editor | CTA relevance, attribution, locale routing, data-safety prompts, and no unavailable action. |
+| Brand Voice Reviewer | Calm, practical, non-promotional PlatformHolder voice across services. |
+| AI Writing Detector (1.5×) | Humanizer vocabulary and 24-pattern review, with emphasis on em dashes, forced triads, and mechanical inline labels. |
+
+## Round 1 — FAIL
+
+Internal editorial assessment:
+
+| Expert | Hook /25 | Voice /25 | Value /25 | Engagement /25 | Total /100 | Key feedback |
+|---|---:|---:|---:|---:|---:|---|
+| Content Strategist | 23 | 22 | 23 | 23 | 91 | Service roles and article jobs are distinct. |
+| Search Intent Editor | 23 | 22 | 23 | 23 | 91 | Intent and localized routing are aligned. |
+| Audience Empathy Reviewer | 22 | 24 | 23 | 22 | 91 | Advice is calm and avoids blame or false certainty. |
+| Actionability Editor | 22 | 22 | 25 | 23 | 92 | Worksheets and next actions are usable. |
+| Product Truth Reviewer | 22 | 23 | 25 | 22 | 92 | Product state, feature references, and service boundaries are sound. |
+| Evidence/Risk Reviewer | 21 | 23 | 25 | 22 | 91 | Claims are bounded and risky outcomes are not promised. |
+| CTA Editor | 22 | 22 | 23 | 23 | 90 | Active and PRE_LAUNCH CTAs are separated correctly. |
+| Brand Voice Reviewer | 22 | 22 | 23 | 23 | 90 | Voice is practical, though repeated formatting feels mechanical. |
+| AI Writing Detector (1.5×) | 20 | 18 | 23 | 21 | 82 | Em-dash density exceeded the Humanizer limit in several files; repeated three-part headings and bold inline-label lists added an AI-written cadence. |
+
+**Weighted aggregate:** `(728 + 82 × 1.5) / 9.5 = 89.6/100` — FAIL. AI Writing Detector was also below the individual 90-point threshold.
+
+Only the three highest-impact weaknesses were opened for revision:
+
+1. Em-dash overuse above one per 200 words.
+2. Formulaic headings that announced or numbered forced groups of three.
+3. Mechanical bold inline labels followed by dashes, arrows, or colons.
+
+## Round 1 exact edits
+
+- Replaced excessive em dashes with periods, commas, semicolons, parentheses, or colons in the ten Mirror-View files, four Resell Ops files, and two localized portfolio introductions.
+- Reworded forced triad headings in `beginner-resume-checklist`, `how-to-use-resume-review`, and `why-same-interview-answers` in both locales. The underlying examples and factual counts remain intact where they are functional.
+- Converted mechanical bold-label lists to plain labels, descriptive subheadings, or ordinary prose across the five Mirror-View pairs.
+- Kept the edits bilingual and limited to style. No product claim, source, CTA destination, feature key, slug, publication date, canonical, or hreflang value changed.
+
+## Round 2 — PASS
+
+Internal editorial assessment:
+
+| Expert | Hook /25 | Voice /25 | Value /25 | Engagement /25 | Total /100 | Key feedback |
+|---|---:|---:|---:|---:|---:|---|
+| Content Strategist | 23 | 23 | 23 | 23 | 92 | Corpus structure remains intact after the narrow style pass. |
+| Search Intent Editor | 23 | 23 | 24 | 23 | 93 | Titles, article roles, and internal destinations still match intent. |
+| Audience Empathy Reviewer | 23 | 24 | 23 | 23 | 93 | The copy remains calm while reading less mechanically. |
+| Actionability Editor | 23 | 23 | 25 | 23 | 94 | Worksheets, examples, and next actions were preserved. |
+| Product Truth Reviewer | 23 | 24 | 25 | 23 | 95 | Protected metadata, feature keys, URLs, and service-state boundaries passed. |
+| Evidence/Risk Reviewer | 22 | 24 | 25 | 23 | 94 | Evidence limits and safety caveats survived the style edits. |
+| CTA Editor | 22 | 23 | 23 | 23 | 91 | FMP and Resell CTAs remain scoped, attributed, and locale-correct. |
+| Brand Voice Reviewer | 23 | 23 | 23 | 23 | 92 | Formatting is quieter and the practical voice is more consistent. |
+| AI Writing Detector (1.5×) | 23 | 22 | 24 | 23 | 92 | Banned vocabulary is zero, no file exceeds the em-dash limit, and forced triad/inline-label patterns were reduced without flattening the content. |
+
+**Weighted aggregate:** `(744 + 92 × 1.5) / 9.5 = 92.8/100` — PASS. Every expert is at or above 90, so a third round was not run.
+
+## Product-truth drift results
+
+The `source-command-marketing-prd-sync` drift procedure was used in scan-only mode for its three supported services. It compared the current blog working tree with the current marketing working-tree truth source; it did not mutate feature truth, PRD, or unrelated reports.
+
+| Service | Truth sync | Published files | FAIL | WARN | PASS | Report |
+|---|---:|---:|---:|---:|---:|---|
+| BBR | 2026-07-28 | 10 | 0 | 0 | 10 | `marketing/reports/qc/bbr-drift-20260730.md` |
+| Mirror-View | 2026-07-25 | 10 | 0 | 2 | 8 plus 2 claim-safe WARN files | `marketing/reports/qc/mirror-view-drift-20260730.md` |
+| Find-My-Pet blog corpus | 2026-07-30 | 16 | 0 | 16 freshness warnings | 16 claim passes | `marketing/reports/qc/find-my-pet-drift-20260730.md` |
+| Find-My-Pet marketing HTML | 2026-07-30 | 1 | 1 | 0 as final file grade | 0 as final file grade | same merged report |
+
+Mirror-View's two WARN entries are the localized `why-same-interview-answers` files. Their protected frontmatter retains `live_interview_stt`, but rendered copy contains no Mirror product URL, CTA, or feature claim. The key exists in current Shipped truth, so this is a dangling traceability warning rather than claim drift.
+
+The Find-My-Pet truth file changed again after the first scan. A preservation-hash check detected the concurrent update, so the merged report re-read the current user-modified working-tree source at SHA-256 `1af5640f1ff7727fc82b8218b942d268f6af43ec38fff7f5aab2f68fd4363d69`. It does not claim that source change is committed. All 96 FMP references and all 16 blog claim sets pass, but the posts retain `feature_truth_synced_at: 2026-07-28`, two days before the final truth sync, so they carry freshness WARN.
+
+The same report preserves the external marketing-content scan finding: `marketing/content/ko/naver-blog/find-my-pet-lost-pet-5-step-guide.html` still says A4 and three flyer templates, while current truth says six paper sizes, six templates, and a public `/flyer` entry point. That HTML remains FAIL and was not edited in Task 7.
+
+## Manual Resell Ops drift gate
+
+Resell Ops is outside the three-service marketing sync router and was audited manually.
+
+| Check | Result |
+|---|---|
+| Truth/content freshness | PASS: feature truth and all four posts are synced at 2026-07-25, five days old. |
+| Launch state | PASS: truth has zero Shipped items; all four posts say PRE_LAUNCH/development and no installable distribution. |
+| Product scope | PASS: ledger, allocation, and double-sale prevention remain goals or unimplemented functions, not current capabilities. |
+| Safety/disclosure | PASS: all four posts retain non-affiliation, credential-storage design, no purchase/raffle/stock-grabbing/security-bypass, and current-policy boundaries. |
+| CTA | PASS: all four open-chat CTAs use `medium="referral"`, the shared campaign, slug-matched content, and the English locale only where required. |
+| Forbidden live product surface | PASS: no `resell.platformholder.site` link or install/use-now CTA. |
+
+Manual result: FAIL 0, WARN 0, PASS 4.
+
+## Final validation
+
+| Check | Result |
+|---|---|
+| `npm run test:audit-content` | Exit 0: 3 tests passed. |
+| `npm run audit:content` | Exit 0: `PASS: 42 published posts; 21 bilingual pairs`; existing length warnings only. |
+| `npm run lint` | Exit 0 with no ESLint errors. |
+| `npm run build` in the restricted sandbox | Exited 1 before compilation because Turbopack could not bind an internal port (`Operation not permitted`). |
+| `npm run build` outside the restricted sandbox | Exit 0: compilation and TypeScript passed; 333/333 static pages generated. Existing workspace-root, CSS `@import`, and broad NFT-trace warnings remain. |
+| `git diff --check` | Exit 0 with no whitespace errors. |
+| Protected metadata parser against `a402f830` | PASS for 42 files: `slug`, `publishedAt`, `canonical`, `hreflang`, and `feature_truth_refs` are unchanged. |
+| KO/EN structured parity | PASS for 21 pairs: slug, dates, feature refs, and structured-array counts match. |
+| Feature-key scan | PASS: 98 references across the four product services resolve in the final truth sources (96 Find-My-Pet plus 2 Mirror-View). |
+| Internal-link scan | PASS: 76 links stay in the correct locale and resolve to known blog routes. |
+| Humanizer banned-vocabulary scan | PASS: zero occurrences across 21 English published files. |
+| Humanizer em-dash limit | PASS: zero English or Korean files exceed one em dash per 200 language units. |
+| Inline-label pattern scan | PASS: zero list items match the mechanical bold-label-plus-separator pattern. |
+| BBR product-surface scan | PASS: zero product-availability, install, store, trainer-site, or `/demo` matches. |
+| Mirror product-surface scan | PASS: zero product host, `/interview`, app, or current-use CTA matches. |
+| Find-My-Pet product-link scan | PASS: all 16 body product links use the official domain and complete blog attribution. |
+| Portfolio introduction link scan | PASS: exactly four localized service-index links in each locale. |
+| Resell scope and CTA parser | PASS for all four published files. |
+
+## Remaining concerns
+
+- The scores are internal editorial assessments. They are useful for a repeatable revision loop but do not replace an external reviewer.
+- Mirror-View's `live_interview_stt` reference remains a protected dangling traceability exception until metadata changes are separately authorized.
+- The Find-My-Pet truth source was read from the user's current uncommitted marketing working tree after a concurrent update. The merged drift report records its final digest and does not represent it as a committed source. The 16 blog timestamps remain two days behind that source and are freshness WARN despite claim-level PASS.
+- One existing marketing HTML article remains a product-truth FAIL because its flyer specification is stale. The Task 7 brief owns the drift report, not that external HTML correction.
+- Public HTTP 200 checks show route reachability only; they do not prove a deployment SHA, account-specific behavior, or notification delivery.
+- Existing build warnings are outside this content-only scope and were not changed.

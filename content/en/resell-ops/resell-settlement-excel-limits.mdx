@@ -45,13 +45,13 @@ This article has no frequency data for these scenarios. It also does not assert 
 - a record of the value before each correction
 </Callout>
 
-## Risk 1 — estimates and final values share one field
+## Risk 1: estimates and final values share one field
 
 A value recorded on the sale date may change in the later settlement. Depending on the transaction, fees, outbound or return shipping, cancellations, returns, or promotion contributions may be reflected at a different time.
 
 Channels and transactions do not all follow one sequence. Keep `estimated`, `final`, and `adjusted` states separate, and use the channel's official settlement record as the source for final status.
 
-## Risk 2 — identical labels are treated as identical amounts
+## Risk 2: identical labels are treated as identical amounts
 
 One file's `sales amount` may be gross before fees while another's may be an expected payout. Tax, shipping, and cancellation treatment may differ too.
 
@@ -67,19 +67,19 @@ Build a mapping table when you first receive a file.
 
 Do not guess. Check current official guidance and the notes in the actual export.
 
-## Risk 3 — product titles become join keys
+## Risk 3: product titles become join keys
 
 Color, size, condition, and included-item labels can vary between files for the same item. An exact-string lookup can miss those differences.
 
 One manual alternative is a seller-controlled identifier with channel-specific titles stored as aliases. Which dimensions belong in the identifier depends on the operation. Start with the dimensions that must be settled separately; keep the rest as reference fields.
 
-## Risk 4 — old values are overwritten
+## Risk 4: old values are overwritten
 
 Typing a final payout over an estimate or replacing a stock count removes the earlier value. A later discrepancy is harder to trace without knowing what changed and when.
 
 Preserve the original export. In the transformed sheet, append an `adjustment` row with the original row ID, adjustment date, and reason instead of deleting the old row.
 
-## Risk 5 — cost assumptions exist only inside formulas
+## Risk 5: cost assumptions exist only inside formulas
 
 When fee rates, shipping, or return allowances exist only as formula constants, it is hard to inspect which assumptions produced an earlier result.
 
