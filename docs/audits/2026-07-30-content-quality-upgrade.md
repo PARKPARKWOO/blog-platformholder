@@ -377,7 +377,7 @@ No exact recruiter-reading-time, hiring-outcome, universal ATS, channel-ranking,
 | MV-C1 | Resume length, typography, ordering, and required fields | Reframed as editing baselines only when the employer gives no instructions. Employer postings and application forms remain the direct first-party authority for a specific application. |
 | MV-C2 | A recruiter reads for 30 seconds | Removed. The 30-second exercise remains only as an explicitly arbitrary peer-comparison interval, not a recruiter-reading-time claim. |
 | MV-C3 | Interviewers build questions by following a posting | Removed as a universal description of interviewer behavior. The same table remains as an applicant worksheet that turns public duties into practice prompts. |
-| MV-C4 | A particular number of prompts, answer length, or preparation minutes improves outcomes | Reframed as an editorial scope example. Employer-provided interview format and evaluation guidance take priority. |
+| MV-C4 | A particular checklist score, prompt count, answer length, or preparation duration diagnoses quality or improves outcomes | Checklist thresholds and fixed preparation durations were removed. Remaining numbers identify the article's worksheet structure or explicitly fictional evidence examples; employer-provided formats and instructions take priority. |
 | MV-C5 | ATS keyword or layout rules | No processing rule retained. The article states that behavior can differ by product, employer, and configuration and makes no outcome claim. |
 | MV-C6 | Current Mirror-View use | Removed from rendered copy, including the existing web URL and speech-to-text CTA. `live_interview_stt` remains in frontmatter because existing feature references were explicitly protected. |
 | RO-C1 | Settlement drift has one most common cause or a predictable time/cost threshold | Removed. Sale-date versus final-state differences, file definitions, identifiers, edit history, and dated assumptions are presented as manual review risks. |
@@ -394,16 +394,17 @@ The read-only factual sources for current product scope were `marketing/brand/pu
 
 ### Mirror-View
 
-- `beginner-resume-checklist`: replaced the mandatory one-page rule in body, FAQ, takeaways, and HowTo JSON-LD with an employer-instructions-first baseline; explicitly separated the peer 30-second test from recruiter behavior.
-- `create-interview-questions`: preserved the requirement/evidence table and practice-question method while replacing the claimed interviewer workflow with an applicant-side heuristic; marked counts, timing, and examples as editorial or fictional.
-- `how-to-use-resume-review`: preserved the five-pass worksheet and sample request while removing response-rate, fixed-cycle, known-probe, and hiring-effect claims.
+- `beginner-resume-checklist`: replaced the mandatory one-page rule in body, FAQ, takeaways, and HowTo JSON-LD with an employer-instructions-first baseline; removed checklist score thresholds and diagnostic interpretations; kept a same-interval peer skim only as an optional reader observation.
+- `create-interview-questions`: preserved the requirement/evidence table and practice-question method while replacing the claimed interviewer workflow with an applicant-side heuristic; removed the fixed completion schedule and aligned the Korean/English titles. Only first-party employer materials can support a prompt, and anything outside the target posting is labeled a hypothesis rather than a reconstructed requirement.
+- `how-to-use-resume-review`: preserved the five-angle worksheet and sample request while removing fixed-cycle, improvement-effect, reviewer/tool superiority, response-rate, and known-interviewer-probe claims.
 - `post-public-recruitment-era`: replaced unsourced mass-versus-rolling-hiring trend and ATS claims with a role-specific application guide bounded by the current employer's public instructions.
-- `why-same-interview-answers`: preserved transcript comparison, before/after answers, link patterns, and experience cards; removed the Mirror-View web URL, product CTA, and assertions about how interviewers interpret an answer.
+- `why-same-interview-answers`: preserved transcript comparison, before/after answers, link patterns, and experience cards; replaced the diagnostic title, removed memory-effect claims, and kept transcription methods as optional tools with privacy and verification caveats.
 
 ### Resell Ops
 
 - `resell-settlement-excel-limits`: converted five asserted causes into five operational risks; preserved one-event-per-row, raw-export preservation, identifier mapping, dated cost assumptions, tax caution, PRE_LAUNCH open chat, and fixed disclosures.
 - `reseller-multi-channel-inventory`: removed visibility, ranking, penalty, time-of-day, and guaranteed-prevention language; preserved physical/available/committed quantity, exclusive/shared status, last-checked time, event logging, PRE_LAUNCH open chat, and fixed disclosures.
+- All four open-chat calls use the same `campaign`, locale-matched `content`, and `medium="referral"` attribution.
 
 ### Portfolio introduction
 
@@ -413,7 +414,7 @@ The read-only factual sources for current product scope were `marketing/brand/pu
 
 ## Structured metadata review
 
-Frontmatter was reviewed as rendered and JSON-LD content. Career caveats were applied to `description`, `howToSteps`, `keyTakeaways`, and `faq` fields as well as the body. Reseller frequency and policy caveats were applied to `description`, `keyTakeaways`, and `faq`. Protected metadata comparison against `cd18d6f8` passed for all 16 content files: `slug`, `publishedAt`, `canonical`, `hreflang`, and `feature_truth_refs` are unchanged.
+Frontmatter was reviewed as rendered and JSON-LD content. Career caveats were applied to `description`, `howToSteps`, `keyTakeaways`, and `faq` fields as well as the body. The three Mirror HowTo pairs no longer declare `totalTime`. Reseller frequency and policy caveats were applied to `description`, `keyTakeaways`, and `faq`. Protected metadata comparison covers `slug`, `publishedAt`, `canonical`, `hreflang`, and `feature_truth_refs`; those fields remain unchanged.
 
 ## Content-ops quality gate
 
@@ -430,20 +431,20 @@ The panel below is an internal editorial self-assessment, not independent valida
 | Bilingual localization editor | Korean-source/English fact, limitation, CTA, and metadata equivalence. |
 | AI writing detector (1.5×) | Banned vocabulary, formulaic conclusions, excessive em dashes, and promotional tone. |
 
-### Result: 93.1/100 — PASS
+### Internal self-assessment snapshot: 93.1/100
 
 | Expert | Score | Key feedback |
 |---|---:|---|
-| Career-guidance editor | 93 | Each heuristic now defers to employer instructions and labels time/count examples. |
-| Recruiting-claims auditor | 92 | Universal recruiter and ATS behavior is absent; the remaining exact numbers are explicitly worksheet or fictional values. |
+| Career-guidance editor | 93 | Heuristics defer to employer instructions; checklist thresholds and fixed completion-duration promises were removed. |
+| Recruiting-claims auditor | 92 | The review checked frontmatter and body for recruiter, interviewer, ATS, diagnostic, and outcome claims. |
 | Reseller operations editor | 94 | Both workarounds remain usable while incidents and reconciliation differences are bounded as risks. |
 | Platform-policy editor | 95 | No channel-specific penalty, ranking, visibility, update-speed, or enforcement conclusion remains. |
 | Product-truth gate | 96 | Mirror rendered copy has no product surface; all four Resell files state PRE_LAUNCH and retain required scope language. |
 | Structured-content editor | 92 | Frontmatter caveats match the bodies; examples remain dense but functional. |
-| Bilingual localization editor | 94 | KO/EN structured-field counts, feature references, claims, limitations, and CTAs match by slug. |
+| Bilingual localization editor | 94 | The internal review compared KO/EN structured-field counts, feature references, limitations, and CTA parameters by slug. |
 | AI writing detector (1.5×) | 90 | English banned-vocabulary scan is clean; repeated caution language is necessary for recruiting and policy boundaries. |
 
-**Weighted aggregate:** 93.1/100. All lenses reached 90, so no recursive rewrite round was required. This score is an editorial heuristic only.
+**Weighted aggregate:** 93.1/100. This is an internal editorial self-assessment only, not an external review score, measured product result, or hiring/content-performance claim.
 
 ## Validation
 
@@ -454,16 +455,18 @@ The panel below is an internal editorial self-assessment, not independent valida
 | `npm run build` in sandbox | Failed before compilation because Turbopack could not bind an internal port (`Operation not permitted`). |
 | `npm run build` outside sandbox | Exit 0: compiled successfully, TypeScript passed, and 333 static pages generated. Existing workspace-root, CSS `@import`, and broad NFT trace warnings remain. |
 | `git diff --check` | Exit 0. |
-| Protected metadata parser against `cd18d6f8` | PASS for 16 files: no change to slug, publication date, canonical, hreflang, or feature-reference arrays. |
+| Protected metadata parser against Task 6 commit `ba9f3fd` | PASS for 16 files: no change to slug, publication date, canonical, hreflang, or feature-reference arrays. |
 | KO/EN structured-field and feature-reference comparison | PASS: matching counts for `keyTakeaways`, `faq`, and `howToSteps`; matching protected feature references. |
 | Mirror product-surface scan | Zero matches for the former web host, `/interview`, and current-use CTA phrases across the ten published files. |
+| Mirror claim-focused scans | Zero matches for `totalTime` in the three HowTo pairs, 30-minute completion promises, checklist thresholds, “real weakness” diagnoses, fixed review cycles, and hard recruiter/interviewer/tool-effect patterns. |
+| Interview-source boundary review | The structured FAQ and body use the target posting as evidence; other first-party employer material remains a labeled hypothesis. Competitor postings and individual employee profiles are explicitly excluded as evidence of requirements. |
+| Resell CTA parser | PASS for all four calls: `medium="referral"`, shared campaign, slug-matched content, and English-only locale parameter. |
 | Resell scope scan | All four published files contain the open-chat CTA, no-installable-distribution wording, non-affiliation disclosure, and no-security-bypass language. |
-| English humanizer banned-vocabulary scan | Zero matches across the seven English service articles and the English portfolio introduction. |
 
 ## Remaining limitations
 
-- The Mirror-View articles intentionally preserve editorial counts such as checklist size, example practice prompts, and `totalTime` metadata. The copy labels them as workflow examples, not researched hiring thresholds.
-- `live_interview_stt` remains in one Mirror-View frontmatter block because feature references were protected, even though the rendered article is now product-free.
+- The Mirror-View articles retain numbers where they identify the worksheet itself or explicitly fictional evidence examples. The three HowTo pairs no longer carry `totalTime`; no fixed completion duration or checklist-score threshold remains.
+- `live_interview_stt` remains a documented dangling traceability exception in one Mirror-View frontmatter block because the task brief required existing feature references to be preserved. No rendered product copy was added.
 - Resell Ops policy wording is deliberately non-specific. Readers must consult each channel's current official terms and seller policy before acting.
 - The Resell Ops open chat is a shared cross-service channel; articles ask for operating structure only and prohibit account credentials, cookies, and order-level personal data.
 - Build warnings originate in existing project configuration and CSS and were not changed in this content-only task.
