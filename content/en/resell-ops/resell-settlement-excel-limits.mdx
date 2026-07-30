@@ -4,7 +4,7 @@ slug: resell-settlement-excel-limits
 service: resell-ops
 type: article
 publishedAt: "2026-07-25"
-updatedAt: "2026-07-26"
+updatedAt: "2026-07-30"
 author: platformholder
 tags: [resell-ops, reseller-settlement, inventory-ledger, spreadsheet-limits, solo-seller, margin-calculation]
 description: "You logged every sale, yet month-end numbers still disagree. Reseller settlement spreadsheets drift from record structure, not arithmetic — five causes, five fixes."
@@ -29,6 +29,9 @@ faq:
     answer: "When the number of distinct file formats grows, not the number of transactions. Past two formats, with settlements confirming days or weeks after the sale, the time spent finding why numbers disagree exceeds the time spent merging them. If you sell on one channel with low volume, a spreadsheet is still the fastest tool."
   - question: "Instead of a spreadsheet, is there a tool that keeps stock and settlements in one ledger?"
     answer: "That is exactly what we are building (Resell Ops): one ledger covering purchases, stock, orders, settlements, and profit. The five causes described in this post became design requirements directly. The spreadsheet changes here are deliberately limited to what you can apply today without waiting for any tool — try them first, and tell us in the open chat which parts still refuse to line up so we can factor it into the design."
+feature_truth_synced_at: "2026-07-25"
+feature_truth_refs: []
+
 ---
 
 At month end you download each channel's settlement file and paste them into one sheet. You align the column names, subtract the fees, add the shipping.
@@ -167,3 +170,5 @@ That is exactly what we are building (Resell Ops): one ledger covering purchases
 > If stock is the more urgent half of the problem, read [What Happens When One Item Sits on Two Channels](/en/blog/resell-ops/reseller-multi-channel-inventory) next.
 
 > We are not affiliated with any channel. Channel terms of service may restrict automated access, and that judgment and its risk rest with the user.
+
+*This article was drafted with AI assistance and fact-checked and edited by platformholder.*
