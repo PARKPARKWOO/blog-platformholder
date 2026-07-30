@@ -17,7 +17,7 @@ Only direct research, official clinical/public-health guidance, or official stan
 | S5 | [ACSM 2026 resistance-training position stand](https://pubmed.ncbi.nlm.nih.gov/41843416/) | Current official position stand: progressive resistance training works across varied prescriptions; several prescription variables have outcome-specific effects, so one universal split, rep range, or set prescription is not justified. |
 | S6 | [Hagger et al., multilab preregistered ego-depletion replication](https://pubmed.ncbi.nlm.nih.gov/27474142/) | Direct preregistered research finding a small effect with a confidence interval spanning zero; supports treating the fuel-tank model of willpower as unsettled. |
 | S7 | [Zhang et al., randomized social-network exercise trial](https://pubmed.ncbi.nlm.nih.gov/27617191/) | Direct randomized trial in university students: social-comparison network conditions increased exercise-class attendance in that setting; does not establish a universal buddy effect. |
-| S8 | [Keogh et al., running ground-reaction-force study](https://pubmed.ncbi.nlm.nih.gov/11415629/) | Direct laboratory study: measured vertical ground-reaction force varied with speed and approached about 2.5 times body weight at 6.0 m/s in 23 recreational athletes. |
+| S8 | [Keller et al., running ground-reaction-force study](https://pubmed.ncbi.nlm.nih.gov/11415629/) | Direct laboratory study: measured vertical ground-reaction force varied with speed and approached about 2.5 times body weight at 6.0 m/s in 23 recreational athletes. |
 | S9 | [Run Clever randomized trial](https://pubmed.ncbi.nlm.nih.gov/29527322/) | Direct randomized trial finding no clear injury-risk difference between progression focused on running intensity and progression focused on running volume. |
 | S10 | [Strengthening-plus-running randomized pilot](https://pubmed.ncbi.nlm.nih.gov/38251299/) | Direct pilot trial finding no significant running-injury or maximal-aerobic-speed advantage from the strengthening intervention; supports removing injury-prevention guarantees. |
 | S11 | [CDC, Steps for Getting Started With Physical Activity](https://www.cdc.gov/healthy-weight-growth/physical-activity/getting-started.html) | Official guidance to start slowly, build difficulty gradually, and ask a health professional when activity choice depends on health or injury concerns. |
@@ -135,9 +135,9 @@ The pre-edit ledger contains 73 claim groups: 7 retained with direct citations, 
 - the social-comparison article identifies the student/class/incentive context before offering any practical inference;
 - all ten files remain product-free with `feature_truth_refs: []`.
 
-## Content-ops panel
+## Content-ops self-assessment panel
 
-Panel assembled for the ten-file corpus:
+The following panel is an internal editorial self-assessment of the ten-file corpus. It is not an independent review and has no durable external scoring artifact.
 
 | Expert | Lens |
 |---|---|
@@ -150,7 +150,7 @@ Panel assembled for the ten-file corpus:
 | Product-truth gate | Checks for current-use PocketFit, app-store, trainer-certification, or real-time-notification claims. |
 | AI writing detector (1.5×) | Checks banned vocabulary, formulaic groups of three, excessive bold inline headers, em-dash density, and generic conclusions. |
 
-### Round 1 — 92/100 — PASS
+### Self-assessment round 1 — 92/100 — PASS
 
 | Expert | Score | Key feedback |
 |---|---:|---|
@@ -163,7 +163,7 @@ Panel assembled for the ten-file corpus:
 | Product-truth gate | 98 | No rendered product-use claim; all `feature_truth_refs` arrays remain empty. |
 | AI writing detector (1.5×) | 91 | No banned-vocabulary hits, no decorative emoji, reduced bold-header lists, and restrained conclusions. |
 
-**Weighted aggregate:** 92.9/100. All experts reached 90+, so no recursive rewrite round was required.
+**Weighted self-assessment aggregate:** 92.9/100. All simulated lenses reached 90+, so no recursive rewrite round was required. This score is an editorial heuristic, not an independently verified measurement.
 
 **Remaining editorial tradeoffs:** The preserved SEO titles still contain fixed time frames such as “four weeks” and “two strength sessions.” The bodies now state that these are planning frames, not universal physiological prescriptions. Existing `totalTime` metadata is preserved as requested and is not repeated as a performance promise in the body.
 
@@ -181,11 +181,11 @@ Run from `/Users/park/Desktop/project/blog-platformholder`:
 | English humanizer banned-vocabulary scan | Zero matches across the five English files. |
 | KO/EN unique-source comparison per slug | Exact source-set parity for all five pairs. |
 
-### Final brand QC
+### Final brand-QC self-assessment
 
-The first read-only BBR brand-QC pass blocked publication on four concrete issues: the CTA component's default `utm_medium="post"` was outside the publisher UTM allowlist; the Korean rival title contained an unsupported comparative adherence claim; the ledger total was miscounted; and that title created a bilingual claim mismatch.
+The first internal read-only BBR brand-QC self-assessment blocked publication on four concrete issues: the CTA component's default `utm_medium="post"` was outside the publisher UTM allowlist; the Korean rival title contained an unsupported comparative adherence claim; the ledger total was miscounted; and that title created a bilingual claim mismatch.
 
-The ten CTAs now explicitly use `medium="referral"`, the Korean title is non-comparative, and the ledger is corrected to 73 groups. A second read-only brand-QC pass returned **PASS** for all ten articles and this audit, confirming UTM compliance, product-free status, empty feature refs, bilingual equivalence, disclosures, and deterministic audit success.
+The ten CTAs now explicitly use `medium="referral"` and descriptive pair-aligned campaign slugs in the `bbr-{campaign}-{yyyyqN}` format. The Korean title is non-comparative, and the ledger is corrected to 73 groups. A second internal read-only brand-QC self-assessment returned **PASS** for all ten articles and this audit after checking UTM compliance, product-free status, empty feature refs, bilingual equivalence, disclosures, and deterministic audit success.
 
 After those fixes, `npm run audit:content` passed again and the approved outside-sandbox `npm run build` again exited 0 with 327 static pages generated.
 
