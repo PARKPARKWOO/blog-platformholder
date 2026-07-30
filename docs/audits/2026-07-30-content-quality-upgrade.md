@@ -221,7 +221,7 @@ Legal, reporting, behavioral, distance, urgency, and identification claims use c
 
 | ID | Direct source | What it supports and does not support |
 |---|---|---|
-| FMP-S1 | [Korea Animal Protection Act, Articles 39–43, effective 2026-07-07](https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1028318771) | Reporting to a local government or animal shelter; notice for at least seven days; return while protected; possible local-government ownership ten days after the notice date when the owner remains unknown. It does not make seven and ten days one universal “shelter period.” |
+| FMP-S1 | [Korea Animal Protection Act, Articles 39–43, effective 2026-07-07](https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1028318771) | A person who finds a lost or abandoned animal may report it to a local government or animal shelter; notice for at least seven days; return while protected; possible local-government ownership ten days after the notice date when the owner remains unknown. It does not govern an owner's registered-animal loss report or make seven and ten days one universal “shelter period.” |
 | FMP-S2 | [Korea Animal Protection Act, Article 15](https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1028318041) | Registration of covered animals and reporting a registered animal as lost or reporting changed registration details. |
 | FMP-S3 | [Animal Protection Act Enforcement Decree, Article 11](https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1028781975) | An owner phone-number change is among the registration changes that must be reported. |
 | FMP-S4 | [Ministry of Agriculture, Food and Rural Affairs, lost/abandoned-animal reporting guidance, 2026-03-17](https://mafra.go.kr/bbs/home/792/577317/artclView.do) | National-system online reporting, the 1577-0954 connection line, 24-hour online intake, and official handover even after personal rescue. |
@@ -254,7 +254,7 @@ Each row covers equivalent claims in Korean and English frontmatter, FAQs, HowTo
 | Flyer | Flyer creation requires an owned missing post and offers only three A4 templates. | corrected + keyed | Current `flyer_standalone` and `flyer_print`: public `/flyer`, no sign-in or missing post required, six paper sizes and six templates; route returned HTTP 200. |
 | Beginner prep | Every step takes five minutes, an ID tag must be fitted on one exact day, and photos must be replaced monthly. | removed | Readiness uses readability, attachment security, appearance change, and identification value rather than unsupported timing. |
 | Beginner prep | A microchip is useful without current registry details or functions like tracking. | corrected + cited | FMP-S2, FMP-S3, and FMP-S9; the chip is described as an identifier, not GPS, and contact information must be current. |
-| Beginner prep | Current web, image, login, sighting, and in-app notification actions. | retained + keyed | Retained against the six preserved non-empty feature keys; public home returned HTTP 200. |
+| Beginner prep | Current web, image, public-list, detail, login, sighting, and in-app notification actions. | retained + keyed | Retained against nine current feature keys, including `post_list_public`, `post_detail`, and `notification_page`; public home returned HTTP 200. |
 | Loose animal | A universal three-minute capture flow, chasing behavior claim, and exact per-step completion times. | removed | Replaced with safety, observation, and reporting; no behavior guarantee or timing promise remains. |
 | Loose animal | A finder may report to the local government/shelter, use the national system, and must use the official process after personal rescue. | cited | FMP-S1 and FMP-S4 provide the direct current basis. |
 | Loose animal | Current public search, nearby filter, detail, sighting, notification, bookmark, and Kakao login behavior. | retained + keyed | Preserved feature references remain supported; `/search` returned HTTP 200. |
@@ -288,11 +288,11 @@ The marketing repository was read-only throughout this task. Feature checks use 
 | Article | Retained feature keys | Public action retained |
 |---|---|---|
 | Pillar | `post_create`, `post_status_change`, `search_radius_map`, `sighting_report`, `share_buttons`, `abandoned_notice_status` | `/register` |
-| First hour | `post_create`, `post_list_public`, `post_detail`, `share_buttons` | `/register` |
+| First hour | `post_create`, `post_list_public`, `post_detail`, `share_buttons`, `kakao_login` | `/register` |
 | Distance | `search_radius_map`, `time_phase_ui`, `breed_master`, `post_create`, `post_detail`, `kakao_map_view` | `/register` |
 | Shelter notices | Existing nine keys preserved | `/abandonment/region` |
 | Flyer | `flyer_standalone`, `flyer_print` | `/flyer` |
-| Beginner prep | Existing six keys preserved | `/` |
+| Beginner prep | `post_create`, `post_image_upload`, `kakao_login`, `sighting_report`, `in_app_notification`, `notification_bell`, `post_list_public`, `post_detail`, `notification_page` | `/` |
 | Loose animal | Existing nine keys preserved | `/search` |
 | Holiday safety | `post_create`, `kakao_login` | `/` |
 
@@ -313,7 +313,7 @@ The scoring panel is an internal editorial heuristic, not independent validation
 | Bilingual localization editor | Fact, limitation, source, and link equivalence. |
 | AI writing detector (1.5×) | Banned vocabulary, formulaic claims, excessive bolding, and generic conclusions. |
 
-### Round 1 — 91/100 — PASS
+### Internal self-assessment round 1 — 92.0/100 — PASS
 
 | Expert | Score | Key feedback |
 |---|---:|---|
@@ -326,7 +326,7 @@ The scoring panel is an internal editorial heuristic, not independent validation
 | Bilingual localization editor | 94 | Sources, numbers, cautions, feature claims, and internal map match across locales. |
 | AI writing detector (1.5×) | 90 | No English banned-vocabulary hits; lists are functional, not decorative. Some repeated “do not” safety phrasing is necessary. |
 
-**Weighted aggregate:** 92.0/100. All panel lenses reached 90+, so no recursive content-ops rewrite round was required.
+**Internal self-assessment aggregate:** 92.0/100. This editorial heuristic is not independent proof. All panel lenses reached 90+, so no recursive content-ops rewrite round was required.
 
 ## Find-My-Pet validation
 
