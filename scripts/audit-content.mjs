@@ -21,6 +21,13 @@ function dateString(value) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function isValidDateValue(value) {
+  const normalized = dateString(value);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(normalized)) return false;
+  const parsed = new Date(`${normalized}T00:00:00.000Z`);
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === normalized;
+}
+
 function charCount(value) {
   return Array.from(typeof value === "string" ? value : "").length;
 }
@@ -52,7 +59,10 @@ async function publishedFiles(rootDir, locale) {
   return files;
 }
 
-export async function auditContent(rootDir) {
+export async function auditContent(
+  rootDir,
+  { expectedPublishedCount = 42, expectedPairCount = 21 } = {},
+) {
   const errors = [];
   const warnings = [];
   const records = [];
@@ -71,10 +81,30 @@ export async function auditContent(rootDir) {
     byLocale.get(record.locale).add(id);
     const label = `${record.locale}/${id}`;
 
+    const hasField = (field) => Object.prototype.hasOwnProperty.call(record.data, field);
     for (const field of REQUIRED) {
-      if (!Object.prototype.hasOwnProperty.call(record.data, field)) {
+      if (!hasField(field)) {
         errors.push(`${label}: missing ${field}`);
       }
+    }
+
+    for (const field of ["title", "description"]) {
+      if (hasField(field) && (typeof record.data[field] !== "string" || !record.data[field].trim())) {
+        errors.push(`${label}: ${field} must not be empty`);
+      }
+    }
+    if (hasField("author") && record.data.author !== "platformholder") {
+      errors.push(`${label}: author must be platformholder`);
+    }
+    if (hasField("tags") && (
+      !Array.isArray(record.data.tags)
+      || record.data.tags.length === 0
+      || record.data.tags.some((tag) => typeof tag !== "string" || !tag.trim())
+    )) {
+      errors.push(`${label}: tags must be a non-empty array of non-empty strings`);
+    }
+    if (hasField("publishedAt") && !isValidDateValue(record.data.publishedAt)) {
+      errors.push(`${label}: publishedAt must be a valid YYYY-MM-DD date`);
     }
 
     if (record.data.slug !== record.slug) errors.push(`${label}: slug does not match filename`);
@@ -125,6 +155,12 @@ export async function auditContent(rootDir) {
   }
 
   const pairCount = [...byLocale.get("ko")].filter((id) => byLocale.get("en").has(id)).length;
+  if (records.length !== expectedPublishedCount) {
+    errors.push(`expected ${expectedPublishedCount} published posts; found ${records.length}`);
+  }
+  if (pairCount !== expectedPairCount) {
+    errors.push(`expected ${expectedPairCount} bilingual pairs; found ${pairCount}`);
+  }
   return { errors, warnings, publishedCount: records.length, pairCount };
 }
 

@@ -43,16 +43,87 @@ test("reports a missing English pair", async () => {
   assert(result.errors.some((error) => error.includes("missing en pair: bbr/sample")));
 });
 
-test("accepts one complete bilingual pair", async () => {
+test("rejects an empty production corpus", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
+  const result = await auditContent(root);
+
+  assert(result.errors.some((error) => error.includes("expected 42 published posts; found 0")));
+  assert(result.errors.some((error) => error.includes("expected 21 bilingual pairs; found 0")));
+});
+
+test("rejects a smaller bilingual corpus with production defaults", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
   for (const locale of ["ko", "en"]) {
     await mkdir(path.join(root, `content/${locale}/bbr`), { recursive: true });
     await writeFile(path.join(root, `content/${locale}/bbr/sample.mdx`), post(locale));
   }
   const result = await auditContent(root);
+
+  assert(result.errors.some((error) => error.includes("expected 42 published posts; found 2")));
+  assert(result.errors.some((error) => error.includes("expected 21 bilingual pairs; found 1")));
+});
+
+test("accepts one complete bilingual pair with explicit fixture counts", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
+  for (const locale of ["ko", "en"]) {
+    await mkdir(path.join(root, `content/${locale}/bbr`), { recursive: true });
+    await writeFile(path.join(root, `content/${locale}/bbr/sample.mdx`), post(locale));
+  }
+  const result = await auditContent(root, { expectedPublishedCount: 2, expectedPairCount: 1 });
   assert.deepEqual(result.errors, []);
   assert.equal(result.publishedCount, 2);
   assert.equal(result.pairCount, 1);
+});
+
+test("rejects empty required string values", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
+  for (const locale of ["ko", "en"]) {
+    await mkdir(path.join(root, `content/${locale}/bbr`), { recursive: true });
+    const broken = post(locale)
+      .replace('title: "Title"', 'title: ""')
+      .replace('description: "Description"', 'description: "   "');
+    await writeFile(path.join(root, `content/${locale}/bbr/sample.mdx`), broken);
+  }
+
+  const result = await auditContent(root, { expectedPublishedCount: 2, expectedPairCount: 1 });
+  assert(result.errors.some((error) => error.includes("title must not be empty")));
+  assert(result.errors.some((error) => error.includes("description must not be empty")));
+});
+
+test("rejects an author other than platformholder", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
+  for (const locale of ["ko", "en"]) {
+    await mkdir(path.join(root, `content/${locale}/bbr`), { recursive: true });
+    const broken = post(locale).replace("author: platformholder", "author: guest");
+    await writeFile(path.join(root, `content/${locale}/bbr/sample.mdx`), broken);
+  }
+
+  const result = await auditContent(root, { expectedPublishedCount: 2, expectedPairCount: 1 });
+  assert(result.errors.some((error) => error.includes("author must be platformholder")));
+});
+
+test("rejects an invalid published date", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
+  for (const locale of ["ko", "en"]) {
+    await mkdir(path.join(root, `content/${locale}/bbr`), { recursive: true });
+    const broken = post(locale).replace('publishedAt: "2026-05-04"', 'publishedAt: "2026-02-30"');
+    await writeFile(path.join(root, `content/${locale}/bbr/sample.mdx`), broken);
+  }
+
+  const result = await auditContent(root, { expectedPublishedCount: 2, expectedPairCount: 1 });
+  assert(result.errors.some((error) => error.includes("publishedAt must be a valid YYYY-MM-DD date")));
+});
+
+test("rejects empty tags", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
+  for (const locale of ["ko", "en"]) {
+    await mkdir(path.join(root, `content/${locale}/bbr`), { recursive: true });
+    const broken = post(locale).replace("tags: [sample]", "tags: []");
+    await writeFile(path.join(root, `content/${locale}/bbr/sample.mdx`), broken);
+  }
+
+  const result = await auditContent(root, { expectedPublishedCount: 2, expectedPairCount: 1 });
+  assert(result.errors.some((error) => error.includes("tags must be a non-empty array")));
 });
 
 test("rejects malformed canonical, missing truth sync, and missing disclosure", async () => {
@@ -64,7 +135,7 @@ test("rejects malformed canonical, missing truth sync, and missing disclosure", 
       .replace('feature_truth_synced_at: "2026-07-28"\n', "");
     await writeFile(path.join(root, `content/${locale}/bbr/sample.mdx`), broken);
   }
-  const result = await auditContent(root);
+  const result = await auditContent(root, { expectedPublishedCount: 2, expectedPairCount: 1 });
   assert(result.errors.some((error) => error.includes("canonical")));
   assert(result.errors.some((error) => error.includes("feature_truth_synced_at")));
   assert(result.errors.some((error) => error.includes("AI disclosure")));
