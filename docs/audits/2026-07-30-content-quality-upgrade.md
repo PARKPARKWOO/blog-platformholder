@@ -283,7 +283,7 @@ All Korean body links use `/ko/blog/find-my-pet/...`; all English body links use
 
 ## Feature-truth and public-route checks
 
-The marketing repository was read-only throughout this task. Feature checks use the 2026-07-28 Find-My-Pet feature-truth digest plus direct public HTTP checks.
+The marketing repository was read-only during the article-edit phase. Final feature validation uses the full-byte snapshot at `marketing/reports/qc/snapshots/find-my-pet-feature-truth-20260731T160302982Z.md`, SHA-256 `6e534bc04b4694ce90407fef0ad0184e85c8030e834a0fea037e7390056a1f08`, plus the separately bounded public HTTP checks below.
 
 | Article | Retained feature keys | Public action retained |
 |---|---|---|
@@ -559,16 +559,16 @@ The `source-command-marketing-prd-sync` drift procedure was used in scan-only mo
 |---|---:|---:|---:|---:|---:|---|
 | BBR | 2026-07-28 | 10 | 0 | 0 | 10 | `marketing/reports/qc/bbr-drift-20260730.md` |
 | Mirror-View | 2026-07-25 | 10 | 0 | 2 | 8 plus 2 claim-safe WARN files | `marketing/reports/qc/mirror-view-drift-20260730.md` |
-| Find-My-Pet blog corpus | 2026-07-30 | 16 | 0 | 16 freshness warnings | 16 claim passes | `marketing/reports/qc/find-my-pet-drift-20260730.md` |
-| Find-My-Pet marketing HTML | 2026-07-30 | 1 | 1 | 0 as final file grade | 0 as final file grade | same merged report |
+| Find-My-Pet blog corpus | 2026-08-01 | 16 | 0 | 16 freshness warnings | 16 claim passes | `marketing/reports/qc/find-my-pet-drift-20260730.md` |
+| Find-My-Pet marketing HTML | 2026-08-01 | 1 | 1 | 0 as final file grade | 0 as final file grade | same merged report |
 
-Mirror-View's two WARN entries are the localized `why-same-interview-answers` files. Their protected frontmatter retains `live_interview_stt`, but rendered copy contains no Mirror product URL, CTA, or feature claim. The key exists in current Shipped truth, so this is a dangling traceability warning rather than claim drift.
+Mirror-View's two WARN entries are the localized `why-same-interview-answers` files. Their protected frontmatter retains `live_interview_stt`, but rendered copy contains no Mirror product URL, CTA, or feature claim. The key exists in the Mirror-View report's scanned Shipped set, so this is a dangling traceability warning rather than claim drift.
 
-The Find-My-Pet decision uses the 25,315-byte snapshot captured at 2026-08-01 00:48:28 KST (`2026-07-31T15:48:28.433Z`), SHA-256 `081f29f80bd06faf62cb7eba913972c379fc5d6651c9336f5c787ceffde731e0`. The complete key registry, 16 per-file reference sets, flyer facts, disallowed-key scan, grading criteria, and HTML conflict evidence are embedded under **불변 검증 스냅샷 증거 부록** in marketing report commit `7b8ec90d126c1bc3f5da981aaccd418fad179cdc`. All 96 FMP references and all 16 blog claim sets pass that snapshot, but the posts retain `feature_truth_synced_at: 2026-07-28`, two days before the snapshot truth sync, so they carry freshness WARN.
+The Find-My-Pet decision uses the 25,738-byte full snapshot captured at 2026-08-01 01:03:02.982 KST (`2026-07-31T16:03:02.982Z`), SHA-256 `6e534bc04b4694ce90407fef0ad0184e85c8030e834a0fea037e7390056a1f08`. Marketing commit `accbdf5985db011c58ea3057d52e9deddf8affc2` contains both `reports/qc/snapshots/find-my-pet-feature-truth-20260731T160302982Z.md` and the report's **불변 검증 스냅샷 증거 부록**. The snapshot preserves every feature description byte-for-byte; the appendix preserves the 27-key registry, 16 per-file reference sets, flyer facts, prohibited-key scan, grading criteria, and HTML conflict evidence. All 96 FMP references and all 16 blog claim sets pass that snapshot, but the posts retain `feature_truth_synced_at: 2026-07-28`, four days before the snapshot's 2026-08-01 sync date, so they carry freshness WARN.
 
-A later hash-gated check observed that the external live truth had changed to `5a03ca4830a755756c2ff4336529b6978c6f1dc0a8df0c6d8d0a7bd86b8bd07f` and stopped instead of mixing the new state into this decision. This is an external-concurrency WARN, not a claim that live truth stayed unchanged; neither Task 7 artifact edits or stages that file.
+`git -C /Users/park/Desktop/project/marketing show accbdf5985db011c58ea3057d52e9deddf8affc2:reports/qc/snapshots/find-my-pet-feature-truth-20260731T160302982Z.md | shasum -a 256` reproduces `6e534bc04b4694ce90407fef0ad0184e85c8030e834a0fea037e7390056a1f08`. Post-capture read-only observations through the marketing commit matched that digest; they are not used to extend the snapshot decision to future external-file state.
 
-The same report preserves the external marketing-content scan finding: `marketing/content/ko/naver-blog/find-my-pet-lost-pet-5-step-guide.html` still says A4 and three flyer templates, while current truth says six paper sizes, six templates, and a public `/flyer` entry point. That HTML remains FAIL and was not edited in Task 7.
+The same report preserves the external marketing-content scan finding: `marketing/content/ko/naver-blog/find-my-pet-lost-pet-5-step-guide.html` still says A4 and three flyer templates, while the fixed snapshot says six paper sizes, six templates, and a public `/flyer` entry point. That HTML remains FAIL and was not edited in Task 7.
 
 ## Manual Resell Ops drift gate
 
@@ -605,8 +605,8 @@ Manual result: FAIL 0, WARN 0, PASS 4.
 | BBR product-surface scan | PASS: zero product-availability, install, store, trainer-site, or `/demo` matches. |
 | Mirror product-surface scan | PASS: zero product host, `/interview`, app, or current-use CTA matches. |
 | Find-My-Pet product-link scan | PASS: all 16 body product links use the official domain and complete blog attribution. |
-| Find-My-Pet immutable evidence parser | PASS: report commit `7b8ec90d126c1bc3f5da981aaccd418fad179cdc` contains 27 registry rows and 16 exact file sets totaling 96 references; blog claim PASS 16, freshness WARN 16, and marketing HTML FAIL 1. |
-| Find-My-Pet live-truth hash gate | WARN: the external file changed after snapshot capture, so validation remains pinned to `081f29f80bd06faf62cb7eba913972c379fc5d6651c9336f5c787ceffde731e0` and does not describe later live state. |
+| Find-My-Pet full-snapshot commit hash | PASS: `git show accbdf5985db011c58ea3057d52e9deddf8affc2:reports/qc/snapshots/find-my-pet-feature-truth-20260731T160302982Z.md \| shasum -a 256` returns `6e534bc04b4694ce90407fef0ad0184e85c8030e834a0fea037e7390056a1f08`. |
+| Find-My-Pet immutable evidence parser | PASS: marketing commit `accbdf5985db011c58ea3057d52e9deddf8affc2` contains 27 registry rows and 16 exact file sets totaling 96 references; prohibited-key matches 0, blog claim PASS 16, freshness WARN 16, and marketing HTML FAIL 1. |
 | Portfolio introduction link scan | PASS: exactly four localized service-index links in each locale. |
 | Resell scope and CTA parser | PASS for all four published files. |
 
@@ -614,7 +614,7 @@ Manual result: FAIL 0, WARN 0, PASS 4.
 
 - The scores are internal editorial assessments. They are useful for a repeatable revision loop but do not replace an external reviewer.
 - Mirror-View's `live_interview_stt` reference remains a protected dangling traceability exception until metadata changes are separately authorized.
-- The Find-My-Pet live truth changed after the immutable capture. The committed drift report contains enough evidence to reproduce the `081f29…` decision without treating the later live file as that snapshot. The 16 blog timestamps remain two days behind the snapshot truth date and are freshness WARN despite claim-level PASS.
+- The Find-My-Pet external source remains user-owned and may change after capture. The committed full-byte snapshot makes the `6e534b…` decision independently reproducible without treating later external state as that snapshot. The 16 blog timestamps remain four days behind the snapshot sync date and are freshness WARN despite claim-level PASS.
 - One existing marketing HTML article remains a product-truth FAIL because its flyer specification is stale. The Task 7 brief owns the drift report, not that external HTML correction.
 - Public HTTP 200 checks show route reachability only; they do not prove a deployment SHA, account-specific behavior, or notification delivery.
 - Existing build warnings are outside this content-only scope and were not changed.
