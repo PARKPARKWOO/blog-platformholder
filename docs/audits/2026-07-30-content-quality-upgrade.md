@@ -553,7 +553,7 @@ Internal editorial assessment:
 
 ## Product-truth drift results
 
-The `source-command-marketing-prd-sync` drift procedure was used in scan-only mode for its three supported services. It compared the current blog working tree with the current marketing working-tree truth source; it did not mutate feature truth, PRD, or unrelated reports.
+The `source-command-marketing-prd-sync` drift procedure was used in scan-only mode for its three supported services. For Find-My-Pet, the final decision is pinned to the immutable snapshot captured below rather than a moving marketing working-tree file. The procedure did not mutate feature truth, PRD, or unrelated reports.
 
 | Service | Truth sync | Published files | FAIL | WARN | PASS | Report |
 |---|---:|---:|---:|---:|---:|---|
@@ -564,7 +564,9 @@ The `source-command-marketing-prd-sync` drift procedure was used in scan-only mo
 
 Mirror-View's two WARN entries are the localized `why-same-interview-answers` files. Their protected frontmatter retains `live_interview_stt`, but rendered copy contains no Mirror product URL, CTA, or feature claim. The key exists in current Shipped truth, so this is a dangling traceability warning rather than claim drift.
 
-The Find-My-Pet truth file changed again after the first scan. A preservation-hash check detected the concurrent update, so the merged report re-read the current user-modified working-tree source at SHA-256 `1af5640f1ff7727fc82b8218b942d268f6af43ec38fff7f5aab2f68fd4363d69`. It does not claim that source change is committed. All 96 FMP references and all 16 blog claim sets pass, but the posts retain `feature_truth_synced_at: 2026-07-28`, two days before the final truth sync, so they carry freshness WARN.
+The Find-My-Pet decision uses the 25,315-byte snapshot captured at 2026-08-01 00:48:28 KST (`2026-07-31T15:48:28.433Z`), SHA-256 `081f29f80bd06faf62cb7eba913972c379fc5d6651c9336f5c787ceffde731e0`. The complete key registry, 16 per-file reference sets, flyer facts, disallowed-key scan, grading criteria, and HTML conflict evidence are embedded under **불변 검증 스냅샷 증거 부록** in marketing report commit `7b8ec90d126c1bc3f5da981aaccd418fad179cdc`. All 96 FMP references and all 16 blog claim sets pass that snapshot, but the posts retain `feature_truth_synced_at: 2026-07-28`, two days before the snapshot truth sync, so they carry freshness WARN.
+
+A later hash-gated check observed that the external live truth had changed to `5a03ca4830a755756c2ff4336529b6978c6f1dc0a8df0c6d8d0a7bd86b8bd07f` and stopped instead of mixing the new state into this decision. This is an external-concurrency WARN, not a claim that live truth stayed unchanged; neither Task 7 artifact edits or stages that file.
 
 The same report preserves the external marketing-content scan finding: `marketing/content/ko/naver-blog/find-my-pet-lost-pet-5-step-guide.html` still says A4 and three flyer templates, while current truth says six paper sizes, six templates, and a public `/flyer` entry point. That HTML remains FAIL and was not edited in Task 7.
 
@@ -603,6 +605,8 @@ Manual result: FAIL 0, WARN 0, PASS 4.
 | BBR product-surface scan | PASS: zero product-availability, install, store, trainer-site, or `/demo` matches. |
 | Mirror product-surface scan | PASS: zero product host, `/interview`, app, or current-use CTA matches. |
 | Find-My-Pet product-link scan | PASS: all 16 body product links use the official domain and complete blog attribution. |
+| Find-My-Pet immutable evidence parser | PASS: report commit `7b8ec90d126c1bc3f5da981aaccd418fad179cdc` contains 27 registry rows and 16 exact file sets totaling 96 references; blog claim PASS 16, freshness WARN 16, and marketing HTML FAIL 1. |
+| Find-My-Pet live-truth hash gate | WARN: the external file changed after snapshot capture, so validation remains pinned to `081f29f80bd06faf62cb7eba913972c379fc5d6651c9336f5c787ceffde731e0` and does not describe later live state. |
 | Portfolio introduction link scan | PASS: exactly four localized service-index links in each locale. |
 | Resell scope and CTA parser | PASS for all four published files. |
 
@@ -610,7 +614,7 @@ Manual result: FAIL 0, WARN 0, PASS 4.
 
 - The scores are internal editorial assessments. They are useful for a repeatable revision loop but do not replace an external reviewer.
 - Mirror-View's `live_interview_stt` reference remains a protected dangling traceability exception until metadata changes are separately authorized.
-- The Find-My-Pet truth source was read from the user's current uncommitted marketing working tree after a concurrent update. The merged drift report records its final digest and does not represent it as a committed source. The 16 blog timestamps remain two days behind that source and are freshness WARN despite claim-level PASS.
+- The Find-My-Pet live truth changed after the immutable capture. The committed drift report contains enough evidence to reproduce the `081f29…` decision without treating the later live file as that snapshot. The 16 blog timestamps remain two days behind the snapshot truth date and are freshness WARN despite claim-level PASS.
 - One existing marketing HTML article remains a product-truth FAIL because its flyer specification is stale. The Task 7 brief owns the drift report, not that external HTML correction.
 - Public HTTP 200 checks show route reachability only; they do not prove a deployment SHA, account-specific behavior, or notification delivery.
 - Existing build warnings are outside this content-only scope and were not changed.
