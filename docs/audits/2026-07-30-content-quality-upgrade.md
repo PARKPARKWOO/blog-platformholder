@@ -589,8 +589,8 @@ Manual result: FAIL 0, WARN 0, PASS 4.
 
 | Check | Result |
 |---|---|
-| `npm run test:audit-content` | Exit 0: 3 tests passed. |
-| `npm run audit:content` | Exit 0: `PASS: 42 published posts; 21 bilingual pairs`; existing length warnings only. |
+| `npm run test:audit-content` | Exit 0: 9 tests passed, including empty/incomplete corpus and invalid required-frontmatter regressions. |
+| `npm run audit:content` | Exit 0: exact-count gate passed with `PASS: 42 published posts; 21 bilingual pairs`; existing length warnings only. |
 | `npm run lint` | Exit 0 with no ESLint errors. |
 | `npm run build` in the restricted sandbox | Exited 1 before compilation because Turbopack could not bind an internal port (`Operation not permitted`). |
 | `npm run build` outside the restricted sandbox | Exit 0: compilation and TypeScript passed; 333/333 static pages generated. Existing workspace-root, CSS `@import`, and broad NFT-trace warnings remain. |
