@@ -114,6 +114,28 @@ test("rejects an invalid published date", async () => {
   assert(result.errors.some((error) => error.includes("publishedAt must be a valid YYYY-MM-DD date")));
 });
 
+test("accepts a valid article-specific updatedAt", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
+  for (const locale of ["ko", "en"]) {
+    await mkdir(path.join(root, `content/${locale}/bbr`), { recursive: true });
+    const updated = post(locale).replace('updatedAt: "2026-07-30"', 'updatedAt: "2026-08-01"');
+    await writeFile(path.join(root, `content/${locale}/bbr/sample.mdx`), updated);
+  }
+  const result = await auditContent(root, { expectedPublishedCount: 2, expectedPairCount: 1 });
+  assert.deepEqual(result.errors, []);
+});
+
+test("rejects updatedAt before publishedAt", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
+  for (const locale of ["ko", "en"]) {
+    await mkdir(path.join(root, `content/${locale}/bbr`), { recursive: true });
+    const broken = post(locale).replace('updatedAt: "2026-07-30"', 'updatedAt: "2026-05-03"');
+    await writeFile(path.join(root, `content/${locale}/bbr/sample.mdx`), broken);
+  }
+  const result = await auditContent(root, { expectedPublishedCount: 2, expectedPairCount: 1 });
+  assert(result.errors.some((error) => error.includes("updatedAt must not precede publishedAt")));
+});
+
 test("rejects empty tags", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
   for (const locale of ["ko", "en"]) {

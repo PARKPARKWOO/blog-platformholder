@@ -109,8 +109,14 @@ export async function auditContent(
 
     if (record.data.slug !== record.slug) errors.push(`${label}: slug does not match filename`);
     if (record.data.service !== record.service) errors.push(`${label}: service does not match directory`);
-    if (dateString(record.data.updatedAt) !== "2026-07-30") {
-      errors.push(`${label}: updatedAt must be 2026-07-30`);
+    if (hasField("updatedAt") && !isValidDateValue(record.data.updatedAt)) {
+      errors.push(`${label}: updatedAt must be a valid YYYY-MM-DD date`);
+    } else if (
+      hasField("updatedAt")
+      && isValidDateValue(record.data.publishedAt)
+      && dateString(record.data.updatedAt) < dateString(record.data.publishedAt)
+    ) {
+      errors.push(`${label}: updatedAt must not precede publishedAt`);
     }
 
     const expectedCanonical = `https://blog.platformholder.site/${record.locale}/blog/${id}`;
