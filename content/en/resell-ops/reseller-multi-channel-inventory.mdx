@@ -4,7 +4,7 @@ slug: reseller-multi-channel-inventory
 service: resell-ops
 type: article
 publishedAt: "2026-07-26"
-updatedAt: "2026-07-30"
+updatedAt: "2026-08-01"
 author: platformholder
 tags: [resell-ops, reseller-inventory, double-selling, multi-channel, solo-seller, stock-ledger]
 description: "Listing one item on several channels can create more sales commitments than available stock. A manual review method without frequency, penalty, or visibility claims."
@@ -29,8 +29,9 @@ faq:
     answer: "Record shipped, in transit, intake confirmed, and inspection hold as separate states. Check the channel's current official intake status and policy before treating it as available; a conservative internal rule can keep it on hold until confirmed."
   - question: "What should I look for in a reseller inventory tool?"
     answer: "Check whether it separates physical, available, and committed quantity; preserves listing and adjustment history; and explains where channel credentials are stored. Review the data flow and current channel policy instead of relying on a security or compliance guarantee."
-feature_truth_synced_at: "2026-07-25"
-feature_truth_refs: []
+feature_truth_synced_at: "2026-08-01"
+feature_truth_refs:
+  - license_grant_gate
 
 ---
 
@@ -93,6 +94,8 @@ Two internal states can serve as a starting point:
 
 Making a single-unit item `exclusive` is a conservative option. Check each channel's current official policy for whether multiple listings are allowed and what counts as a confirmed order.
 
+For the planned design that reserves the same inventory exclusively before execution, read [Can a KREAM Instant Sale Run in a Scheduled Window?](/en/blog/resell-ops/kream-scheduled-instant-sale).
+
 ## Fields you can add today
 
 <Steps>
@@ -126,6 +129,8 @@ We are building Resell Ops toward a single ledger for purchases, inventory, orde
 Execution is being designed for the user's computer, with channel passwords, cookies, and sessions kept off our servers. We do not build purchase, raffle-entry, stock-grabbing, or security-control bypass features, and we do not advise bypassing channel policies.
 
 We want to understand the columns you use and the sequence after a sale. Share only the operating structure, without personal data, in the open chat below; we will review it as design input and share the build process there.
+
+Resell Ops is currently in development and is planned for August 2026. If you preregister through Kakao Open Chat, we will provide information about 30 days of free use after launch.
 
 <KakaoChatCta locale="en" medium="referral" campaign="resell-ops-prelaunch-2026q3" content="reseller-multi-channel-inventory" />
 

@@ -4,7 +4,7 @@ slug: resell-settlement-excel-limits
 service: resell-ops
 type: article
 publishedAt: "2026-07-25"
-updatedAt: "2026-07-30"
+updatedAt: "2026-08-01"
 author: platformholder
 tags: [resell-ops, reseller-settlement, inventory-ledger, spreadsheet-limits, solo-seller, margin-calculation]
 description: "Settlement sheets can diverge when sale dates, final dates, file definitions, and edit history are mixed. Five operational risks and a manual review method."
@@ -29,8 +29,9 @@ faq:
     answer: "There is no universal channel or file-count threshold. Reconsider the workflow when raw and normalized files are hard to compare or amount definitions and edit history cannot be maintained consistently. A spreadsheet may remain practical for a simple, low-volume workflow."
   - question: "Is there a tool that keeps stock and settlements in one ledger?"
     answer: "Resell Ops is being developed in that direction, but there is no installable distribution and the inventory, order, and settlement ledger remains in development. Use the manual sheet first and share gaps in the open chat as product-design input."
-feature_truth_synced_at: "2026-07-25"
-feature_truth_refs: []
+feature_truth_synced_at: "2026-08-01"
+feature_truth_refs:
+  - license_grant_gate
 
 ---
 
@@ -83,7 +84,7 @@ Preserve the original export. In the transformed sheet, append an `adjustment` r
 
 When fee rates, shipping, or return allowances exist only as formula constants, it is hard to inspect which assumptions produced an earlier result.
 
-Move assumptions to a separate sheet with name, value, effective date, and source. Add a new row when a value changes. This is a recordkeeping method, not a promise of profit accuracy.
+Move assumptions to a separate sheet with name, value, effective date, and source. Add a new row when a value changes. You can also review [an example that records storage deadlines and cost assumptions together](/en/blog/resell-ops/kream-storage-sale-bid-checks). This is a recordkeeping method, not a promise of profit accuracy.
 
 ## A manual spreadsheet structure
 
@@ -118,6 +119,8 @@ We are building Resell Ops toward a single ledger for purchases, inventory, orde
 Execution is being designed for the user's computer, with channel passwords, cookies, and sessions kept off our servers. We do not build purchase, raffle-entry, stock-grabbing, or security-control bypass features, and we do not advise bypassing channel policies.
 
 We want to understand the columns and states you use today. Share the workflow and sticking points in the open chat below as design input; the build process is shared there too. Do not send account details, passwords, cookies, or order-level personal data.
+
+Resell Ops is currently in development and is planned for August 2026. If you preregister through Kakao Open Chat, we will provide information about 30 days of free use after launch.
 
 <KakaoChatCta locale="en" medium="referral" campaign="resell-ops-prelaunch-2026q3" content="resell-settlement-excel-limits" />
 
