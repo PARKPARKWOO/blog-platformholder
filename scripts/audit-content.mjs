@@ -61,7 +61,7 @@ async function publishedFiles(rootDir, locale) {
 
 export async function auditContent(
   rootDir,
-  { expectedPublishedCount = 44, expectedPairCount = 22 } = {},
+  { expectedPublishedCount = 46, expectedPairCount = 23 } = {},
 ) {
   const errors = [];
   const warnings = [];

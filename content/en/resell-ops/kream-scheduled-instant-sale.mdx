@@ -1,0 +1,116 @@
+---
+title: "Can a KREAM Instant Sale Run in a Scheduled Window?"
+slug: kream-scheduled-instant-sale
+service: resell-ops
+type: article
+publishedAt: "2026-08-01"
+updatedAt: "2026-08-01"
+author: platformholder
+tags: [resell-ops, KREAM, instant-sale, scheduled-selling, reseller-operations]
+description: "How a planned KREAM instant-sale rule uses a weekday, timezone, time window, bid floor, quantity limits, and expiry instead of a blind exact-time action."
+canonical: https://blog.platformholder.site/en/blog/resell-ops/kream-scheduled-instant-sale
+hreflang:
+  ko: https://blog.platformholder.site/ko/blog/resell-ops/kream-scheduled-instant-sale
+  en: https://blog.platformholder.site/en/blog/resell-ops/kream-scheduled-instant-sale
+keyTakeaways:
+  - "The planned feature is not an unconditional action at one exact time; it approves a weekday, timezone, time window, and displayed buy-bid floor together."
+  - "Maximum quantity, daily execution count, and expiry are fixed, and any rule change requires a new approval."
+  - "Price and inventory are rechecked immediately before execution, and an unknown outcome is never retried automatically."
+  - "This feature is not implemented, and the KREAM online capabilities remain disabled."
+faq:
+  - question: "Can an instant sale run at a specific time?"
+    answer: "The design planned for launch runs only inside an approved weekday, timezone, start-time, and end-time window. It also requires an approved displayed buy-bid floor and quantity, execution, and expiry limits, so it is not an unconditional action at one exact time."
+  - question: "Can it execute overnight without another manual confirmation?"
+    answer: "The planned design permits execution without another confirmation only inside the approved time, price, quantity, execution-count, and expiry envelope and after final price and inventory checks. An unknown outcome is not retried automatically. This currently exists only as a requirement and is not implemented."
+  - question: "Can I use this feature now?"
+    answer: "No. Only the requirement and roadmap are defined; there is no code or API, and KREAM listing.read and listing.create capabilities are disabled. It is planned to open in August 2026 and is scheduled to be provided at launch, but no exact date is guaranteed."
+feature_truth_refs:
+  - standing_sell_rule_planned
+  - license_grant_gate
+feature_truth_synced_at: "2026-08-01"
+---
+
+If the selling condition you want appears overnight, you may wait for that window or set an alarm to recheck the screen. Saving only a time for a click is not a safe answer. The buy bid may have changed, or the same inventory may already be reserved for another sale.
+
+The Resell Ops requirement defines **advance approval of a seller's permitted boundaries, not a click scheduled for one exact moment**. The current status matters: this rule exists only in requirements and the roadmap. There is no code or API, and it cannot be used now.
+
+## KREAM distinguishes instant sales from sell bids
+
+KREAM's [official selling FAQ](https://kream.co.kr/faq?category=selling&list=true) explains that an instant sale sells at the highest existing buy bid. A sell bid instead lets a seller register a chosen ask and can transact when a buyer wants that price.
+
+Those current mechanics are the only KREAM claims this article takes from the official source. They do not mean that KREAM approves, recommends, or provides an integration with Resell Ops. Recheck KREAM's latest interface and official guidance before an actual sale.
+
+## Approve conditions, not only one clock time
+
+“Run Monday at 1:00 a.m.” leaves essential questions unanswered: the acceptable buy bid, quantity, timezone, and what happens if conditions change. The planned rule is expressed more like this:
+
+> Example: consider execution only inside `Monday · Asia/Seoul · 01:00–01:15`, when the displayed buy bid is at or above the approved floor and the quantity, daily execution, and expiry limits remain available.
+
+This does not hide the specific time. The approval includes the weekday, timezone, start time, and end time. The distinction is that it is **a conditional rule combining the approved time window with price and quantity boundaries**, not a blind exact-time command.
+
+If any rule parameter changes, the prior approval is invalid and the user must approve again. Moving only the start time or lowering only the bid floor is still a material change.
+
+## Parameters in the approval
+
+| Parameter | What is approved | Why it is required |
+|---|---|---|
+| SKU and channel | the actual selling unit and target channel | fixes the product variant and destination |
+| bid floor and currency | the minimum compared with the displayed buy bid | blocks execution below the approved floor |
+| weekday, timezone, start, and end | for example, Monday, `Asia/Seoul`, `01:00–01:15` | removes timezone ambiguity and defines the permitted window |
+| maximum quantity | the total quantity available to the rule | limits overselling of the same inventory |
+| daily execution count | the number of executions allowed per day | fixes a ceiling on repeated execution |
+| expiry | the instant after which the rule is no longer valid | prevents indefinite approval |
+
+The floor applies to the **displayed buy bid**. Actual proceeds can be lower after fees, shipping, tax, or other costs, so estimated proceeds need a separate label and a check against current policy. The planned product does not silently alter a user-approved floor.
+
+## Recheck immediately before execution
+
+One earlier observation matching the window and floor is not enough. The planned requirement fixes this sequence:
+
+1. Confirm that the buy-bid observation is `FRESH`; do not execute from a stale screen or cached price.
+2. Match the approved weekday, timezone, window, bid floor, remaining quantity, daily count, and expiry.
+3. Verify that the concrete price and quantity remain inside the approved envelope.
+4. Reserve that inventory exclusively; stop if another channel or rule already holds it.
+5. Re-read the buy bid immediately before execution and confirm it remains at or above the floor.
+6. Re-read external state afterward and classify the result as success, failure, or unknown.
+
+An interrupted or otherwise `UNKNOWN` outcome is not retried automatically. The first attempt might already have transacted, so sending it again could create a duplicate sale. A user kill switch for all rules or one rule, plus an operator capability kill switch, is also a required safeguard.
+
+<Callout type="warning" title="Not available now">
+Conditional instant selling exists only in requirements and the roadmap. There is no code or API, and the KREAM online `listing.read` and `listing.create` capabilities are disabled. Resell Ops cannot currently read KREAM bids or schedule or execute an instant sale.
+</Callout>
+
+## Planned for August 2026
+
+Resell Ops is **planned to open in August 2026, with this feature scheduled to be provided at launch**. That is the approved launch statement, not a guarantee of an exact date. Delivery still depends on passing inventory-reservation, final recheck, reconciliation, user-approval, licensing, and Connector safety gates.
+
+If you preregister through Kakao Open Chat, you can receive **information about 30 days of free use after launch**. Preregistration does not instantly activate an account or execution permission.
+
+<KakaoChatCta locale="en" medium="referral" campaign="resell-ops-prelaunch-2026q3" content="kream-scheduled-instant-sale" />
+
+Do not send KREAM account IDs, passwords, cookies, browser sessions, customer personal data, payment information, or sensitive item-level operating records in the chat. Remove personal and account identifiers even when sharing requested time windows or quantity limits.
+
+## Frequently asked questions
+
+**Can an instant sale run at a specific time?**
+
+The design scheduled for launch approves a specific weekday, timezone, start time, and end time. For example, it can define `Monday · Asia/Seoul · 01:00–01:15`, together with a displayed buy-bid floor, maximum quantity, daily execution count, and expiry. It is therefore different from a macro that executes at one exact time without checking other conditions.
+
+**Can it execute overnight without another manual confirmation?**
+
+The planned design permits execution without another confirmation only inside the approved time and price/quantity envelope and after final price and inventory checks. An unknown outcome moves to reconciliation and is not retried automatically. This currently exists only as a requirement and is not implemented.
+
+**Can I use this feature now?**
+
+No. There is no code or API, and the KREAM online `listing.read` and `listing.create` capabilities are disabled. It is **planned to open in August 2026 and is scheduled to be provided at launch**, but no exact date is guaranteed.
+
+---
+
+> For a manual way to review KREAM storage-sale pricing, continue with [How Often Do You Recheck Your Sell Bid?](/en/blog/resell-ops/kream-storage-sale-bid-checks).
+
+> For manual controls when one item is tracked across selling channels, read [What Happens When One Item Sits on Two Channels](/en/blog/resell-ops/reseller-multi-channel-inventory).
+
+> We are not affiliated with KREAM, and KREAM has not approved or recommended Resell Ops. Channel terms and policies may restrict automated access and may create account-sanction risk. Check the latest rules directly and do not bypass restrictions.
+> Do not send us sensitive data such as account IDs, passwords, cookies, sessions, or order and payment personal information.
+
+*This article was drafted with AI assistance and fact-checked and edited by platformholder.*

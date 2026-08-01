@@ -47,8 +47,8 @@ test("rejects an empty production corpus", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "content-audit-"));
   const result = await auditContent(root);
 
-  assert(result.errors.some((error) => error.includes("expected 44 published posts; found 0")));
-  assert(result.errors.some((error) => error.includes("expected 22 bilingual pairs; found 0")));
+  assert(result.errors.some((error) => error.includes("expected 46 published posts; found 0")));
+  assert(result.errors.some((error) => error.includes("expected 23 bilingual pairs; found 0")));
 });
 
 test("rejects a smaller bilingual corpus with production defaults", async () => {
@@ -59,8 +59,8 @@ test("rejects a smaller bilingual corpus with production defaults", async () => 
   }
   const result = await auditContent(root);
 
-  assert(result.errors.some((error) => error.includes("expected 44 published posts; found 2")));
-  assert(result.errors.some((error) => error.includes("expected 22 bilingual pairs; found 1")));
+  assert(result.errors.some((error) => error.includes("expected 46 published posts; found 2")));
+  assert(result.errors.some((error) => error.includes("expected 23 bilingual pairs; found 1")));
 });
 
 test("accepts one complete bilingual pair with explicit fixture counts", async () => {
