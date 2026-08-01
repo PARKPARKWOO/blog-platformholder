@@ -303,7 +303,7 @@ The forbidden-phrase scan is not empty. It returns two `지금 사용` matches i
 | Command | Exit | Result |
 |---|---:|---|
 | `npm run test:audit-content` | 0 | 11 tests passed; 0 failed. |
-| `npm run audit:content` | 0 | **PASS: 46 published posts; 23 bilingual pairs.** Existing title/description length warnings only. |
+| `npm run audit:content` | 0 | **PASS: 46 published posts; 23 bilingual pairs.** Non-fatal metadata-length warnings only; five relate to the new posts (Korean scheduled title/description, Korean storage title/description, and English storage description). |
 | `npm run lint` | 0 | ESLint completed with no findings. |
 | `npm run build`, approved out-of-sandbox run | 0 | Compiled, TypeScript passed, and 355 static pages generated. |
 | Required stale/forbidden `rg` scan | 0 | Two negative `지금 사용` questions; no positive stale/forbidden claim. |
