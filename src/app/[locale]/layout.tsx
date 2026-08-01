@@ -7,6 +7,7 @@ import { getDictionary } from "@/lib/dict";
 import { SERVICES, VISIBLE_SERVICES } from "@/lib/services";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import AdSenseScript from "@/components/AdSenseScript";
 import {
   CONTACT_LINKS,
   isKakaoChatEnabled,
@@ -60,6 +61,12 @@ export async function generateMetadata(
     },
     other: {
       "alternate-rss": `https://blog.platformholder.site/${locale}/feed.xml`,
+      // AdSense 소유 확인. 로더 스크립트를 afterInteractive 로 내렸기 때문에
+      // (LCP 보호) 크롤러가 스크립트를 못 볼 수 있어, 비용 0 인 메타 태그를 함께 둔다.
+      // 미설정이면 아래에서 통째로 제외한다 — 빈 값을 내보내면 형식 오류로 읽힌다.
+      ...(process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim()
+        ? { "google-adsense-account": process.env.NEXT_PUBLIC_ADSENSE_CLIENT.trim() }
+        : {}),
     },
   };
 }
@@ -196,6 +203,7 @@ export default async function LocaleLayout({
           </div>
         </footer>
         </ThemeProvider>
+        <AdSenseScript />
       </body>
     </html>
   );
