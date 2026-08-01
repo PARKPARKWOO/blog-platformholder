@@ -15,6 +15,7 @@ import { TableOfContents } from "@/components/TableOfContents";
 import { mdxComponents } from "@/components/mdx";
 import { getService, isValidService } from "@/lib/services";
 import { extractToc, TOC_MIN_ITEMS } from "@/lib/toc";
+import AdSlot from "@/components/AdSlot";
 
 export async function generateStaticParams() {
   const params: { locale: string; service: string; slug: string }[] = [];
@@ -132,6 +133,11 @@ export default async function PostPage({
             options={{ mdxOptions: { rehypePlugins: [rehypeSlug] } }}
           />
         </article>
+
+        {/* 광고는 **본문이 끝난 뒤**에만 둔다. 본문 중간 삽입은 읽기 흐름을 끊고
+            AdSense 정책상 "콘텐츠와 광고를 구분하기 어렵게" 만드는 배치에 가까워진다.
+            높이를 미리 잡아 CLS 를 막는다 — AdSlot 주석 참조. */}
+        <AdSlot slot="8298578796" />
 
         {/* FAQPage 구조화 데이터(JsonLd)와 같은 소스를 화면에도 렌더한다 */}
         <PostFaq items={post.meta.faq} title={dict.post.faq} />
