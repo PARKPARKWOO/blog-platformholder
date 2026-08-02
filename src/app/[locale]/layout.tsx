@@ -88,6 +88,11 @@ export default async function LocaleLayout({
           title={`${dict.site.name} — ${dict.site.tagline}`}
           href={`/${locale}/feed.xml`}
         />
+        {/* 애드센스 로더는 반드시 여기(서버 렌더 <head>) 에 있어야 한다.
+            body 끝에서 next/script 로 늦게 불러오면 서버가 보내는 HTML 에는
+            태그가 아예 없고, 그게 사이트 심사가 "준비 중"에서 멈춘 원인이었다.
+            자세한 근거는 components/AdSenseScript.tsx 주석. */}
+        <AdSenseScript />
       </head>
       <body className="min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 antialiased">
         <ThemeProvider>
@@ -203,7 +208,6 @@ export default async function LocaleLayout({
           </div>
         </footer>
         </ThemeProvider>
-        <AdSenseScript />
       </body>
     </html>
   );
