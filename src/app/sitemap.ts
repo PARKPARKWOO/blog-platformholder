@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts, getAllTags, lastModifiedOf } from "@/lib/posts";
+import { getAllPosts, lastModifiedOf } from "@/lib/posts";
 import { locales } from "@/lib/i18n";
 import { VISIBLE_SERVICES } from "@/lib/services";
 
@@ -24,7 +24,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const locale of locales) {
     const posts = await getAllPosts(locale);
-    const tags = await getAllTags(locale);
     const siteLastMod = latest(posts.map(lastModifiedOf));
 
     entries.push({
@@ -74,16 +73,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
-    for (const tag of tags) {
-      entries.push({
-        url: `${BASE}/${locale}/tags/${tag}`,
-        lastModified: latest(
-          posts.filter((p) => p.tags.includes(tag)).map(lastModifiedOf)
-        ),
-        changeFrequency: "weekly",
-        priority: 0.4,
-      });
-    }
+    /* 태그 상세 페이지는 사이트맵에 넣지 않는다.
+     *
+     * 글이 로케일당 23편인데 태그는 100개다. 대부분 글 1~2편짜리 목록이라 얇고,
+     * 넣으면 **사이트맵의 절대다수가 태그가 된다** — 2026-08-02 실측으로 260개 중
+     * 200개(76.9%)였다. 구글이 이 사이트를 크롤할 때 보는 URL 4개 중 3개가 얇은
+     * 목록이라는 뜻이고, 애드센스 심사에서 "가치 있는 콘텐츠 부족"으로 잡히는
+     * 모양이 정확히 이것이다.
+     *
+     * 페이지 자체는 살아 있고 `/tags` 인덱스에서 링크된다. 다만 색인 대상이 아니므로
+     * `tags/[tag]/page.tsx` 도 `robots: { index: false, follow: true }` 를 낸다.
+     * 둘 중 하나만 바꾸면 신호가 어긋나니 **항상 같이 바꿀 것.**
+     */
   }
 
   return entries;
